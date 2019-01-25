@@ -10,7 +10,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <CodeAnalysisRuleSet>Ubiety.Stringprep.Core.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>C:\Users\coder\source\repos\Ubiety.Xmpp.Core\Ubiety.Stringprep.Core\Ubiety.Stringprep.Core.xml</DocumentationFile>
+    <DocumentationFile>Ubiety.Stringprep.Core.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
