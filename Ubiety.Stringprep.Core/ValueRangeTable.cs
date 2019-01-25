@@ -11,7 +11,10 @@ namespace Ubiety.Stringprep.Core
         internal ValueRangeTable(int[] valueRanges)
         {
             if (valueRanges.Length % 2 != 0)
+            {
                 throw new ArgumentException("Not a value range table", nameof(valueRanges));
+            }
+
             _valueRanges = valueRanges;
             _length = valueRanges.Length / 2;
         }
@@ -22,17 +25,24 @@ namespace Ubiety.Stringprep.Core
             var r = _length - 1;
             while (l <= r)
             {
-                var m = (int) Math.Floor((double) (l + r) / 2);
+                var m = (int)Math.Floor((double) (l + r) / 2);
 
                 var lowValue = _valueRanges[m * 2];
-                var highValue = _valueRanges[m * 2 + 1];
+                var highValue = _valueRanges[(m * 2) + 1];
 
-                if (lowValue == value || highValue == value || lowValue < value && highValue > value) return true;
+                if (lowValue == value || highValue == value || (lowValue < value && highValue > value))
+                {
+                    return true;
+                }
 
                 if (lowValue < value)
+                {
                     l = m + 1;
+                }
                 else
+                {
                     r = m - 1;
+                }
             }
 
             return false;
