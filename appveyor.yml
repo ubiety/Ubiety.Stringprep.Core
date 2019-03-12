@@ -1,0 +1,23 @@
+image: Visual Studio 2017
+
+branches:
+  except:
+    - gh-pages
+
+environment:
+  SonarKey:
+    secure: SM3ZT7/6VRB5K4qBsZpkQ3NG/VUIcNdeqZXIeHnmVi25Tu1y3x367ASjTmo3kh3Y
+  NuGetKey:
+    secure: n7GLPb20Jf/ik4Jms9GHm0rNFRfyMB/gApMBALKdiW7RP6DgqmHgp9zjqlTNRnKV
+  COVERALLS_REPO_TOKEN:
+    secure: pmewtxEuv8kMwIMIpzrxUgLtEK8DEf90Iu96AiDjXwMObZAaI7ZTByXRZRp5dYYJ
+
+init:
+  - ps: dotnet tool install --global dotnet-sonarscanner
+  - ps: dotnet tool install --global coveralls.net
+
+build_script:
+  - ps: .\build.ps1
+
+test: off
+deploy: off

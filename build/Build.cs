@@ -82,7 +82,7 @@ class Build : NukeBuild
             DotNetSonarScannerBegin(s => s
                 .SetLogin(SonarKey)
                 .SetVersion(GitVersion.NuGetVersionV2)
-                .SetProjectKey("ubiety_Ubiety.Dns.Core")
+                .SetProjectKey("ubiety_Ubiety.Stringprep.Core")
                 .SetOrganization("ubiety")
                 .SetServer("https://sonarcloud.io")
                 .SetOpenCoverPaths(ArtifactsDirectory / "coverage.opencover.xml"));

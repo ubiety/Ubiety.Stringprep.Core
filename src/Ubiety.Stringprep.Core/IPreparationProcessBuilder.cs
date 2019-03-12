@@ -33,8 +33,17 @@ namespace Ubiety.Stringprep.Core
     /// </summary>
     public interface IPreparationProcessBuilder
     {
+        /// <summary>
+        ///     Add a normalization step to the process.
+        /// </summary>
+        /// <returns>Builder instance.</returns>
         IPreparationProcessBuilder WithNormalizationStep();
 
+        /// <summary>
+        ///     Add a normalization step to the process.
+        /// </summary>
+        /// <param name="form">Normalization to use.</param>
+        /// <returns>Builder instance.</returns>
         IPreparationProcessBuilder WithNormalizationStep(NormalizationForm form);
 
         IPreparationProcessBuilder WithMappingStep(IMappingTable mappingTable);
