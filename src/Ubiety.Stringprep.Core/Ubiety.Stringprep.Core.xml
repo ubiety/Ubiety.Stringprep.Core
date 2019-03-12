@@ -6,128 +6,128 @@
     <members>
         <member name="T:Ubiety.Stringprep.Core.Bidirectional">
             <summary>
-                Bidirectional tables
+                Bidirectional tables.
             </summary>
         </member>
         <member name="F:Ubiety.Stringprep.Core.Bidirectional.D1">
             <summary>
-                Table D1
+                Table D1.
             </summary>
         </member>
         <member name="F:Ubiety.Stringprep.Core.Bidirectional.RAL">
             <summary>
-                Table RAL
+                Table RAL.
             </summary>
         </member>
         <member name="F:Ubiety.Stringprep.Core.Bidirectional.D2">
             <summary>
-                Table D2
+                Table D2.
             </summary>
         </member>
         <member name="F:Ubiety.Stringprep.Core.Bidirectional.L">
             <summary>
-                Table L
+                Table L.
             </summary>
-        </member>
-        <member name="T:Ubiety.Stringprep.Core.BidirectionalFormatException">
-            <summary>
-                Bidirectional format exception
-            </summary>
-        </member>
-        <member name="M:Ubiety.Stringprep.Core.BidirectionalFormatException.#ctor">
-            <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.BidirectionalFormatException" /> class
-            </summary>
-        </member>
-        <member name="M:Ubiety.Stringprep.Core.BidirectionalFormatException.#ctor(System.String)">
-            <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.BidirectionalFormatException" /> class
-            </summary>
-            <param name="message">Exception message</param>
-        </member>
-        <member name="M:Ubiety.Stringprep.Core.BidirectionalFormatException.#ctor(System.String,System.Exception)">
-            <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.BidirectionalFormatException" /> class
-            </summary>
-            <param name="message">Exception message</param>
-            <param name="innerException">Inner exception</param>
-        </member>
-        <member name="M:Ubiety.Stringprep.Core.BidirectionalFormatException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.BidirectionalFormatException" /> class
-            </summary>
-            <param name="info">Serialization info</param>
-            <param name="context">Streaming context</param>
         </member>
         <member name="T:Ubiety.Stringprep.Core.BidirectionalStep">
             <summary>
-                Bidirectional stringprep step
+                Bidirectional stringprep step.
             </summary>
         </member>
         <member name="M:Ubiety.Stringprep.Core.BidirectionalStep.#ctor(Ubiety.Stringprep.Core.IValueRangeTable,Ubiety.Stringprep.Core.IValueRangeTable,Ubiety.Stringprep.Core.IValueRangeTable)">
             <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.BidirectionalStep" /> class
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.BidirectionalStep" /> class.
             </summary>
-            <param name="prohibitedTable">Prohibited character table</param>
-            <param name="ralTable">RandAL character table</param>
-            <param name="lTable">L character table</param>
+            <param name="prohibitedTable">Prohibited character table.</param>
+            <param name="ralTable">RandAL character table.</param>
+            <param name="lTable">L character table.</param>
         </member>
         <member name="M:Ubiety.Stringprep.Core.BidirectionalStep.Run(System.String)">
             <summary>
-                Run the stringprep step
+                Run the stringprep step.
             </summary>
-            <param name="input">Input to run the step on</param>
-            <returns>String parsed for unicode characters</returns>
+            <param name="input">Input to run the step on.</param>
+            <returns>String parsed for unicode characters.</returns>
         </member>
         <member name="T:Ubiety.Stringprep.Core.CompositeMappingTable">
             <summary>
-                Composite mapping table
+                Composite mapping table.
             </summary>
         </member>
         <member name="M:Ubiety.Stringprep.Core.CompositeMappingTable.#ctor(System.Collections.Generic.ICollection{Ubiety.Stringprep.Core.IMappingTable})">
             <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.CompositeMappingTable" /> class
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.CompositeMappingTable" /> class.
             </summary>
-            <param name="mappingTables">Mapping tables</param>
+            <param name="mappingTables">Mapping tables.</param>
         </member>
         <member name="M:Ubiety.Stringprep.Core.CompositeMappingTable.HasReplacement(System.Int32)">
             <summary>
-                Does the value have a replacement
+                Does the value have a replacement.
             </summary>
-            <param name="value">Value to find replacement for</param>
-            <returns>A value indicating whether there is a replacement or not</returns>
+            <param name="value">Value to find replacement for.</param>
+            <returns>A value indicating whether there is a replacement or not.</returns>
         </member>
         <member name="M:Ubiety.Stringprep.Core.CompositeMappingTable.GetReplacement(System.Int32)">
             <summary>
-                Gets the replacement for the value
+                Gets the replacement for the value.
             </summary>
-            <param name="value">Value to get the replacement for</param>
-            <returns>Replacement for the value</returns>
+            <param name="value">Value to get the replacement for.</param>
+            <returns>Replacement for the value.</returns>
         </member>
         <member name="T:Ubiety.Stringprep.Core.DictionaryMappingTable">
             <summary>
-                Dictionary mapping table
+                Dictionary mapping table.
             </summary>
         </member>
         <member name="M:Ubiety.Stringprep.Core.DictionaryMappingTable.#ctor(System.Collections.Generic.IDictionary{System.Int32,System.Int32[]})">
             <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.DictionaryMappingTable" /> class
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.DictionaryMappingTable" /> class.
             </summary>
-            <param name="values">Mapping values</param>
+            <param name="values">Mapping values.</param>
         </member>
         <member name="M:Ubiety.Stringprep.Core.DictionaryMappingTable.HasReplacement(System.Int32)">
             <summary>
-                Does the value have a replacement
+                Does the value have a replacement.
             </summary>
-            <param name="value">Value to replace</param>
-            <returns>A value indicating whether or not it can be replaced</returns>
+            <param name="value">Value to replace.</param>
+            <returns>A value indicating whether or not it can be replaced.</returns>
         </member>
         <member name="M:Ubiety.Stringprep.Core.DictionaryMappingTable.GetReplacement(System.Int32)">
             <summary>
-                Gets the replacement value
+                Gets the replacement value.
             </summary>
-            <param name="value">Value to replace</param>
-            <returns>Replacement value</returns>
+            <param name="value">Value to replace.</param>
+            <returns>Replacement value.</returns>
+        </member>
+        <member name="T:Ubiety.Stringprep.Core.Exceptions.BidirectionalFormatException">
+            <summary>
+                Bidirectional format exception.
+            </summary>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.Exceptions.BidirectionalFormatException.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.Exceptions.BidirectionalFormatException" /> class.
+            </summary>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.Exceptions.BidirectionalFormatException.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.Exceptions.BidirectionalFormatException" /> class.
+            </summary>
+            <param name="message">Exception message.</param>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.Exceptions.BidirectionalFormatException.#ctor(System.String,System.Exception)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.Exceptions.BidirectionalFormatException" /> class.
+            </summary>
+            <param name="message">Exception message.</param>
+            <param name="innerException">Inner exception.</param>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.Exceptions.BidirectionalFormatException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.Exceptions.BidirectionalFormatException" /> class.
+            </summary>
+            <param name="info">Serialization info.</param>
+            <param name="context">Streaming context.</param>
         </member>
         <member name="T:Ubiety.Stringprep.Core.Generated.Tables">
             <summary>
@@ -227,81 +227,100 @@
         </member>
         <member name="T:Ubiety.Stringprep.Core.IMappingTable">
             <summary>
-                Mapping table interface
+                Mapping table interface.
             </summary>
         </member>
         <member name="M:Ubiety.Stringprep.Core.IMappingTable.HasReplacement(System.Int32)">
             <summary>
-                Does the value have a replacement
+                Does the value have a replacement.
             </summary>
-            <param name="value">Value to replace</param>
-            <returns>A value indicating whether there is a replacement or not</returns>
+            <param name="value">Value to replace.</param>
+            <returns>A value indicating whether there is a replacement or not.</returns>
         </member>
         <member name="M:Ubiety.Stringprep.Core.IMappingTable.GetReplacement(System.Int32)">
             <summary>
-                Gets the value replacement
+                Gets the value replacement.
             </summary>
-            <param name="value">Value to replace</param>
-            <returns>Replacement value</returns>
+            <param name="value">Value to replace.</param>
+            <returns>Replacement value.</returns>
         </member>
         <member name="T:Ubiety.Stringprep.Core.IMappingTableBuilder">
             <summary>
-                Mapping table builder interface
+                Mapping table builder interface.
             </summary>
         </member>
         <member name="M:Ubiety.Stringprep.Core.IMappingTableBuilder.WithValueRangeTable(System.Int32[],System.Int32)">
             <summary>
-                Builds a mapping with a value range
+                Builds a mapping with a value range.
             </summary>
-            <param name="values">Values array</param>
-            <param name="replacement">Replacement value</param>
+            <param name="values">Values array.</param>
+            <param name="replacement">Replacement value.</param>
             <returns>Mapping builder</returns>
         </member>
         <member name="M:Ubiety.Stringprep.Core.IMappingTableBuilder.WithValueRangeTable(System.Int32[],System.Int32[])">
             <summary>
-                Builds a mapping with a value range
+                Builds a mapping with a value range.
             </summary>
-            <param name="values">Values array</param>
-            <param name="replacement">Replacement array</param>
-            <returns>Mapping builder</returns>
+            <param name="values">Values array.</param>
+            <param name="replacement">Replacement array.</param>
+            <returns>Mapping builder.</returns>
         </member>
         <member name="M:Ubiety.Stringprep.Core.IMappingTableBuilder.WithMappingTable(System.Collections.Generic.IDictionary{System.Int32,System.Int32[]})">
             <summary>
-                Builds a mapping with a mapping table
+                Builds a mapping with a mapping table.
             </summary>
-            <param name="table">Mapping table</param>
-            <returns>Mapping builder</returns>
+            <param name="table">Mapping table.</param>
+            <returns>Mapping builder.</returns>
         </member>
         <member name="M:Ubiety.Stringprep.Core.IMappingTableBuilder.Include(System.Collections.Generic.IDictionary{System.Int32,System.Int32[]})">
             <summary>
-                Includes a table in the current mapping
+                Includes a table in the current mapping.
             </summary>
-            <param name="include">Table to include</param>
-            <returns>Mapping builder</returns>
+            <param name="include">Table to include.</param>
+            <returns>Mapping builder.</returns>
         </member>
         <member name="M:Ubiety.Stringprep.Core.IMappingTableBuilder.Remove(System.Int32)">
             <summary>
-                Removes a table from the mapping
+                Removes a table from the mapping.
             </summary>
-            <param name="remove">Integer position of the table</param>
-            <returns>Mapping builder</returns>
+            <param name="remove">Integer position of the table.</param>
+            <returns>Mapping builder.</returns>
         </member>
         <member name="M:Ubiety.Stringprep.Core.IMappingTableBuilder.Compile">
             <summary>
-                Compile the mapping
+                Compile the mapping.
             </summary>
-            <returns>Mapping table</returns>
+            <returns>Mapping table.</returns>
         </member>
         <member name="T:Ubiety.Stringprep.Core.IPreparationProcess">
             <summary>
-                Preparation process interface
+                Preparation process interface.
             </summary>
         </member>
         <member name="M:Ubiety.Stringprep.Core.IPreparationProcess.Run(System.String)">
             <summary>
-                Run the process
+                Run the process.
             </summary>
-            <param name="input">Process input</param>
+            <param name="input">Process input.</param>
+            <returns>Prepared string.</returns>
+        </member>
+        <member name="T:Ubiety.Stringprep.Core.IPreparationProcessBuilder">
+            <summary>
+                Preparation process builder interface.
+            </summary>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.IPreparationProcessBuilder.WithNormalizationStep">
+            <summary>
+                Add a normalization step to the process.
+            </summary>
+            <returns>Builder instance.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.IPreparationProcessBuilder.WithNormalizationStep(System.Text.NormalizationForm)">
+            <summary>
+                Add a normalization step to the process.
+            </summary>
+            <param name="form">Normalization to use.</param>
+            <returns>Builder instance.</returns>
         </member>
     </members>
 </doc>

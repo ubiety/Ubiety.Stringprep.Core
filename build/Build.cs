@@ -106,7 +106,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetTest(s => s
-                .SetProjectFile(Solution.GetProject("Ubiety.Dns.Test"))
+                .SetProjectFile(Solution.GetProject("Ubiety.Stringprep.Tests"))
                 .EnableNoBuild()
                 .SetConfiguration(Configuration)
                 .SetArgumentConfigurator(a => a.Add("/p:CollectCoverage={0}", Cover)
