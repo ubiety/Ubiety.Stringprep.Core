@@ -15,7 +15,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
  * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
@@ -24,25 +24,36 @@
  * For more information, please refer to <http://unlicense.org/>
  */
 
-namespace Ubiety.Stringprep.Core
-{
-    /// <summary>
-    ///     Mapping table interface.
-    /// </summary>
-    public interface IMappingTable
-    {
-        /// <summary>
-        ///     Does the value have a replacement.
-        /// </summary>
-        /// <param name="value">Value to replace.</param>
-        /// <returns>A value indicating whether there is a replacement or not.</returns>
-        bool HasReplacement(int value);
+using System;
+using System.Runtime.Serialization;
 
-        /// <summary>
-        ///     Gets the value replacement.
-        /// </summary>
-        /// <param name="value">Value to replace.</param>
-        /// <returns>Replacement value.</returns>
-        int[] GetReplacement(int value);
+namespace Ubiety.Stringprep.Core.Exceptions
+{
+    [Serializable]
+    public class ProhibitedValueException : Exception
+    {
+        public ProhibitedValueException()
+        {
+        }
+
+        public ProhibitedValueException(char prohibited)
+            : base($"The string contains the prohibited value: '{prohibited}'")
+        {
+        }
+
+        public ProhibitedValueException(string message)
+            : base(message)
+        {
+        }
+
+        public ProhibitedValueException(string message, Exception innerException)
+            : base(message, innerException)
+        {
+        }
+
+        protected ProhibitedValueException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+        }
     }
 }

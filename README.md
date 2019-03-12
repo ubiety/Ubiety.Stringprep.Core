@@ -1,6 +1,6 @@
-# Ubiety.Stringprep.Core
+# ![Logo](https://github.com/ubiety/Ubiety.Stringprep.Core/raw/develop/images/rope64.png) Ubiety.Stringprep.Core
 
-Ubiety Stringprep is an implementation of RFC 3454 for .NET Core.
+> Ubiety Stringprep is an implementation of RFC 3454 for .NET Core.
 
 ## Installation
 
