@@ -24,10 +24,12 @@
  * For more information, please refer to <http://unlicense.org/>
  */
 
+using Ubiety.Stringprep.Core.Exceptions;
+
 namespace Ubiety.Stringprep.Core
 {
     /// <summary>
-    ///     Bidirectional stringprep step
+    ///     Bidirectional stringprep step.
     /// </summary>
     internal class BidirectionalStep : IPreparationProcess
     {
@@ -36,11 +38,11 @@ namespace Ubiety.Stringprep.Core
         private readonly IValueRangeTable _ralTable;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="BidirectionalStep" /> class
+        ///     Initializes a new instance of the <see cref="BidirectionalStep" /> class.
         /// </summary>
-        /// <param name="prohibitedTable">Prohibited character table</param>
-        /// <param name="ralTable">RandAL character table</param>
-        /// <param name="lTable">L character table</param>
+        /// <param name="prohibitedTable">Prohibited character table.</param>
+        /// <param name="ralTable">RandAL character table.</param>
+        /// <param name="lTable">L character table.</param>
         public BidirectionalStep(IValueRangeTable prohibitedTable, IValueRangeTable ralTable, IValueRangeTable lTable)
         {
             _prohibitedTable = prohibitedTable;
@@ -49,10 +51,10 @@ namespace Ubiety.Stringprep.Core
         }
 
         /// <summary>
-        ///     Run the stringprep step
+        ///     Run the stringprep step.
         /// </summary>
-        /// <param name="input">Input to run the step on</param>
-        /// <returns>String parsed for unicode characters</returns>
+        /// <param name="input">Input to run the step on.</param>
+        /// <returns>String parsed for unicode characters.</returns>
         public string Run(string input)
         {
             var ralProhibited = false;

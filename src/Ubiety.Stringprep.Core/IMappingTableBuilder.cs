@@ -15,7 +15,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
  * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
@@ -29,51 +29,51 @@ using System.Collections.Generic;
 namespace Ubiety.Stringprep.Core
 {
     /// <summary>
-    ///     Mapping table builder interface
+    ///     Mapping table builder interface.
     /// </summary>
     public interface IMappingTableBuilder
     {
         /// <summary>
-        ///     Builds a mapping with a value range
+        ///     Builds a mapping with a value range.
         /// </summary>
-        /// <param name="values">Values array</param>
-        /// <param name="replacement">Replacement value</param>
+        /// <param name="values">Values array.</param>
+        /// <param name="replacement">Replacement value.</param>
         /// <returns>Mapping builder</returns>
         IMappingTableBuilder WithValueRangeTable(int[] values, int replacement);
 
         /// <summary>
-        ///     Builds a mapping with a value range
+        ///     Builds a mapping with a value range.
         /// </summary>
-        /// <param name="values">Values array</param>
-        /// <param name="replacement">Replacement array</param>
-        /// <returns>Mapping builder</returns>
+        /// <param name="values">Values array.</param>
+        /// <param name="replacement">Replacement array.</param>
+        /// <returns>Mapping builder.</returns>
         IMappingTableBuilder WithValueRangeTable(int[] values, int[] replacement);
 
         /// <summary>
-        ///     Builds a mapping with a mapping table
+        ///     Builds a mapping with a mapping table.
         /// </summary>
-        /// <param name="table">Mapping table</param>
-        /// <returns>Mapping builder</returns>
+        /// <param name="table">Mapping table.</param>
+        /// <returns>Mapping builder.</returns>
         IMappingTableBuilder WithMappingTable(IDictionary<int, int[]> table);
 
         /// <summary>
-        ///     Includes a table in the current mapping
+        ///     Includes a table in the current mapping.
         /// </summary>
-        /// <param name="include">Table to include</param>
-        /// <returns>Mapping builder</returns>
+        /// <param name="include">Table to include.</param>
+        /// <returns>Mapping builder.</returns>
         IMappingTableBuilder Include(IDictionary<int, int[]> include);
 
         /// <summary>
-        ///     Removes a table from the mapping
+        ///     Removes a table from the mapping.
         /// </summary>
-        /// <param name="remove">Integer position of the table</param>
-        /// <returns>Mapping builder</returns>
+        /// <param name="remove">Integer position of the table.</param>
+        /// <returns>Mapping builder.</returns>
         IMappingTableBuilder Remove(int remove);
 
         /// <summary>
-        ///     Compile the mapping
+        ///     Compile the mapping.
         /// </summary>
-        /// <returns>Mapping table</returns>
+        /// <returns>Mapping table.</returns>
         IMappingTable Compile();
     }
 }

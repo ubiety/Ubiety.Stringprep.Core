@@ -24,6 +24,8 @@
  * For more information, please refer to <http://unlicense.org/>
  */
 
+using Ubiety.Stringprep.Core.Exceptions;
+
 namespace Ubiety.Stringprep.Core
 {
     internal class ProhibitedValueStep : IPreparationProcess

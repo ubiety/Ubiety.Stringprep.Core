@@ -27,7 +27,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ubiety.Stringprep.Core
+namespace Ubiety.Stringprep.Core.Exceptions
 {
     [Serializable]
     public class ProhibitedValueException : Exception

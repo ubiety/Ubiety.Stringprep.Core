@@ -27,45 +27,45 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ubiety.Stringprep.Core
+namespace Ubiety.Stringprep.Core.Exceptions
 {
     /// <summary>
-    ///     Bidirectional format exception
+    ///     Bidirectional format exception.
     /// </summary>
     [Serializable]
     public class BidirectionalFormatException : Exception
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="BidirectionalFormatException" /> class
+        ///     Initializes a new instance of the <see cref="BidirectionalFormatException" /> class.
         /// </summary>
         public BidirectionalFormatException()
         {
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="BidirectionalFormatException" /> class
+        ///     Initializes a new instance of the <see cref="BidirectionalFormatException" /> class.
         /// </summary>
-        /// <param name="message">Exception message</param>
+        /// <param name="message">Exception message.</param>
         public BidirectionalFormatException(string message)
             : base(message)
         {
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="BidirectionalFormatException" /> class
+        ///     Initializes a new instance of the <see cref="BidirectionalFormatException" /> class.
         /// </summary>
-        /// <param name="message">Exception message</param>
-        /// <param name="innerException">Inner exception</param>
+        /// <param name="message">Exception message.</param>
+        /// <param name="innerException">Inner exception.</param>
         public BidirectionalFormatException(string message, Exception innerException)
             : base(message, innerException)
         {
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="BidirectionalFormatException" /> class
+        ///     Initializes a new instance of the <see cref="BidirectionalFormatException" /> class.
         /// </summary>
-        /// <param name="info">Serialization info</param>
-        /// <param name="context">Streaming context</param>
+        /// <param name="info">Serialization info.</param>
+        /// <param name="context">Streaming context.</param>
         protected BidirectionalFormatException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

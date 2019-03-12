@@ -15,7 +15,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
  * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
@@ -28,15 +28,24 @@ using System.Text;
 
 namespace Ubiety.Stringprep.Core
 {
+    /// <summary>
+    ///     Preparation process builder interface.
+    /// </summary>
     public interface IPreparationProcessBuilder
     {
         IPreparationProcessBuilder WithNormalizationStep();
+
         IPreparationProcessBuilder WithNormalizationStep(NormalizationForm form);
+
         IPreparationProcessBuilder WithMappingStep(IMappingTable mappingTable);
+
         IPreparationProcessBuilder WithProhibitedValueStep(IValueRangeTable prohibitedTable);
+
         IPreparationProcessBuilder WithBidirectionalStep();
 
-        IPreparationProcessBuilder WithBidirectionalStep(IValueRangeTable prohibited, IValueRangeTable ral,
+        IPreparationProcessBuilder WithBidirectionalStep(
+            IValueRangeTable prohibited,
+            IValueRangeTable ral,
             IValueRangeTable l);
 
         IPreparationProcess Compile();

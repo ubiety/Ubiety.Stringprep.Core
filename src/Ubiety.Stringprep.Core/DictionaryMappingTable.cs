@@ -15,7 +15,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
  * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
@@ -29,36 +29,36 @@ using System.Collections.Generic;
 namespace Ubiety.Stringprep.Core
 {
     /// <summary>
-    ///     Dictionary mapping table
+    ///     Dictionary mapping table.
     /// </summary>
     internal class DictionaryMappingTable : MappingTable
     {
         private readonly SortedList<int, int[]> _mappings;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="DictionaryMappingTable" /> class
+        ///     Initializes a new instance of the <see cref="DictionaryMappingTable" /> class.
         /// </summary>
-        /// <param name="values">Mapping values</param>
+        /// <param name="values">Mapping values.</param>
         internal DictionaryMappingTable(IDictionary<int, int[]> values)
         {
             _mappings = new SortedList<int, int[]>(values);
         }
 
         /// <summary>
-        ///     Does the value have a replacement
+        ///     Does the value have a replacement.
         /// </summary>
-        /// <param name="value">Value to replace</param>
-        /// <returns>A value indicating whether or not it can be replaced</returns>
+        /// <param name="value">Value to replace.</param>
+        /// <returns>A value indicating whether or not it can be replaced.</returns>
         public override bool HasReplacement(int value)
         {
             return _mappings.ContainsKey(value);
         }
 
         /// <summary>
-        ///     Gets the replacement value
+        ///     Gets the replacement value.
         /// </summary>
-        /// <param name="value">Value to replace</param>
-        /// <returns>Replacement value</returns>
+        /// <param name="value">Value to replace.</param>
+        /// <returns>Replacement value.</returns>
         public override int[] GetReplacement(int value)
         {
             return _mappings[value];

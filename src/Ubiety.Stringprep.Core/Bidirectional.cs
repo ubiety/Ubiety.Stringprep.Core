@@ -29,27 +29,27 @@ using Ubiety.Stringprep.Core.Generated;
 namespace Ubiety.Stringprep.Core
 {
     /// <summary>
-    ///     Bidirectional tables
+    ///     Bidirectional tables.
     /// </summary>
     public static class Bidirectional
     {
         /// <summary>
-        ///     Table D1
+        ///     Table D1.
         /// </summary>
         public static readonly int[] D1 = Tables.D1;
 
         /// <summary>
-        ///     Table RAL
+        ///     Table RAL.
         /// </summary>
         public static readonly int[] RAL = Tables.D1;
 
         /// <summary>
-        ///     Table D2
+        ///     Table D2.
         /// </summary>
         public static readonly int[] D2 = Tables.D2;
 
         /// <summary>
-        ///     Table L
+        ///     Table L.
         /// </summary>
         public static readonly int[] L = Tables.D2;
     }
