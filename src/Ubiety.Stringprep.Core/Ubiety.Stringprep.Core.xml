@@ -272,5 +272,36 @@
             <param name="table">Mapping table</param>
             <returns>Mapping builder</returns>
         </member>
+        <member name="M:Ubiety.Stringprep.Core.IMappingTableBuilder.Include(System.Collections.Generic.IDictionary{System.Int32,System.Int32[]})">
+            <summary>
+                Includes a table in the current mapping
+            </summary>
+            <param name="include">Table to include</param>
+            <returns>Mapping builder</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.IMappingTableBuilder.Remove(System.Int32)">
+            <summary>
+                Removes a table from the mapping
+            </summary>
+            <param name="remove">Integer position of the table</param>
+            <returns>Mapping builder</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.IMappingTableBuilder.Compile">
+            <summary>
+                Compile the mapping
+            </summary>
+            <returns>Mapping table</returns>
+        </member>
+        <member name="T:Ubiety.Stringprep.Core.IPreparationProcess">
+            <summary>
+                Preparation process interface
+            </summary>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.IPreparationProcess.Run(System.String)">
+            <summary>
+                Run the process
+            </summary>
+            <param name="input">Process input</param>
+        </member>
     </members>
 </doc>
