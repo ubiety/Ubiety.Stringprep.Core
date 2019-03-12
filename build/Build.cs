@@ -44,6 +44,9 @@ class Build : NukeBuild
 
     readonly string MasterBranch = "master";
 
+    readonly string TestPackageName = "Ubiety.Stringprep.Tests";
+    readonly string SonarProjectKey = "ubiety_Ubiety.Stringprep.Core";
+
     Target Clean => _ => _
         .Before(Restore)
         .Executes(() =>
@@ -82,7 +85,7 @@ class Build : NukeBuild
             DotNetSonarScannerBegin(s => s
                 .SetLogin(SonarKey)
                 .SetVersion(GitVersion.NuGetVersionV2)
-                .SetProjectKey("ubiety_Ubiety.Stringprep.Core")
+                .SetProjectKey(SonarProjectKey)
                 .SetOrganization("ubiety")
                 .SetServer("https://sonarcloud.io")
                 .SetOpenCoverPaths(ArtifactsDirectory / "coverage.opencover.xml"));
@@ -106,7 +109,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetTest(s => s
-                .SetProjectFile(Solution.GetProject("Ubiety.Stringprep.Tests"))
+                .SetProjectFile(Solution.GetProject(TestPackageName))
                 .EnableNoBuild()
                 .SetConfiguration(Configuration)
                 .SetArgumentConfigurator(a => a.Add("/p:CollectCoverage={0}", Cover)
@@ -138,16 +141,18 @@ class Build : NukeBuild
         .DependsOn(Pack)
         .Requires(() => NuGetKey)
         .Requires(() => Configuration.Equals(Configuration.Release))
-        .Requires(() => GitRepository.Branch.EqualsOrdinalIgnoreCase(MasterBranch))
         .Executes(() =>
         {
-            DotNetNuGetPush(s => s
-                .SetApiKey(NuGetKey)
-                .SetSource("https://api.nuget.org/v3/index.json")
-                .CombineWith(
-                    ArtifactsDirectory.GlobFiles("*.nupkg").NotEmpty(), (cs, v) => cs.SetTargetPath(v)),
-                5,
-                true);
+            if (GitRepository.Branch.EqualsOrdinalIgnoreCase(MasterBranch))
+            {
+                DotNetNuGetPush(s => s
+                        .SetApiKey(NuGetKey)
+                        .SetSource("https://api.nuget.org/v3/index.json")
+                        .CombineWith(
+                            ArtifactsDirectory.GlobFiles("*.nupkg").NotEmpty(), (cs, v) => cs.SetTargetPath(v)),
+                    5,
+                    true);                
+            }
         });
 
     Target Complete => _ => _
