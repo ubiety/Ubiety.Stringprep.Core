@@ -4,6 +4,15 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Version>0.2.2</Version>
   </PropertyGroup>
+  
+  <PropertyGroup>
+    <PackageIconUrl>https://github.com/ubiety/Ubiety.Stringprep.Core/raw/develop/images/rope64.png</PackageIconUrl>
+    <Description>Stringprep library implementing RFC3454</Description>
+    <Authors>Dieter Lunn</Authors>
+    <PackageLicenseExpression>Unlicense</PackageLicenseExpression>
+    <PackageProjectUrl>https://stringprep.ubiety.ca</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ubiety/Ubiety.StringPrep.Core/</RepositoryUrl>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>Ubiety.Stringprep.Core.xml</DocumentationFile>

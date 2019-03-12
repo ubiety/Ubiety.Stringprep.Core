@@ -3238,5 +3238,6 @@ namespace Ubiety.Stringprep.Core.Generated
             0xF0000, 0xFFFFD,
             0x100000, 0x10FFFD,
         };
+
     }
 }
