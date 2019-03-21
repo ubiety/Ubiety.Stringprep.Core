@@ -12,6 +12,7 @@
     <PackageLicenseExpression>Unlicense</PackageLicenseExpression>
     <PackageProjectUrl>https://stringprep.ubiety.ca</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ubiety/Ubiety.StringPrep.Core/</RepositoryUrl>
+    <PackageTags>ubiety;stringprep;dotnet</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -23,7 +24,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Ubiety.StyleCop" Version="0.0.5" />
+    <PackageReference Include="Ubiety.StyleCop" Version="0.0.5" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
