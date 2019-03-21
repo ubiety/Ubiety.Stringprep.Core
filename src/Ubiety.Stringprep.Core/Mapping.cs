@@ -15,7 +15,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
  * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
@@ -29,13 +29,39 @@ using Ubiety.Stringprep.Core.Generated;
 
 namespace Ubiety.Stringprep.Core
 {
+    /// <summary>
+    ///     Value mapping.
+    /// </summary>
     public static class Mapping
     {
-        public static readonly IDictionary<int, int[]> B_1 = Tables.B1;
+        /// <summary>
+        ///     Mapping table B.1.
+        /// </summary>
+        public static readonly IDictionary<int, int[]> B1 = Tables.B1;
+
+        /// <summary>
+        ///     Mapped to nothing mapping table (B.1).
+        /// </summary>
         public static readonly IDictionary<int, int[]> MappedToNothing = Tables.B1;
-        public static readonly IDictionary<int, int[]> B_2 = Tables.B2;
+
+        /// <summary>
+        ///     Mapping table B.2.
+        /// </summary>
+        public static readonly IDictionary<int, int[]> B2 = Tables.B2;
+
+        /// <summary>
+        ///     Case folding mapping table (B.2).
+        /// </summary>
         public static readonly IDictionary<int, int[]> CaseFolding = Tables.B2;
-        public static readonly IDictionary<int, int[]> B_3 = Tables.B3;
+
+        /// <summary>
+        ///     Mapping table B.3.
+        /// </summary>
+        public static readonly IDictionary<int, int[]> B3 = Tables.B3;
+
+        /// <summary>
+        ///     Case folding without normalization mapping table (B.3).
+        /// </summary>
         public static readonly IDictionary<int, int[]> CaseFoldingWithoutNormalization = Tables.B3;
     }
 }

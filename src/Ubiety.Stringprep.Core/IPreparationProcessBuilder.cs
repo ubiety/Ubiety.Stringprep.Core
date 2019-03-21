@@ -46,17 +46,42 @@ namespace Ubiety.Stringprep.Core
         /// <returns>Builder instance.</returns>
         IPreparationProcessBuilder WithNormalizationStep(NormalizationForm form);
 
+        /// <summary>
+        ///     Add a mapping step to the process.
+        /// </summary>
+        /// <param name="mappingTable">Mapping table to add.</param>
+        /// <returns>Builder instance.</returns>
         IPreparationProcessBuilder WithMappingStep(IMappingTable mappingTable);
 
+        /// <summary>
+        ///     Add a prohibited value processing step.
+        /// </summary>
+        /// <param name="prohibitedTable">Prohibited value table.</param>
+        /// <returns>Builder instance.</returns>
         IPreparationProcessBuilder WithProhibitedValueStep(IValueRangeTable prohibitedTable);
 
+        /// <summary>
+        ///     Add a bidirectional processing step.
+        /// </summary>
+        /// <returns>Builder instance.</returns>
         IPreparationProcessBuilder WithBidirectionalStep();
 
+        /// <summary>
+        ///     Add a bidirectional processing step.
+        /// </summary>
+        /// <param name="prohibited">Prohibited value table.</param>
+        /// <param name="ral">RAL table.</param>
+        /// <param name="l">L Table.</param>
+        /// <returns>Builder instance.</returns>
         IPreparationProcessBuilder WithBidirectionalStep(
             IValueRangeTable prohibited,
             IValueRangeTable ral,
             IValueRangeTable l);
 
+        /// <summary>
+        ///     Compile the process.
+        /// </summary>
+        /// <returns>Compiled process instance.</returns>
         IPreparationProcess Compile();
     }
 }
