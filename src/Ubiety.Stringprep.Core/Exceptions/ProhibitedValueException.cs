@@ -15,7 +15,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
  * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
@@ -29,28 +29,53 @@ using System.Runtime.Serialization;
 
 namespace Ubiety.Stringprep.Core.Exceptions
 {
+    /// <summary>
+    ///     Prohibited value exception.
+    /// </summary>
+    /// <inheritdoc />
     [Serializable]
     public class ProhibitedValueException : Exception
     {
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ProhibitedValueException"/> class.
+        /// </summary>
         public ProhibitedValueException()
         {
         }
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ProhibitedValueException"/> class.
+        /// </summary>
+        /// <param name="prohibited">Character that is prohibited.</param>
         public ProhibitedValueException(char prohibited)
             : base($"The string contains the prohibited value: '{prohibited}'")
         {
         }
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ProhibitedValueException"/> class.
+        /// </summary>
+        /// <param name="message">Exception message.</param>
         public ProhibitedValueException(string message)
             : base(message)
         {
         }
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ProhibitedValueException"/> class.
+        /// </summary>
+        /// <param name="message">Exception message.</param>
+        /// <param name="innerException">Inner exception.</param>
         public ProhibitedValueException(string message, Exception innerException)
             : base(message, innerException)
         {
         }
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ProhibitedValueException"/> class.
+        /// </summary>
+        /// <param name="info">Serialization info.</param>
+        /// <param name="context">Streaming context.</param>
         protected ProhibitedValueException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
