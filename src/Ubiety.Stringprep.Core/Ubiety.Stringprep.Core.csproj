@@ -8,7 +8,7 @@
   </PropertyGroup>
   
   <PropertyGroup>
-    <PackageIconUrl>https://github.com/ubiety/Ubiety.Stringprep.Core/raw/develop/images/rope64.png</PackageIconUrl>
+    <PackageIcon>icon128.png</PackageIcon>
     <Description>Stringprep library implementing RFC3454</Description>
     <Authors>Dieter Lunn</Authors>
     <PackageLicenseExpression>Unlicense</PackageLicenseExpression>
@@ -16,6 +16,10 @@
     <RepositoryUrl>https://github.com/ubiety/Ubiety.StringPrep.Core/</RepositoryUrl>
     <PackageTags>ubiety;stringprep;dotnet</PackageTags>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="..\..\icon128.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>Ubiety.Stringprep.Core.xml</DocumentationFile>
