@@ -98,7 +98,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetTest(s => s
-                .SetProjectFile(Solution.GetProject("Ubiety.Stringprep.Test"))
+                .SetProjectFile(Solution.GetProject("Ubiety.Stringprep.Tests"))
                 .EnableNoBuild()
                 .SetConfiguration(Configuration)
                 .SetProcessArgumentConfigurator(args => args.Add("/p:CollectCoverage={0}", Cover)
