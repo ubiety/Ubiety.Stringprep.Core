@@ -24,6 +24,7 @@
  * For more information, please refer to <http://unlicense.org/>
  */
 
+using System.Linq;
 using Ubiety.Stringprep.Core.Exceptions;
 
 namespace Ubiety.Stringprep.Core
@@ -39,12 +40,9 @@ namespace Ubiety.Stringprep.Core
 
         public string Run(string input)
         {
-            foreach (var value in input)
+            foreach (var value in input.Where(value => _table.Contains(value)))
             {
-                if (_table.Contains(value))
-                {
-                    throw new ProhibitedValueException(value);
-                }
+                throw new ProhibitedValueException(value);
             }
 
             return input;

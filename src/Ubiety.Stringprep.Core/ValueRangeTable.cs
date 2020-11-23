@@ -51,7 +51,7 @@ namespace Ubiety.Stringprep.Core
             var r = _length - 1;
             while (l <= r)
             {
-                var m = (int)Math.Floor((double) (l + r) / 2);
+                var m = (int)Math.Floor((double)(l + r) / 2);
 
                 var lowValue = _valueRanges[m * 2];
                 var highValue = _valueRanges[(m * 2) + 1];

@@ -77,18 +77,22 @@ namespace Ubiety.Stringprep.Core
         public IMappingTable Compile()
         {
             if (!_baseTables.Any() && !_inclusions.Any() && !_valueRangeBaseTables.Any())
+            {
                 throw new InvalidOperationException("At least one table must be provided");
+            }
+
             var mappingTables = new List<IMappingTable>
             {
-                new DictionaryMappingTable(MappingTableCompiler.Compile(_baseTables.ToArray(), _inclusions.ToArray(),
-                    _removals.ToArray()))
+                new DictionaryMappingTable(MappingTableCompiler.Compile(
+                    _baseTables.ToArray(),
+                    _inclusions.ToArray(),
+                    _removals.ToArray())),
             };
 
-            foreach (var t in _valueRangeBaseTables)
-            {
-                var valueRangeTable = ValueRangeCompiler.Compile(new[] {t.Item1}, new int[0], _removals.ToArray());
-                mappingTables.Add(new ValueRangeMappingTable(new ValueRangeTable(valueRangeTable), t.Item2));
-            }
+            mappingTables.AddRange(
+                from t in _valueRangeBaseTables
+                    let valueRangeTable = ValueRangeCompiler.Compile(new[] { t.Item1 }, Array.Empty<int>(), _removals.ToArray())
+                    select new ValueRangeMappingTable(new ValueRangeTable(valueRangeTable), t.Item2));
 
             return new CompositeMappingTable(mappingTables);
         }

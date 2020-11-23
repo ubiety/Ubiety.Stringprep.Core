@@ -124,7 +124,11 @@ namespace Ubiety.Stringprep.Core
                     }
                 }
 
-                if (minIdx == -1) break;
+                if (minIdx == -1)
+                {
+                    break;
+                }
+
                 combined.Add(tables[minIdx][idx[minIdx]]);
                 combined.Add(tables[minIdx][idx[minIdx] + 1]);
                 idx[minIdx] += 2;
@@ -193,7 +197,7 @@ namespace Ubiety.Stringprep.Core
             return list;
         }
 
-        private static void CloseRemove(List<int> list, int[] removals, ref int i, ref int j)
+        private static void CloseRemove(IList<int> list, int[] removals, ref int i, ref int j)
         {
             for (i++; i < removals.Length; i += 2)
             {
@@ -222,7 +226,9 @@ namespace Ubiety.Stringprep.Core
         {
             var i = 1;
             while (i < list.Count - 1)
+            {
                 for (; i < list.Count - 1; i += 2)
+                {
                     if (list[i + 1] <= list[i]) // next 'start' value is either included in or abuts current range
                     {
                         if (list[i + 2] > list[i]) // next 'end' value should become the current end value
@@ -233,6 +239,8 @@ namespace Ubiety.Stringprep.Core
                         list.RemoveRange(i + 1, 2);
                         break;
                     }
+                }
+            }
 
             return list;
         }

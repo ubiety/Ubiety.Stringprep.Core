@@ -41,7 +41,9 @@ namespace Ubiety.Stringprep.Core
                 ValueRangeTable.Create(Bidirectional.L));
         }
 
-        public IPreparationProcessBuilder WithBidirectionalStep(IValueRangeTable prohibited, IValueRangeTable ral,
+        public IPreparationProcessBuilder WithBidirectionalStep(
+            IValueRangeTable prohibited,
+            IValueRangeTable ral,
             IValueRangeTable l)
         {
             var step = new BidirectionalStep(prohibited, ral, l);
