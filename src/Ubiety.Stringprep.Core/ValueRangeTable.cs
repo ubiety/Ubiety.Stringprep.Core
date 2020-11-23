@@ -45,6 +45,16 @@ namespace Ubiety.Stringprep.Core
             _length = valueRanges.Length / 2;
         }
 
+        public static IValueRangeTable Create(params int[][] baseTables)
+        {
+            return Build(baseTables).Compile();
+        }
+
+        public static IValueRangeTableBuilder Build(params int[][] baseTables)
+        {
+            return new ValueRangeTableBuilder(baseTables);
+        }
+
         public bool Contains(int value)
         {
             var l = 0;
@@ -72,16 +82,6 @@ namespace Ubiety.Stringprep.Core
             }
 
             return false;
-        }
-
-        public static IValueRangeTable Create(params int[][] baseTables)
-        {
-            return Build(baseTables).Compile();
-        }
-
-        public static IValueRangeTableBuilder Build(params int[][] baseTables)
-        {
-            return new ValueRangeTableBuilder(baseTables);
         }
     }
 }

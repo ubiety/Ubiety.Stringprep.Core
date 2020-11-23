@@ -95,21 +95,21 @@ namespace Ubiety.Stringprep.Core
             }
         }
 
-        private static List<int> DoCombine(int[][] tables)
+        private static List<int> DoCombine(IReadOnlyList<int[]> tables)
         {
-            if (tables.Length == 1)
+            if (tables.Count == 1)
             {
                 return tables[0].ToList();
             }
 
             var combined = new List<int>();
-            var idx = new int[tables.Length];
+            var idx = new int[tables.Count];
 
             while (true)
             {
                 var minIdx = -1;
                 var min = -1;
-                for (var i = 0; i < tables.Length; i++)
+                for (var i = 0; i < tables.Count; i++)
                 {
                     if (tables[i].Length <= idx[i])
                     {
@@ -117,11 +117,13 @@ namespace Ubiety.Stringprep.Core
                     }
 
                     var current = tables[i][idx[i]];
-                    if (min == -1 || current < min)
+                    if (min != -1 && current >= min)
                     {
-                        min = current;
-                        minIdx = i;
+                        continue;
                     }
+
+                    min = current;
+                    minIdx = i;
                 }
 
                 if (minIdx == -1)
@@ -137,33 +139,30 @@ namespace Ubiety.Stringprep.Core
             return combined;
         }
 
-        private static List<int> DoInclude(List<int> list, int[] inclusions)
+        private static List<int> DoInclude(List<int> list, IReadOnlyList<int> inclusions)
         {
-            for (var i = 0; i < inclusions.Length; i += 2)
+            for (var i = 0; i < inclusions.Count; i += 2)
             {
                 if (inclusions[i] < list[0])
                 {
-                    list.InsertRange(0, new[] {inclusions[i], inclusions[i + 1]});
+                    list.InsertRange(0, new[] { inclusions[i], inclusions[i + 1] });
                 }
                 else
                 {
                     var j = 0;
-                    var set = false;
                     for (; j < list.Count; j += 2)
                     {
-                        if (inclusions[i] <= list[j])
+                        if (inclusions[i] > list[j])
                         {
-                            list.InsertRange(j, new[] {inclusions[i], inclusions[i + 1]});
-                            set = false;
-                            break;
+                            continue;
                         }
+
+                        list.InsertRange(j, new[] { inclusions[i], inclusions[i + 1] });
+                        break;
                     }
 
-                    if (!set)
-                    {
-                        list.Add(inclusions[i]);
-                        list.Add(inclusions[i + 1]);
-                    }
+                    list.Add(inclusions[i]);
+                    list.Add(inclusions[i + 1]);
                 }
             }
 
@@ -197,9 +196,9 @@ namespace Ubiety.Stringprep.Core
             return list;
         }
 
-        private static void CloseRemove(IList<int> list, int[] removals, ref int i, ref int j)
+        private static void CloseRemove(IList<int> list, IReadOnlyList<int> removals, ref int i, ref int j)
         {
-            for (i++; i < removals.Length; i += 2)
+            for (i++; i < removals.Count; i += 2)
             {
                 for (j++; j < list.Count; j += 2)
                 {
@@ -208,16 +207,20 @@ namespace Ubiety.Stringprep.Core
                         list.RemoveAt(j);
                         return;
                     }
-                    else if (removals[i] < list[j])
+
+                    if (removals[i] < list[j])
                     {
                         list.Insert(j, removals[i] + 1);
                         return;
                     }
-                    else if (removals[i] > list[j] && (j + 1 >= list.Count || removals[i] < list[j + 1]))
+
+                    if (removals[i] <= list[j] || (j + 1 < list.Count && removals[i] >= list[j + 1]))
                     {
-                        list.RemoveAt(j);
-                        return;
+                        continue;
                     }
+
+                    list.RemoveAt(j);
+                    return;
                 }
             }
         }
@@ -229,16 +232,18 @@ namespace Ubiety.Stringprep.Core
             {
                 for (; i < list.Count - 1; i += 2)
                 {
-                    if (list[i + 1] <= list[i]) // next 'start' value is either included in or abuts current range
+                    if (list[i + 1] > list[i])
                     {
-                        if (list[i + 2] > list[i]) // next 'end' value should become the current end value
-                        {
-                            list[i] = list[i + 2];
-                        }
-
-                        list.RemoveRange(i + 1, 2);
-                        break;
+                        continue;
                     }
+
+                    if (list[i + 2] > list[i])
+                    {
+                        list[i] = list[i + 2];
+                    }
+
+                    list.RemoveRange(i + 1, 2);
+                    break;
                 }
             }
 

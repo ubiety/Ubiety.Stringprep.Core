@@ -47,7 +47,7 @@ namespace Ubiety.Stringprep.Core
 
         public IMappingTableBuilder WithValueRangeTable(int[] values, int replacement)
         {
-            return WithValueRangeTable(values, new[] {replacement});
+            return WithValueRangeTable(values, new[] { replacement });
         }
 
         public IMappingTableBuilder WithValueRangeTable(int[] values, int[] replacement)
