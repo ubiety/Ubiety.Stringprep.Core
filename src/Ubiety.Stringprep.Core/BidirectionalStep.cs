@@ -31,7 +31,7 @@ namespace Ubiety.Stringprep.Core
     /// <summary>
     ///     Bidirectional stringprep step.
     /// </summary>
-    internal class BidirectionalStep : IPreparationProcess
+    public class BidirectionalStep : IPreparationProcess
     {
         private readonly IValueRangeTable _lTable;
         private readonly IValueRangeTable _prohibitedTable;

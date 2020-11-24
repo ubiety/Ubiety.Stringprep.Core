@@ -55,21 +55,43 @@ namespace Ubiety.Stringprep.Core
             return Build(valueTable, replacement).Compile();
         }
 
+        /// <summary>
+        ///     Create a mapping table.
+        /// </summary>
+        /// <param name="baseTables">Tables to base off of.</param>
+        /// <returns>Mapping table instance.</returns>
         public static IMappingTable Create(params IDictionary<int, int[]>[] baseTables)
         {
             return Build(baseTables).Compile();
         }
 
+        /// <summary>
+        ///     Build mapping table.
+        /// </summary>
+        /// <param name="valueTable">Table of values to replace.</param>
+        /// <param name="replacement">Replacement value.</param>
+        /// <returns>Mapping table builder instance.</returns>
         public static IMappingTableBuilder Build(int[] valueTable, int replacement)
         {
             return Build(valueTable, new[] { replacement });
         }
 
+        /// <summary>
+        ///     Build a mapping table.
+        /// </summary>
+        /// <param name="valueTable">Table of values to replace.</param>
+        /// <param name="replacement">Table of replacement values.</param>
+        /// <returns>Mapping table builder.</returns>
         public static IMappingTableBuilder Build(int[] valueTable, int[] replacement)
         {
             return Build().WithValueRangeTable(valueTable, replacement);
         }
 
+        /// <summary>
+        ///     Build a mapping table.
+        /// </summary>
+        /// <param name="baseTables">Value and replacement tables.</param>
+        /// <returns>Mapping table builder.</returns>
         public static IMappingTableBuilder Build(params IDictionary<int, int[]>[] baseTables)
         {
             return new MappingTableBuilder(baseTables);

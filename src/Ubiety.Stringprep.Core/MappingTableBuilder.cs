@@ -30,6 +30,9 @@ using System.Linq;
 
 namespace Ubiety.Stringprep.Core
 {
+    /// <summary>
+    ///     Mapping table builder.
+    /// </summary>
     internal class MappingTableBuilder : IMappingTableBuilder
     {
         private readonly List<IDictionary<int, int[]>> _baseTables;
@@ -37,6 +40,10 @@ namespace Ubiety.Stringprep.Core
         private readonly List<int> _removals;
         private readonly List<Tuple<int[], int[]>> _valueRangeBaseTables;
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="MappingTableBuilder"/> class.
+        /// </summary>
+        /// <param name="baseTables">Base value tables.</param>
         public MappingTableBuilder(params IDictionary<int, int[]>[] baseTables)
         {
             _baseTables = baseTables.ToList();
