@@ -1,4 +1,32 @@
-﻿using System;
+﻿/* This is free and unencumbered software released into the public domain.
+ *
+ * Anyone is free to copy, modify, publish, use, compile, sell, or
+ * distribute this software, either in source code form or as a compiled
+ * binary, for any purpose, commercial or non-commercial, and by any
+ * means.
+ *
+ * In jurisdictions that recognize copyright laws, the author or authors
+ * of this software dedicate any and all copyright interest in the
+ * software to the public domain. We make this dedication for the benefit
+ * of the public at large and to the detriment of our heirs and
+ * successors. We intend this dedication to be an overt act of
+ * relinquishment in perpetuity of all present and future rights to this
+ * software under copyright law.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * For more information, please refer to <http://unlicense.org/>
+ *
+ * GENERATED - DO NOT MANUALLY EDIT
+ */
+
+using System;
 using System.Collections.Generic;
 
 namespace Ubiety.Stringprep.Core.Generated
@@ -9,7 +37,7 @@ namespace Ubiety.Stringprep.Core.Generated
     internal static class Tables
     {
         /// <summary>
-        ///     A.1 Unassigned code points in Unicode 3.2
+        ///     A.1 Unassigned code points in Unicode 3.2.
         /// </summary>
         public static readonly int[] A1 =
         {
@@ -412,7 +440,7 @@ namespace Ubiety.Stringprep.Core.Generated
         };
 
         /// <summary>
-        ///     B.1 Commonly mapped to nothing
+        ///     B.1 Commonly mapped to nothing.
         /// </summary>
         public static readonly Dictionary<int, int[]> B1 = new ()
         {
@@ -446,7 +474,7 @@ namespace Ubiety.Stringprep.Core.Generated
         };
 
         /// <summary>
-        ///     B.2 Mapping for case-folding used with NFKC
+        ///     B.2 Mapping for case-folding used with NFKC.
         /// </summary>
         public static readonly Dictionary<int, int[]> B2 = new ()
         {
@@ -1824,7 +1852,7 @@ namespace Ubiety.Stringprep.Core.Generated
         };
 
         /// <summary>
-        ///     B.3 Mapping for case-folding used with no normalization
+        ///     B.3 Mapping for case-folding used with no normalization.
         /// </summary>
         public static readonly Dictionary<int, int[]> B3 = new ()
         {
@@ -2669,10 +2697,10 @@ namespace Ubiety.Stringprep.Core.Generated
         };
 
         /// <summary>
-        ///     C.1 Space characters
+        ///     C.1 Space characters.
         /// </summary>
         /// <summary>
-        ///     C.1.1 ASCII space characters
+        ///     C.1.1 ASCII space characters.
         /// </summary>
         public static readonly int[] C11 =
         {
@@ -2680,7 +2708,7 @@ namespace Ubiety.Stringprep.Core.Generated
         };
 
         /// <summary>
-        ///     C.1.2 Non-ASCII space characters
+        ///     C.1.2 Non-ASCII space characters.
         /// </summary>
         public static readonly int[] C12 =
         {
@@ -2704,10 +2732,10 @@ namespace Ubiety.Stringprep.Core.Generated
         };
 
         /// <summary>
-        ///     C.2 Control characters
+        ///     C.2 Control characters.
         /// </summary>
         /// <summary>
-        ///     C.2.1 ASCII control characters
+        ///     C.2.1 ASCII control characters.
         /// </summary>
         public static readonly int[] C21 =
         {
@@ -2716,7 +2744,7 @@ namespace Ubiety.Stringprep.Core.Generated
         };
 
         /// <summary>
-        ///     C.2.2 Non-ASCII control characters
+        ///     C.2.2 Non-ASCII control characters.
         /// </summary>
         public static readonly int[] C22 =
         {
@@ -2739,7 +2767,7 @@ namespace Ubiety.Stringprep.Core.Generated
         };
 
         /// <summary>
-        ///     C.3 Private use
+        ///     C.3 Private use.
         /// </summary>
         public static readonly int[] C3 =
         {
@@ -2749,7 +2777,7 @@ namespace Ubiety.Stringprep.Core.Generated
         };
 
         /// <summary>
-        ///     C.4 Non-character code points
+        ///     C.4 Non-character code points.
         /// </summary>
         public static readonly int[] C4 =
         {
@@ -2774,7 +2802,7 @@ namespace Ubiety.Stringprep.Core.Generated
         };
 
         /// <summary>
-        ///     C.5 Surrogate codes
+        ///     C.5 Surrogate codes.
         /// </summary>
         public static readonly int[] C5 =
         {
@@ -2782,7 +2810,7 @@ namespace Ubiety.Stringprep.Core.Generated
         };
 
         /// <summary>
-        ///     C.6 Inappropriate for plain text
+        ///     C.6 Inappropriate for plain text.
         /// </summary>
         public static readonly int[] C6 =
         {
@@ -2794,7 +2822,7 @@ namespace Ubiety.Stringprep.Core.Generated
         };
 
         /// <summary>
-        ///     C.7 Inappropriate for canonical representation
+        ///     C.7 Inappropriate for canonical representation.
         /// </summary>
         public static readonly int[] C7 =
         {
@@ -2802,7 +2830,7 @@ namespace Ubiety.Stringprep.Core.Generated
         };
 
         /// <summary>
-        ///     C.8 Change display properties or are deprecated
+        ///     C.8 Change display properties or are deprecated.
         /// </summary>
         public static readonly int[] C8 =
         {
@@ -2824,7 +2852,7 @@ namespace Ubiety.Stringprep.Core.Generated
         };
 
         /// <summary>
-        ///     C.9 Tagging characters
+        ///     C.9 Tagging characters.
         /// </summary>
         public static readonly int[] C9 =
         {
@@ -2833,7 +2861,7 @@ namespace Ubiety.Stringprep.Core.Generated
         };
 
         /// <summary>
-        ///     D.1 Characters with bidirectional property "R" or "AL"
+        ///     D.1 Characters with bidirectional property "R" or "AL".
         /// </summary>
         public static readonly int[] D1 =
         {
@@ -2874,7 +2902,7 @@ namespace Ubiety.Stringprep.Core.Generated
         };
 
         /// <summary>
-        ///     D.2 Characters with bidirectional property "L"
+        ///     D.2 Characters with bidirectional property "L".
         /// </summary>
         public static readonly int[] D2 =
         {
