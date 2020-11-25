@@ -45,5 +45,12 @@ namespace Ubiety.Stringprep.Tests
             var output = _step.Run(input);
             Assert.Equal(input, output);
         }
+
+        [Fact]
+        public void WillThrowForStringNotStartingWithRALCharacter()
+        {
+            var input = $"1{Convert.ToChar(0x0627)}";
+            Assert.Throws<BidirectionalFormatException>(() => _step.Run(input));
+        }
     }
 }
