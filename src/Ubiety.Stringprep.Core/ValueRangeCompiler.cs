@@ -30,7 +30,7 @@ using System.Linq;
 
 namespace Ubiety.Stringprep.Core
 {
-    internal static class ValueRangeCompiler
+    public static class ValueRangeCompiler
     {
         public static int[] Compile(int[][] baseTables, int[] inclusions, int[] removals)
         {
