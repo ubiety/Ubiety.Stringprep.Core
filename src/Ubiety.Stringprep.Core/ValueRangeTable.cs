@@ -34,7 +34,7 @@ namespace Ubiety.Stringprep.Core
 
         private readonly int[] _valueRanges;
 
-        internal ValueRangeTable(int[] valueRanges)
+        public ValueRangeTable(int[] valueRanges)
         {
             if (valueRanges.Length % 2 != 0)
             {
