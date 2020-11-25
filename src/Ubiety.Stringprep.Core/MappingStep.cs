@@ -32,7 +32,7 @@ namespace Ubiety.Stringprep.Core
     /// <summary>
     ///     Mapping processing step.
     /// </summary>
-    internal class MappingStep : IPreparationProcess
+    public class MappingStep : IPreparationProcess
     {
         private readonly IMappingTable _table;
 
