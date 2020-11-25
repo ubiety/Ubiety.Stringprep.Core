@@ -32,7 +32,7 @@ namespace Ubiety.Stringprep.Core
     /// <summary>
     ///     Step that defines a prohibited value.
     /// </summary>
-    internal class ProhibitedValueStep : IPreparationProcess
+    public class ProhibitedValueStep : IPreparationProcess
     {
         private readonly IValueRangeTable _table;
 
