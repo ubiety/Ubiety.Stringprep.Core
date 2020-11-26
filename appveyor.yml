@@ -1,4 +1,7 @@
-image: Visual Studio 2019
+image:
+  - Visual Studio 2019
+  - Ubuntu
+  - macos
 
 branches:
   except:
@@ -15,6 +18,14 @@ environment:
 
 build_script:
   - ps: .\build.ps1 appveyor
+
+for:
+  -
+    matrix:
+      except:
+        - image: Visual Studio 2019
+    build_script:
+      - sh: ./build.sh
 
 test: off
 deploy: off
