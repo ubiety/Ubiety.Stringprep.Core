@@ -34,7 +34,7 @@ namespace Ubiety.Stringprep.Core
 
         private readonly int[] _valueRanges;
 
-        internal ValueRangeTable(int[] valueRanges)
+        public ValueRangeTable(int[] valueRanges)
         {
             if (valueRanges.Length % 2 != 0)
             {
@@ -45,13 +45,23 @@ namespace Ubiety.Stringprep.Core
             _length = valueRanges.Length / 2;
         }
 
+        public static IValueRangeTable Create(params int[][] baseTables)
+        {
+            return Build(baseTables).Compile();
+        }
+
+        public static IValueRangeTableBuilder Build(params int[][] baseTables)
+        {
+            return new ValueRangeTableBuilder(baseTables);
+        }
+
         public bool Contains(int value)
         {
             var l = 0;
             var r = _length - 1;
             while (l <= r)
             {
-                var m = (int)Math.Floor((double) (l + r) / 2);
+                var m = (int)Math.Floor((double)(l + r) / 2);
 
                 var lowValue = _valueRanges[m * 2];
                 var highValue = _valueRanges[(m * 2) + 1];
@@ -72,16 +82,6 @@ namespace Ubiety.Stringprep.Core
             }
 
             return false;
-        }
-
-        public static IValueRangeTable Create(params int[][] baseTables)
-        {
-            return Build(baseTables).Compile();
-        }
-
-        public static IValueRangeTableBuilder Build(params int[][] baseTables)
-        {
-            return new ValueRangeTableBuilder(baseTables);
         }
     }
 }

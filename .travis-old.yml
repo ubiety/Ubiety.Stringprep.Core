@@ -1,0 +1,31 @@
+language: csharp
+
+os: linux
+dist: xenial
+
+jobs:
+  include:
+    - name: '.NET 5 Linux Ubuntu Focal'
+      os: linux
+      dist: xenial
+    - name: '.NET 5 MacOS'
+      os: osx
+      osx_image: xcode9.4
+
+branches:
+  only:
+    - master
+    - develop
+
+env:
+  global: DOTNET_CLI_TELEMETRY_OPTOUT=1
+    DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
+
+mono: none
+dotnet: 5.0.100
+
+script:
+  - ./build.sh
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

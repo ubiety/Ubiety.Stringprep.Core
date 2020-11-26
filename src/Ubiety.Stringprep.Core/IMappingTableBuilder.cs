@@ -38,7 +38,7 @@ namespace Ubiety.Stringprep.Core
         /// </summary>
         /// <param name="values">Values array.</param>
         /// <param name="replacement">Replacement value.</param>
-        /// <returns>Mapping builder</returns>
+        /// <returns>Mapping builder.</returns>
         IMappingTableBuilder WithValueRangeTable(int[] values, int replacement);
 
         /// <summary>

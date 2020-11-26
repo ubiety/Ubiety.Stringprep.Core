@@ -25,6 +25,7 @@
  */
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ubiety.Stringprep.Core
 {
@@ -37,16 +38,14 @@ namespace Ubiety.Stringprep.Core
             _steps = steps;
         }
 
-        public string Run(string input)
-        {
-            var result = input;
-            foreach (var step in _steps) result = step.Run(result);
-            return result;
-        }
-
         public static IPreparationProcessBuilder Build()
         {
             return new PreparationProcessBuilder();
+        }
+
+        public string Run(string input)
+        {
+            return _steps.Aggregate(input, (current, step) => step.Run(current));
         }
     }
 }

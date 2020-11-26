@@ -24,27 +24,38 @@
  * For more information, please refer to <http://unlicense.org/>
  */
 
+using System.Linq;
 using Ubiety.Stringprep.Core.Exceptions;
 
 namespace Ubiety.Stringprep.Core
 {
-    internal class ProhibitedValueStep : IPreparationProcess
+    /// <summary>
+    ///     Step that defines a prohibited value.
+    /// </summary>
+    public class ProhibitedValueStep : IPreparationProcess
     {
         private readonly IValueRangeTable _table;
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ProhibitedValueStep"/> class.
+        /// </summary>
+        /// <param name="table">Table of prohibited values.</param>
         public ProhibitedValueStep(IValueRangeTable table)
         {
             _table = table;
         }
 
+        /// <summary>
+        ///     Executes the step.
+        /// </summary>
+        /// <param name="input">Data to compare against.</param>
+        /// <returns>Data if not prohibited.</returns>
+        /// <exception cref="ProhibitedValueException">Thrown when input is prohibited.</exception>
         public string Run(string input)
         {
-            foreach (var value in input)
+            foreach (var value in input.Where(value => _table.Contains(value)))
             {
-                if (_table.Contains(value))
-                {
-                    throw new ProhibitedValueException(value);
-                }
+                throw new ProhibitedValueException(value);
             }
 
             return input;

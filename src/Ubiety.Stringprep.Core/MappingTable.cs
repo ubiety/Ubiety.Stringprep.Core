@@ -15,7 +15,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
  * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
@@ -28,39 +28,87 @@ using System.Collections.Generic;
 
 namespace Ubiety.Stringprep.Core
 {
+    /// <summary>
+    ///     Mapping table.
+    /// </summary>
     public abstract class MappingTable : IMappingTable
     {
-        public abstract bool HasReplacement(int value);
-        public abstract int[] GetReplacement(int value);
-
+        /// <summary>
+        ///     Create a mapping table.
+        /// </summary>
+        /// <param name="valueTable">Array of values to replace.</param>
+        /// <param name="replacement">Replacement value.</param>
+        /// <returns>Mapping table instance.</returns>
         public static IMappingTable Create(int[] valueTable, int replacement)
         {
-            return Create(valueTable, new[] {replacement});
+            return Create(valueTable, new[] { replacement });
         }
 
+        /// <summary>
+        ///     Create a mapping table.
+        /// </summary>
+        /// <param name="valueTable">Integer array of values to replace.</param>
+        /// <param name="replacement">Integer array of replacement values.</param>
+        /// <returns>Mapping table instance.</returns>
         public static IMappingTable Create(int[] valueTable, int[] replacement)
         {
             return Build(valueTable, replacement).Compile();
         }
 
+        /// <summary>
+        ///     Create a mapping table.
+        /// </summary>
+        /// <param name="baseTables">Tables to base off of.</param>
+        /// <returns>Mapping table instance.</returns>
         public static IMappingTable Create(params IDictionary<int, int[]>[] baseTables)
         {
             return Build(baseTables).Compile();
         }
 
+        /// <summary>
+        ///     Build mapping table.
+        /// </summary>
+        /// <param name="valueTable">Table of values to replace.</param>
+        /// <param name="replacement">Replacement value.</param>
+        /// <returns>Mapping table builder instance.</returns>
         public static IMappingTableBuilder Build(int[] valueTable, int replacement)
         {
-            return Build(valueTable, new[] {replacement});
+            return Build(valueTable, new[] { replacement });
         }
 
+        /// <summary>
+        ///     Build a mapping table.
+        /// </summary>
+        /// <param name="valueTable">Table of values to replace.</param>
+        /// <param name="replacement">Table of replacement values.</param>
+        /// <returns>Mapping table builder.</returns>
         public static IMappingTableBuilder Build(int[] valueTable, int[] replacement)
         {
             return Build().WithValueRangeTable(valueTable, replacement);
         }
 
+        /// <summary>
+        ///     Build a mapping table.
+        /// </summary>
+        /// <param name="baseTables">Value and replacement tables.</param>
+        /// <returns>Mapping table builder.</returns>
         public static IMappingTableBuilder Build(params IDictionary<int, int[]>[] baseTables)
         {
             return new MappingTableBuilder(baseTables);
         }
+
+        /// <summary>
+        ///     Does the value have a replacement.
+        /// </summary>
+        /// <param name="value">Value to search for.</param>
+        /// <returns>true if replacement is available; otherwise false.</returns>
+        public abstract bool HasReplacement(int value);
+
+        /// <summary>
+        ///     Get the replacement value.
+        /// </summary>
+        /// <param name="value">Value to replace.</param>
+        /// <returns>integer array of the replacement values.</returns>
+        public abstract int[] GetReplacement(int value);
     }
 }

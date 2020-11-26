@@ -1,4 +1,6 @@
-image: Visual Studio 2017
+image:
+  - Visual Studio 2019
+  - Ubuntu
 
 branches:
   except:
@@ -8,16 +10,24 @@ environment:
   SonarKey:
     secure: SM3ZT7/6VRB5K4qBsZpkQ3NG/VUIcNdeqZXIeHnmVi25Tu1y3x367ASjTmo3kh3Y
   NuGetKey:
-    secure: n7GLPb20Jf/ik4Jms9GHm0rNFRfyMB/gApMBALKdiW7RP6DgqmHgp9zjqlTNRnKV
+    secure: zwdA2O//k/Ymxs1GPmmv+jIHlInSYJ4+kvYGyP84QLrCXD/X+Kj4WDuX9N7wetrc
   COVERALLS_REPO_TOKEN:
     secure: pmewtxEuv8kMwIMIpzrxUgLtEK8DEf90Iu96AiDjXwMObZAaI7ZTByXRZRp5dYYJ
-
-init:
-  - ps: dotnet tool install --global dotnet-sonarscanner
-  - ps: dotnet tool install --global coveralls.net
+  CODACY_PROJECT_TOKEN:
+    secure: roycnGs2jKp5HE5cuEYvIG+s7kxHTj/Y982wAqGxKryHqLkC7YSPMnbNh06Irxs1
+  JAVA_HOME: C:\Program Files\Java\jdk15
 
 build_script:
-  - ps: .\build.ps1
+  - ps: .\build.ps1 appveyor
+
+for:
+  -
+    matrix:
+      except:
+        - image: Visual Studio 2019
+    build_script:
+      - sh: ./build.sh
+      - sh: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r artifacts/coverage.opencover.xml
 
 test: off
 deploy: off

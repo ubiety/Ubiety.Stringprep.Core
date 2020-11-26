@@ -1,29 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
     <Version>0.2.2</Version>
+    <TargetFrameworks>netstandard2.1;net5.0</TargetFrameworks>
+    <LangVersion>default</LangVersion>
+    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
   
   <PropertyGroup>
-    <PackageIconUrl>https://github.com/ubiety/Ubiety.Stringprep.Core/raw/develop/images/rope64.png</PackageIconUrl>
+    <PackageIcon>icon128.png</PackageIcon>
     <Description>Stringprep library implementing RFC3454</Description>
     <Authors>Dieter Lunn</Authors>
     <PackageLicenseExpression>Unlicense</PackageLicenseExpression>
     <PackageProjectUrl>https://stringprep.ubiety.ca</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ubiety/Ubiety.StringPrep.Core/</RepositoryUrl>
+    <PackageTags>ubiety;stringprep;dotnet</PackageTags>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="..\..\icon128.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>Ubiety.Stringprep.Core.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.1-rc.114">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Ubiety.StyleCop" Version="0.0.5" />
+    <PackageReference Include="Ubiety.StyleCop" Version="0.0.5" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>

@@ -30,6 +30,9 @@ using System.Linq;
 
 namespace Ubiety.Stringprep.Core
 {
+    /// <summary>
+    ///     Mapping table builder.
+    /// </summary>
     internal class MappingTableBuilder : IMappingTableBuilder
     {
         private readonly List<IDictionary<int, int[]>> _baseTables;
@@ -37,6 +40,10 @@ namespace Ubiety.Stringprep.Core
         private readonly List<int> _removals;
         private readonly List<Tuple<int[], int[]>> _valueRangeBaseTables;
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="MappingTableBuilder"/> class.
+        /// </summary>
+        /// <param name="baseTables">Base value tables.</param>
         public MappingTableBuilder(params IDictionary<int, int[]>[] baseTables)
         {
             _baseTables = baseTables.ToList();
@@ -47,7 +54,7 @@ namespace Ubiety.Stringprep.Core
 
         public IMappingTableBuilder WithValueRangeTable(int[] values, int replacement)
         {
-            return WithValueRangeTable(values, new[] {replacement});
+            return WithValueRangeTable(values, new[] { replacement });
         }
 
         public IMappingTableBuilder WithValueRangeTable(int[] values, int[] replacement)
@@ -77,18 +84,22 @@ namespace Ubiety.Stringprep.Core
         public IMappingTable Compile()
         {
             if (!_baseTables.Any() && !_inclusions.Any() && !_valueRangeBaseTables.Any())
+            {
                 throw new InvalidOperationException("At least one table must be provided");
+            }
+
             var mappingTables = new List<IMappingTable>
             {
-                new DictionaryMappingTable(MappingTableCompiler.Compile(_baseTables.ToArray(), _inclusions.ToArray(),
-                    _removals.ToArray()))
+                new DictionaryMappingTable(MappingTableCompiler.Compile(
+                    _baseTables.ToArray(),
+                    _inclusions.ToArray(),
+                    _removals.ToArray())),
             };
 
-            foreach (var t in _valueRangeBaseTables)
-            {
-                var valueRangeTable = ValueRangeCompiler.Compile(new[] {t.Item1}, new int[0], _removals.ToArray());
-                mappingTables.Add(new ValueRangeMappingTable(new ValueRangeTable(valueRangeTable), t.Item2));
-            }
+            mappingTables.AddRange(
+                from t in _valueRangeBaseTables
+                    let valueRangeTable = ValueRangeCompiler.Compile(new[] { t.Item1 }, Array.Empty<int>(), _removals.ToArray())
+                    select new ValueRangeMappingTable(new ValueRangeTable(valueRangeTable), t.Item2));
 
             return new CompositeMappingTable(mappingTables);
         }
