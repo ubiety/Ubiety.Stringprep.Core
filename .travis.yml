@@ -1,10 +1,11 @@
 language: csharp
-matrix:
+jobs:
   include:
-    - os: linux
+    - name: '.NET 5 Linux Ubuntu Focal'
+      os: linux
       dist: focal
-      sudo: required
-    - os: osx
+    - name: '.NET 5 MacOS'
+      os: osx
       osx_image: xcode9.4
 
 branches:
