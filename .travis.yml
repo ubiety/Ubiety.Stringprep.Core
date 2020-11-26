@@ -1,9 +1,13 @@
 language: csharp
+
+os: linux
+dist: xenial
+
 jobs:
   include:
     - name: '.NET 5 Linux Ubuntu Focal'
       os: linux
-      dist: focal
+      dist: xenial
     - name: '.NET 5 MacOS'
       os: osx
       osx_image: xcode9.4
