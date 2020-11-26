@@ -27,7 +27,7 @@ for:
         - image: Visual Studio 2019
     build_script:
       - sh: ./build.sh
-      - sh: bash <(curl -Ls https://coverage.codacy.com/get.sh) report
+      - sh: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r artifacts/coverage.opencover.xml
 
 test: off
 deploy: off
