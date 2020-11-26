@@ -34,9 +34,9 @@ namespace Ubiety.Stringprep.Core
         /// <summary>
         ///     Include a value in the table.
         /// </summary>
-        /// <param name="include">Value to include.</param>
+        /// <param name="includeValue">Value to include.</param>
         /// <returns>Builder instance.</returns>
-        IValueRangeTableBuilder Include(int include);
+        IValueRangeTableBuilder Include(int includeValue);
 
         /// <summary>
         ///     Include a range of values in the table.
@@ -49,9 +49,9 @@ namespace Ubiety.Stringprep.Core
         /// <summary>
         ///     Remove a value from the table.
         /// </summary>
-        /// <param name="remove">Value to remove.</param>
+        /// <param name="removeValue">Value to remove.</param>
         /// <returns>Builder instance.</returns>
-        IValueRangeTableBuilder Remove(int remove);
+        IValueRangeTableBuilder Remove(int removeValue);
 
         /// <summary>
         ///     Remove a range of values from the table.

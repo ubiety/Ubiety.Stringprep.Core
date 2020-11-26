@@ -1,6 +1,7 @@
 ﻿using System;
 using Shouldly;
 using Ubiety.Stringprep.Core;
+using Ubiety.Stringprep.Core.Bidirectional;
 using Ubiety.Stringprep.Core.Exceptions;
 using Xunit;
 

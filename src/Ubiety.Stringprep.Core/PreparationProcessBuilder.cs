@@ -26,6 +26,7 @@
 
 using System.Collections.Generic;
 using System.Text;
+using Ubiety.Stringprep.Core.Bidirectional;
 
 namespace Ubiety.Stringprep.Core
 {
@@ -37,8 +38,8 @@ namespace Ubiety.Stringprep.Core
         {
             return WithBidirectionalStep(
                 ValueRangeTable.Create(Prohibited.ChangeDisplayPropertiesOrDeprecated),
-                ValueRangeTable.Create(Bidirectional.RAL),
-                ValueRangeTable.Create(Bidirectional.L));
+                ValueRangeTable.Create(BidirectionalTables.RorAL),
+                ValueRangeTable.Create(BidirectionalTables.L));
         }
 
         public IPreparationProcessBuilder WithBidirectionalStep(
