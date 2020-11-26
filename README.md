@@ -1,4 +1,4 @@
-# ![Logo](https://github.com/ubiety/Ubiety.Stringprep.Core/raw/develop/icon64.png) Ubiety.Stringprep.Core ![Nuget](https://img.shields.io/nuget/v/Ubiety.Stringprep.Core.svg?style=flat-square)
+# ![Logo](https://github.com/ubiety/Ubiety.Stringprep.Core/raw/develop/icon64.png) Ubiety.Stringprep.Core [![Nuget](https://img.shields.io/nuget/v/Ubiety.Stringprep.Core.svg?style=flat-square)](https://www.nuget.org/packages/Ubiety.Stringprep.Core/)
 
 > Ubiety Stringprep is an implementation of RFC 3454 for .NET Core.
 
