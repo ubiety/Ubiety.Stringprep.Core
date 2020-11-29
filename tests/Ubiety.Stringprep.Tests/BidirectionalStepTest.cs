@@ -15,8 +15,8 @@ namespace Ubiety.Stringprep.Tests
         {
             _step = new BidirectionalStep(
                 ValueRangeTable.Create(Prohibited.C8),
-                ValueRangeTable.Create(Bidirectional.D1),
-                ValueRangeTable.Create(Bidirectional.D2));
+                ValueRangeTable.Create(BidirectionalTables.D1),
+                ValueRangeTable.Create(BidirectionalTables.D2));
         }
         
         [Fact]

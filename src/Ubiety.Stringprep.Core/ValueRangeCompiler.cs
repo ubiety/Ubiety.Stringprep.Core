@@ -139,7 +139,7 @@ namespace Ubiety.Stringprep.Core
             return combined;
         }
 
-        private static List<int> DoInclude(IList<int> list, IReadOnlyList<int> inclusions)
+        private static List<int> DoInclude(List<int> list, IList<int> inclusions)
         {
             for (var i = 0; i < inclusions.Count; i += 2)
             {
@@ -169,7 +169,7 @@ namespace Ubiety.Stringprep.Core
             return list;
         }
 
-        private static List<int> DoRemove(List<int> list, List<int> removals)
+        private static List<int> DoRemove(List<int> list, IList<int> removals)
         {
             for (var i = 0; i < removals.Count; i += 2)
             {
@@ -196,7 +196,7 @@ namespace Ubiety.Stringprep.Core
             return list;
         }
 
-        private static void CloseRemove(IList<int> list, IReadOnlyList<int> removals, ref int i, ref int j)
+        private static void CloseRemove(IList<int> list, IList<int> removals, ref int i, ref int j)
         {
             for (i++; i < removals.Count; i += 2)
             {
