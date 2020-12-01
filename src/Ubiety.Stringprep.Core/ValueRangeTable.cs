@@ -25,6 +25,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 namespace Ubiety.Stringprep.Core
 {
@@ -45,12 +46,12 @@ namespace Ubiety.Stringprep.Core
             _length = valueRanges.Length / 2;
         }
 
-        public static IValueRangeTable Create(params int[][] baseTables)
+        public static IValueRangeTable Create(params List<int>[] baseTables)
         {
             return Build(baseTables).Compile();
         }
 
-        public static IValueRangeTableBuilder Build(params int[][] baseTables)
+        public static IValueRangeTableBuilder Build(params List<int>[] baseTables)
         {
             return new ValueRangeTableBuilder(baseTables);
         }

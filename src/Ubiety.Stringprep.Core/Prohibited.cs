@@ -24,33 +24,34 @@
  * For more information, please refer to <http://unlicense.org/>
  */
 
+using System.Collections.Generic;
 using Ubiety.Stringprep.Core.Generated;
 
 namespace Ubiety.Stringprep.Core
 {
     public static class Prohibited
     {
-        public static readonly int[] C11 = Tables.C11;
-        public static readonly int[] ASCIISpaceCharacters = Tables.C11;
-        public static readonly int[] C12 = Tables.C12;
-        public static readonly int[] NonASCIISpaceCharacters = Tables.C12;
-        public static readonly int[] C21 = Tables.C21;
-        public static readonly int[] ASCIIControlCharacters = Tables.C21;
-        public static readonly int[] C22 = Tables.C22;
-        public static readonly int[] NonASCIIControlCharacters = Tables.C22;
-        public static readonly int[] C3 = Tables.C3;
-        public static readonly int[] PrivateUseCharacters = Tables.C3;
-        public static readonly int[] C4 = Tables.C4;
-        public static readonly int[] NonCharacterCodePoints = Tables.C5;
-        public static readonly int[] C5 = Tables.C5;
-        public static readonly int[] SurrogateCodePoints = Tables.C5;
-        public static readonly int[] C6 = Tables.C6;
-        public static readonly int[] InappropriateForPlainText = Tables.C6;
-        public static readonly int[] C7 = Tables.C7;
-        public static readonly int[] InappropriateForCanonicalRepresentation = Tables.C7;
-        public static readonly int[] C8 = Tables.C8;
-        public static readonly int[] ChangeDisplayPropertiesOrDeprecated = Tables.C8;
-        public static readonly int[] C9 = Tables.C9;
-        public static readonly int[] TaggingCharacters = Tables.C9;
+        public static readonly List<int> C11 = Tables.C11;
+        public static readonly List<int> ASCIISpaceCharacters = Tables.C11;
+        public static readonly List<int> C12 = Tables.C12;
+        public static readonly List<int> NonASCIISpaceCharacters = Tables.C12;
+        public static readonly List<int> C21 = Tables.C21;
+        public static readonly List<int> ASCIIControlCharacters = Tables.C21;
+        public static readonly List<int> C22 = Tables.C22;
+        public static readonly List<int> NonASCIIControlCharacters = Tables.C22;
+        public static readonly List<int> C3 = Tables.C3;
+        public static readonly List<int> PrivateUseCharacters = Tables.C3;
+        public static readonly List<int> C4 = Tables.C4;
+        public static readonly List<int> NonCharacterCodePoints = Tables.C5;
+        public static readonly List<int> C5 = Tables.C5;
+        public static readonly List<int> SurrogateCodePoints = Tables.C5;
+        public static readonly List<int> C6 = Tables.C6;
+        public static readonly List<int> InappropriateForPlainText = Tables.C6;
+        public static readonly List<int> C7 = Tables.C7;
+        public static readonly List<int> InappropriateForCanonicalRepresentation = Tables.C7;
+        public static readonly List<int> C8 = Tables.C8;
+        public static readonly List<int> ChangeDisplayPropertiesOrDeprecated = Tables.C8;
+        public static readonly List<int> C9 = Tables.C9;
+        public static readonly List<int> TaggingCharacters = Tables.C9;
     }
 }

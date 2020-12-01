@@ -59,16 +59,16 @@ namespace Ubiety.Stringprep.Core
         /// <summary>
         ///     Includes a table in the current mapping.
         /// </summary>
-        /// <param name="include">Table to include.</param>
+        /// <param name="table">Table to include.</param>
         /// <returns>Mapping builder.</returns>
-        IMappingTableBuilder Include(IDictionary<int, int[]> include);
+        IMappingTableBuilder Include(IDictionary<int, int[]> table);
 
         /// <summary>
         ///     Removes a table from the mapping.
         /// </summary>
-        /// <param name="remove">Integer position of the table.</param>
+        /// <param name="removeValue">Integer position of the table.</param>
         /// <returns>Mapping builder.</returns>
-        IMappingTableBuilder Remove(int remove);
+        IMappingTableBuilder Remove(int removeValue);
 
         /// <summary>
         ///     Compile the mapping.

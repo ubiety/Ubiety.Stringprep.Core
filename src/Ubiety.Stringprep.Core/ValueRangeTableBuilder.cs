@@ -32,20 +32,20 @@ namespace Ubiety.Stringprep.Core
 {
     internal class ValueRangeTableBuilder : IValueRangeTableBuilder
     {
-        private readonly IList<int[]> _baseTables;
+        private readonly IList<List<int>> _baseTables;
         private readonly IList<int> _inclusions;
         private readonly IList<int> _removals;
 
-        public ValueRangeTableBuilder(params int[][] baseTables)
+        public ValueRangeTableBuilder(params List<int>[] baseTables)
         {
             _baseTables = baseTables.ToList();
             _inclusions = new List<int>();
             _removals = new List<int>();
         }
 
-        public IValueRangeTableBuilder Include(int include)
+        public IValueRangeTableBuilder Include(int includeValue)
         {
-            IncludeRange(include, include);
+            IncludeRange(includeValue, includeValue);
             return this;
         }
 
@@ -56,9 +56,9 @@ namespace Ubiety.Stringprep.Core
             return this;
         }
 
-        public IValueRangeTableBuilder Remove(int remove)
+        public IValueRangeTableBuilder Remove(int removeValue)
         {
-            RemoveRange(remove, remove);
+            RemoveRange(removeValue, removeValue);
             return this;
         }
 
@@ -76,7 +76,7 @@ namespace Ubiety.Stringprep.Core
                 throw new InvalidOperationException("At least one base table must be provided");
             }
 
-            var ranges = ValueRangeCompiler.Compile(_baseTables.ToArray(), _inclusions.ToArray(), _removals.ToArray());
+            var ranges = ValueRangeCompiler.Compile(_baseTables.ToArray(), _inclusions, _removals.ToArray());
             return new ValueRangeTable(ranges);
         }
     }
