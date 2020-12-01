@@ -1,6 +1,6 @@
 module.exports = {
-  someSidebar: {
-    Docusaurus: ['doc1', 'doc2', 'doc3'],
-    Features: ['mdx'],
+  docs: {
+    "Ubiety Stringprep": ["introduction"],
+    "Getting Started": ["installation"],
   },
 };
