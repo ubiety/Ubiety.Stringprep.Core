@@ -52,14 +52,26 @@ namespace Ubiety.Stringprep.Core
             _removals = new List<int>();
         }
 
+        /// <summary>
+        ///     Add value range table to mapping.
+        /// </summary>
+        /// <param name="values">Values to look for.</param>
+        /// <param name="replacement">Replacement value.</param>
+        /// <returns>Mapping table builder instance.</returns>
         public IMappingTableBuilder WithValueRangeTable(int[] values, int replacement)
         {
             return WithValueRangeTable(values, new[] { replacement });
         }
 
+        /// <summary>
+        ///     Add value range table to mapping.
+        /// </summary>
+        /// <param name="values">Values to look for.</param>
+        /// <param name="replacement">Replacement values.</param>
+        /// <returns>Mapping table builder instance.</returns>
         public IMappingTableBuilder WithValueRangeTable(int[] values, int[] replacement)
         {
-            _valueRangeBaseTables.Add(new (values.ToList(), replacement));
+            _valueRangeBaseTables.Add((values.ToList(), replacement));
             return this;
         }
 
@@ -98,8 +110,8 @@ namespace Ubiety.Stringprep.Core
 
             mappingTables.AddRange(
                 from t in _valueRangeBaseTables
-                    let valueRangeTable = ValueRangeCompiler.Compile(new[] { t.values }, Array.Empty<int>().ToList(), _removals)
-                    select new ValueRangeMappingTable(new ValueRangeTable(valueRangeTable), t.Item2));
+                let valueRangeTable = ValueRangeCompiler.Compile(new[] { t.values }, Array.Empty<int>().ToList(), _removals)
+                select new ValueRangeMappingTable(new ValueRangeTable(valueRangeTable), t.replacements));
 
             return new CompositeMappingTable(mappingTables);
         }
