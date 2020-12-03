@@ -26,22 +26,40 @@
 
 namespace Ubiety.Stringprep.Core
 {
+    /// <summary>
+    ///     Value range mapping table.
+    /// </summary>
     internal class ValueRangeMappingTable : MappingTable
     {
         private readonly int[] _replacement;
         private readonly IValueRangeTable _valueRange;
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ValueRangeMappingTable"/> class.
+        /// </summary>
+        /// <param name="valueRange">Value range table.</param>
+        /// <param name="replacement">Replacement table.</param>
         internal ValueRangeMappingTable(IValueRangeTable valueRange, int[] replacement)
         {
             _valueRange = valueRange;
             _replacement = replacement;
         }
 
+        /// <summary>
+        ///     Does the value have a replacement.
+        /// </summary>
+        /// <param name="value">Value to look for.</param>
+        /// <returns>True if value is in table, otherwise false.</returns>
         public override bool HasReplacement(int value)
         {
             return _valueRange.Contains(value);
         }
 
+        /// <summary>
+        ///     Get the replacement value.
+        /// </summary>
+        /// <param name="value">Value to replace.</param>
+        /// <returns>Replacement values.</returns>
         public override int[] GetReplacement(int value)
         {
             return _replacement;

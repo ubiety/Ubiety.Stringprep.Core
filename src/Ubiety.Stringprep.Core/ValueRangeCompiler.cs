@@ -30,9 +30,19 @@ using System.Linq;
 
 namespace Ubiety.Stringprep.Core
 {
+    /// <summary>
+    ///     Value range compiler.
+    /// </summary>
     public static class ValueRangeCompiler
     {
-        public static int[] Compile(IList<int>[] baseTables, IList<int> inclusions, IList<int> removals)
+        /// <summary>
+        ///     Compile tables.
+        /// </summary>
+        /// <param name="baseTables">Base character tables.</param>
+        /// <param name="inclusions">Inclusion tables.</param>
+        /// <param name="removals">Removal values.</param>
+        /// <returns>Compiled table.</returns>
+        public static int[] Compile(List<int>[] baseTables, IList<int> inclusions, IList<int> removals)
         {
             foreach (var table in baseTables)
             {

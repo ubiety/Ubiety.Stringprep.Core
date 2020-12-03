@@ -29,20 +29,36 @@ using System.Linq;
 
 namespace Ubiety.Stringprep.Core
 {
+    /// <summary>
+    ///     Preparation process.
+    /// </summary>
     public class PreparationProcess : IPreparationProcess
     {
         private readonly IList<IPreparationProcess> _steps;
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="PreparationProcess"/> class.
+        /// </summary>
+        /// <param name="steps">Steps to use for the process.</param>
         internal PreparationProcess(IList<IPreparationProcess> steps)
         {
             _steps = steps;
         }
 
+        /// <summary>
+        ///     Start building a process.
+        /// </summary>
+        /// <returns>Preparation process builder.</returns>
         public static IPreparationProcessBuilder Build()
         {
             return new PreparationProcessBuilder();
         }
 
+        /// <summary>
+        ///     Run all of the steps in the process.
+        /// </summary>
+        /// <param name="input">String input to use for the process.</param>
+        /// <returns>Processed unicode string.</returns>
         public string Run(string input)
         {
             return _steps.Aggregate(input, (current, step) => step.Run(current));

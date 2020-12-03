@@ -75,24 +75,44 @@ namespace Ubiety.Stringprep.Core
             return this;
         }
 
+        /// <summary>
+        ///     Add mapping table.
+        /// </summary>
+        /// <param name="table">Table to add.</param>
+        /// <returns>Mapping table builder instance.</returns>
         public IMappingTableBuilder WithMappingTable(IDictionary<int, int[]> table)
         {
             _baseTables.Add(table);
             return this;
         }
 
+        /// <summary>
+        ///     Add values to be included.
+        /// </summary>
+        /// <param name="table">Table of values to be included.</param>
+        /// <returns>Mapping table builder instance.</returns>
         public IMappingTableBuilder Include(IDictionary<int, int[]> table)
         {
             _inclusions.Add(table);
             return this;
         }
 
+        /// <summary>
+        ///     Value to removed.
+        /// </summary>
+        /// <param name="removeValue">Value to remove.</param>
+        /// <returns>Mapping table builder instance.</returns>
         public IMappingTableBuilder Remove(int removeValue)
         {
             _removals.Add(removeValue);
             return this;
         }
 
+        /// <summary>
+        ///     Compile mapping table.
+        /// </summary>
+        /// <returns>Mapping table instance.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when no tables are provided.</exception>
         public IMappingTable Compile()
         {
             if (!_baseTables.Any() && !_inclusions.Any() && !_valueRangeBaseTables.Any())

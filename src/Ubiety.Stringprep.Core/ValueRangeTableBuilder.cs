@@ -30,12 +30,19 @@ using System.Linq;
 
 namespace Ubiety.Stringprep.Core
 {
+    /// <summary>
+    ///     Value range table builder.
+    /// </summary>
     internal class ValueRangeTableBuilder : IValueRangeTableBuilder
     {
         private readonly IList<List<int>> _baseTables;
         private readonly IList<int> _inclusions;
         private readonly IList<int> _removals;
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ValueRangeTableBuilder"/> class.
+        /// </summary>
+        /// <param name="baseTables">Value tables.</param>
         public ValueRangeTableBuilder(params List<int>[] baseTables)
         {
             _baseTables = baseTables.ToList();
@@ -43,12 +50,23 @@ namespace Ubiety.Stringprep.Core
             _removals = new List<int>();
         }
 
+        /// <summary>
+        ///     Values to include in the tables.
+        /// </summary>
+        /// <param name="includeValue">Value to include.</param>
+        /// <returns>Value range table builder instance.</returns>
         public IValueRangeTableBuilder Include(int includeValue)
         {
             IncludeRange(includeValue, includeValue);
             return this;
         }
 
+        /// <summary>
+        ///     Include range in the tables.
+        /// </summary>
+        /// <param name="start">Start value of the range.</param>
+        /// <param name="end">End value of the range.</param>
+        /// <returns>Value range table builder instance.</returns>
         public IValueRangeTableBuilder IncludeRange(int start, int end)
         {
             _inclusions.Add(start);
@@ -56,12 +74,23 @@ namespace Ubiety.Stringprep.Core
             return this;
         }
 
+        /// <summary>
+        ///     Add removal value.
+        /// </summary>
+        /// <param name="removeValue">Value to remove.</param>
+        /// <returns>Value range builder instance.</returns>
         public IValueRangeTableBuilder Remove(int removeValue)
         {
             RemoveRange(removeValue, removeValue);
             return this;
         }
 
+        /// <summary>
+        ///     Add removal range.
+        /// </summary>
+        /// <param name="start">Start of range.</param>
+        /// <param name="end">End of range.</param>
+        /// <returns>Value range builder instance.</returns>
         public IValueRangeTableBuilder RemoveRange(int start, int end)
         {
             _removals.Add(start);
@@ -69,6 +98,11 @@ namespace Ubiety.Stringprep.Core
             return this;
         }
 
+        /// <summary>
+        ///     Compile value range table.
+        /// </summary>
+        /// <returns>Value range table instance.</returns>
+        /// <exception cref="InvalidOperationException">Thrown if no tables are provided.</exception>
         public IValueRangeTable Compile()
         {
             if (!_baseTables.Any())

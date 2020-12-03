@@ -29,12 +29,20 @@ using System.Collections.Generic;
 
 namespace Ubiety.Stringprep.Core
 {
+    /// <summary>
+    ///     Value range table.
+    /// </summary>
     public class ValueRangeTable : IValueRangeTable
     {
         private readonly int _length;
 
         private readonly int[] _valueRanges;
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ValueRangeTable"/> class.
+        /// </summary>
+        /// <param name="valueRanges">Value range table.</param>
+        /// <exception cref="ArgumentException">Thrown if not a valid table.</exception>
         public ValueRangeTable(int[] valueRanges)
         {
             if (valueRanges.Length % 2 != 0)
@@ -46,16 +54,31 @@ namespace Ubiety.Stringprep.Core
             _length = valueRanges.Length / 2;
         }
 
+        /// <summary>
+        ///     Create a range table.
+        /// </summary>
+        /// <param name="baseTables">Value tables.</param>
+        /// <returns>Value range table.</returns>
         public static IValueRangeTable Create(params List<int>[] baseTables)
         {
             return Build(baseTables).Compile();
         }
 
+        /// <summary>
+        ///     Build range table.
+        /// </summary>
+        /// <param name="baseTables">Value tables.</param>
+        /// <returns>Value range table builder instance.</returns>
         public static IValueRangeTableBuilder Build(params List<int>[] baseTables)
         {
             return new ValueRangeTableBuilder(baseTables);
         }
 
+        /// <summary>
+        ///     Does the table contain the value.
+        /// </summary>
+        /// <param name="value">Value to look up.</param>
+        /// <returns>True if the value is in the table, otherwise false.</returns>
         public bool Contains(int value)
         {
             var l = 0;

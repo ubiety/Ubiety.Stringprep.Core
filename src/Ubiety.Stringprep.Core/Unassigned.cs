@@ -29,9 +29,19 @@ using Ubiety.Stringprep.Core.Generated;
 
 namespace Ubiety.Stringprep.Core
 {
+    /// <summary>
+    ///     Unassigned character codes.
+    /// </summary>
     public static class Unassigned
     {
+        /// <summary>
+        ///     Table A1 Unassigned code points.
+        /// </summary>
         public static readonly List<int> A1 = Tables.A1;
+
+        /// <summary>
+        ///     Table A1 Unassigned code points.
+        /// </summary>
         public static readonly List<int> UnassignedCodePoints = Tables.A1;
     }
 }

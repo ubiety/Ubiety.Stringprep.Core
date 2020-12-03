@@ -28,15 +28,27 @@ using System.Text;
 
 namespace Ubiety.Stringprep.Core
 {
+    /// <summary>
+    ///     Normalization step.
+    /// </summary>
     internal class NormalizationStep : IPreparationProcess
     {
         private readonly NormalizationForm _normalizationForm;
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="NormalizationStep"/> class.
+        /// </summary>
+        /// <param name="normalizationForm">Normalization form to use.</param>
         public NormalizationStep(NormalizationForm normalizationForm)
         {
             _normalizationForm = normalizationForm;
         }
 
+        /// <summary>
+        ///     Run the step.
+        /// </summary>
+        /// <param name="input">String to run step on.</param>
+        /// <returns>Normalized string.</returns>
         public string Run(string input)
         {
             return input.Normalize(_normalizationForm);
