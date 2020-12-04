@@ -24,33 +24,34 @@
  * For more information, please refer to <http://unlicense.org/>
  */
 
+using System.Collections.Generic;
 using Ubiety.Stringprep.Core.Generated;
 
-namespace Ubiety.Stringprep.Core
+namespace Ubiety.Stringprep.Core.Bidirectional
 {
     /// <summary>
-    ///     Bidirectional tables.
+    ///     Bidirectional value tables.
     /// </summary>
-    public static class Bidirectional
+    public static class BidirectionalTables
     {
         /// <summary>
-        ///     Table D1.
+        ///     Characters with bidirectional property 'R' or 'AL'.
         /// </summary>
-        public static readonly int[] D1 = Tables.D1;
+        public static readonly List<int> D1 = Tables.D1;
 
         /// <summary>
-        ///     Table RAL.
+        ///     Table D.1 Characters with bidirectional property 'R' or 'AL'.
         /// </summary>
-        public static readonly int[] RAL = Tables.D1;
+        public static readonly List<int> RorAL = Tables.D1;
 
         /// <summary>
-        ///     Table D2.
+        ///     Characters with bidirectional property 'L'.
         /// </summary>
-        public static readonly int[] D2 = Tables.D2;
+        public static readonly List<int> D2 = Tables.D2;
 
         /// <summary>
-        ///     Table L.
+        ///     Table D.2 Characters with bidirectional property 'L'.
         /// </summary>
-        public static readonly int[] L = Tables.D2;
+        public static readonly List<int> L = Tables.D2;
     }
 }

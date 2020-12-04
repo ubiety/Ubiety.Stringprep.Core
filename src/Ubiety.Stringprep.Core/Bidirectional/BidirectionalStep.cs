@@ -26,7 +26,7 @@
 
 using Ubiety.Stringprep.Core.Exceptions;
 
-namespace Ubiety.Stringprep.Core
+namespace Ubiety.Stringprep.Core.Bidirectional
 {
     /// <summary>
     ///     Bidirectional stringprep step.

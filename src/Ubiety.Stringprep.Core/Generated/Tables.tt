@@ -156,7 +156,7 @@ namespace Ubiety.Stringprep.Core.Generated
     private void IntTable(string name)
     {
  #>
-        public static readonly int[] <#= name #> =
+        public static readonly List<int> <#= name #> = new ()
         {
 <#+
     }

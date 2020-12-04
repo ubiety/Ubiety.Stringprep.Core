@@ -6,6 +6,8 @@ branches:
   except:
     - gh-pages
 
+skip_tags: true
+
 environment:
   SonarKey:
     secure: SM3ZT7/6VRB5K4qBsZpkQ3NG/VUIcNdeqZXIeHnmVi25Tu1y3x367ASjTmo3kh3Y

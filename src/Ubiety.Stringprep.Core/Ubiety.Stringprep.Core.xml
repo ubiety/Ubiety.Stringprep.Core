@@ -4,50 +4,50 @@
         <name>Ubiety.Stringprep.Core</name>
     </assembly>
     <members>
-        <member name="T:Ubiety.Stringprep.Core.Bidirectional">
-            <summary>
-                Bidirectional tables.
-            </summary>
-        </member>
-        <member name="F:Ubiety.Stringprep.Core.Bidirectional.D1">
-            <summary>
-                Table D1.
-            </summary>
-        </member>
-        <member name="F:Ubiety.Stringprep.Core.Bidirectional.RAL">
-            <summary>
-                Table RAL.
-            </summary>
-        </member>
-        <member name="F:Ubiety.Stringprep.Core.Bidirectional.D2">
-            <summary>
-                Table D2.
-            </summary>
-        </member>
-        <member name="F:Ubiety.Stringprep.Core.Bidirectional.L">
-            <summary>
-                Table L.
-            </summary>
-        </member>
-        <member name="T:Ubiety.Stringprep.Core.BidirectionalStep">
+        <member name="T:Ubiety.Stringprep.Core.Bidirectional.BidirectionalStep">
             <summary>
                 Bidirectional stringprep step.
             </summary>
         </member>
-        <member name="M:Ubiety.Stringprep.Core.BidirectionalStep.#ctor(Ubiety.Stringprep.Core.IValueRangeTable,Ubiety.Stringprep.Core.IValueRangeTable,Ubiety.Stringprep.Core.IValueRangeTable)">
+        <member name="M:Ubiety.Stringprep.Core.Bidirectional.BidirectionalStep.#ctor(Ubiety.Stringprep.Core.IValueRangeTable,Ubiety.Stringprep.Core.IValueRangeTable,Ubiety.Stringprep.Core.IValueRangeTable)">
             <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.BidirectionalStep" /> class.
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.Bidirectional.BidirectionalStep" /> class.
             </summary>
             <param name="prohibitedTable">Prohibited character table.</param>
             <param name="ralTable">RandAL character table.</param>
             <param name="lTable">L character table.</param>
         </member>
-        <member name="M:Ubiety.Stringprep.Core.BidirectionalStep.Run(System.String)">
+        <member name="M:Ubiety.Stringprep.Core.Bidirectional.BidirectionalStep.Run(System.String)">
             <summary>
                 Run the stringprep step.
             </summary>
             <param name="input">Input to run the step on.</param>
             <returns>String parsed for unicode characters.</returns>
+        </member>
+        <member name="T:Ubiety.Stringprep.Core.Bidirectional.BidirectionalTables">
+            <summary>
+                Bidirectional value tables.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Bidirectional.BidirectionalTables.D1">
+            <summary>
+                Characters with bidirectional property 'R' or 'AL'.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Bidirectional.BidirectionalTables.RorAL">
+            <summary>
+                Table D.1 Characters with bidirectional property 'R' or 'AL'.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Bidirectional.BidirectionalTables.D2">
+            <summary>
+                Characters with bidirectional property 'L'.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Bidirectional.BidirectionalTables.L">
+            <summary>
+                Table D.2 Characters with bidirectional property 'L'.
+            </summary>
         </member>
         <member name="T:Ubiety.Stringprep.Core.CompositeMappingTable">
             <summary>
@@ -313,14 +313,14 @@
             <summary>
                 Includes a table in the current mapping.
             </summary>
-            <param name="include">Table to include.</param>
+            <param name="table">Table to include.</param>
             <returns>Mapping builder.</returns>
         </member>
         <member name="M:Ubiety.Stringprep.Core.IMappingTableBuilder.Remove(System.Int32)">
             <summary>
                 Removes a table from the mapping.
             </summary>
-            <param name="remove">Integer position of the table.</param>
+            <param name="removeValue">Integer position of the table.</param>
             <returns>Mapping builder.</returns>
         </member>
         <member name="M:Ubiety.Stringprep.Core.IMappingTableBuilder.Compile">
@@ -415,7 +415,7 @@
             <summary>
                 Include a value in the table.
             </summary>
-            <param name="include">Value to include.</param>
+            <param name="includeValue">Value to include.</param>
             <returns>Builder instance.</returns>
         </member>
         <member name="M:Ubiety.Stringprep.Core.IValueRangeTableBuilder.IncludeRange(System.Int32,System.Int32)">
@@ -430,7 +430,7 @@
             <summary>
                 Remove a value from the table.
             </summary>
-            <param name="remove">Value to remove.</param>
+            <param name="removeValue">Value to remove.</param>
             <returns>Builder instance.</returns>
         </member>
         <member name="M:Ubiety.Stringprep.Core.IValueRangeTableBuilder.RemoveRange(System.Int32,System.Int32)">
@@ -576,6 +576,274 @@
             </summary>
             <param name="baseTables">Base value tables.</param>
         </member>
+        <member name="M:Ubiety.Stringprep.Core.MappingTableBuilder.WithValueRangeTable(System.Int32[],System.Int32)">
+            <summary>
+                Add value range table to mapping.
+            </summary>
+            <param name="values">Values to look for.</param>
+            <param name="replacement">Replacement value.</param>
+            <returns>Mapping table builder instance.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.MappingTableBuilder.WithValueRangeTable(System.Int32[],System.Int32[])">
+            <summary>
+                Add value range table to mapping.
+            </summary>
+            <param name="values">Values to look for.</param>
+            <param name="replacement">Replacement values.</param>
+            <returns>Mapping table builder instance.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.MappingTableBuilder.WithMappingTable(System.Collections.Generic.IDictionary{System.Int32,System.Int32[]})">
+            <summary>
+                Add mapping table.
+            </summary>
+            <param name="table">Table to add.</param>
+            <returns>Mapping table builder instance.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.MappingTableBuilder.Include(System.Collections.Generic.IDictionary{System.Int32,System.Int32[]})">
+            <summary>
+                Add values to be included.
+            </summary>
+            <param name="table">Table of values to be included.</param>
+            <returns>Mapping table builder instance.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.MappingTableBuilder.Remove(System.Int32)">
+            <summary>
+                Value to removed.
+            </summary>
+            <param name="removeValue">Value to remove.</param>
+            <returns>Mapping table builder instance.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.MappingTableBuilder.Compile">
+            <summary>
+                Compile mapping table.
+            </summary>
+            <returns>Mapping table instance.</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown when no tables are provided.</exception>
+        </member>
+        <member name="T:Ubiety.Stringprep.Core.MappingTableCompiler">
+            <summary>
+                Mapping table compiler.
+            </summary>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.MappingTableCompiler.Compile(System.Collections.Generic.IDictionary{System.Int32,System.Int32[]}[],System.Collections.Generic.IEnumerable{System.Collections.Generic.IDictionary{System.Int32,System.Int32[]}},System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+                Compiles the mapping table.
+            </summary>
+            <param name="baseTables">Base value tables.</param>
+            <param name="inclusions">Table of values to include.</param>
+            <param name="removals">Values to remove.</param>
+            <returns>Table of values.</returns>
+        </member>
+        <member name="T:Ubiety.Stringprep.Core.NormalizationStep">
+            <summary>
+                Normalization step.
+            </summary>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.NormalizationStep.#ctor(System.Text.NormalizationForm)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.NormalizationStep"/> class.
+            </summary>
+            <param name="normalizationForm">Normalization form to use.</param>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.NormalizationStep.Run(System.String)">
+            <summary>
+                Run the step.
+            </summary>
+            <param name="input">String to run step on.</param>
+            <returns>Normalized string.</returns>
+        </member>
+        <member name="T:Ubiety.Stringprep.Core.PreparationProcess">
+            <summary>
+                Preparation process.
+            </summary>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.PreparationProcess.#ctor(System.Collections.Generic.IList{Ubiety.Stringprep.Core.IPreparationProcess})">
+            <summary>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.PreparationProcess"/> class.
+            </summary>
+            <param name="steps">Steps to use for the process.</param>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.PreparationProcess.Build">
+            <summary>
+                Start building a process.
+            </summary>
+            <returns>Preparation process builder.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.PreparationProcess.Run(System.String)">
+            <summary>
+                Run all of the steps in the process.
+            </summary>
+            <param name="input">String input to use for the process.</param>
+            <returns>Processed unicode string.</returns>
+        </member>
+        <member name="T:Ubiety.Stringprep.Core.PreparationProcessBuilder">
+            <summary>
+                Preparation process builder.
+            </summary>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.PreparationProcessBuilder.WithBidirectionalStep">
+            <summary>
+                Add bidirectional step.
+            </summary>
+            <returns>Preparation process builder instance.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.PreparationProcessBuilder.WithBidirectionalStep(Ubiety.Stringprep.Core.IValueRangeTable,Ubiety.Stringprep.Core.IValueRangeTable,Ubiety.Stringprep.Core.IValueRangeTable)">
+            <summary>
+                Add bidirectional step.
+            </summary>
+            <param name="prohibited">Prohibited character table.</param>
+            <param name="ral">R or AL character table.</param>
+            <param name="l">L character table.</param>
+            <returns>Preparation process builder.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.PreparationProcessBuilder.WithMappingStep(Ubiety.Stringprep.Core.IMappingTable)">
+            <summary>
+                Add mapping step.
+            </summary>
+            <param name="mappingTable">Mapping table.</param>
+            <returns>Preparation process builder.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.PreparationProcessBuilder.WithNormalizationStep">
+            <summary>
+                Add normalization step with default form KC.
+            </summary>
+            <returns>Preparation process builder.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.PreparationProcessBuilder.WithNormalizationStep(System.Text.NormalizationForm)">
+            <summary>
+                Add normalization step.
+            </summary>
+            <param name="form">Normalization form.</param>
+            <returns>Preparation process builder.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.PreparationProcessBuilder.WithProhibitedValueStep(Ubiety.Stringprep.Core.IValueRangeTable)">
+            <summary>
+                Add prohibited value step.
+            </summary>
+            <param name="prohibitedTable">Prohibited character table.</param>
+            <returns>Preparation process builder.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.PreparationProcessBuilder.Compile">
+            <summary>
+                Compile preparation process.
+            </summary>
+            <returns>Preparation process.</returns>
+        </member>
+        <member name="T:Ubiety.Stringprep.Core.Prohibited">
+            <summary>
+                Prohibited value tables.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.C11">
+            <summary>
+                Table C1.1 ASCII space characters.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.ASCIISpaceCharacters">
+            <summary>
+                Table C1.1 ASCII space characters.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.C12">
+            <summary>
+                Table C1.2 Non ASCII space characters.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.NonASCIISpaceCharacters">
+            <summary>
+                Table C1.2 Non ASCII space characters.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.C21">
+            <summary>
+                Table C2.1 ASCII control characters.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.ASCIIControlCharacters">
+            <summary>
+                Table C2.1 ASCII control characters.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.C22">
+            <summary>
+                Table C2.2 Non ASCII control characters.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.NonASCIIControlCharacters">
+            <summary>
+                Table C2.2 Non ASCII control characters.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.C3">
+            <summary>
+                Table C3 Private use characters.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.PrivateUseCharacters">
+            <summary>
+                Table C3 Private use characters.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.C4">
+            <summary>
+                Table C4 Non character code points.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.NonCharacterCodePoints">
+            <summary>
+                Table C4 Non character code points.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.C5">
+            <summary>
+                Table C5 Surrogate code points.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.SurrogateCodePoints">
+            <summary>
+                Table C5 Surrogate code points.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.C6">
+            <summary>
+                Table C6 Inappropriate for plain text.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.InappropriateForPlainText">
+            <summary>
+                Table C6 Inappropriate for plain text.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.C7">
+            <summary>
+                Table C7 Inappropriate for canonical representation.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.InappropriateForCanonicalRepresentation">
+            <summary>
+                Table C7 Inappropriate for canonical representation.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.C8">
+            <summary>
+                Table C8 Change display properties or deprecated.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.ChangeDisplayPropertiesOrDeprecated">
+            <summary>
+                Table C8 Change display properties or deprecated.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.C9">
+            <summary>
+                Table C9 Tagging characters.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Prohibited.TaggingCharacters">
+            <summary>
+                Table C9 Tagging characters.
+            </summary>
+        </member>
         <member name="T:Ubiety.Stringprep.Core.ProhibitedValueStep">
             <summary>
                 Step that defines a prohibited value.
@@ -594,6 +862,142 @@
             <param name="input">Data to compare against.</param>
             <returns>Data if not prohibited.</returns>
             <exception cref="T:Ubiety.Stringprep.Core.Exceptions.ProhibitedValueException">Thrown when input is prohibited.</exception>
+        </member>
+        <member name="T:Ubiety.Stringprep.Core.Unassigned">
+            <summary>
+                Unassigned character codes.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Unassigned.A1">
+            <summary>
+                Table A1 Unassigned code points.
+            </summary>
+        </member>
+        <member name="F:Ubiety.Stringprep.Core.Unassigned.UnassignedCodePoints">
+            <summary>
+                Table A1 Unassigned code points.
+            </summary>
+        </member>
+        <member name="T:Ubiety.Stringprep.Core.ValueRangeCompiler">
+            <summary>
+                Value range compiler.
+            </summary>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.ValueRangeCompiler.Compile(System.Collections.Generic.List{System.Int32}[],System.Collections.Generic.IList{System.Int32},System.Collections.Generic.IList{System.Int32})">
+            <summary>
+                Compile tables.
+            </summary>
+            <param name="baseTables">Base character tables.</param>
+            <param name="inclusions">Inclusion tables.</param>
+            <param name="removals">Removal values.</param>
+            <returns>Compiled table.</returns>
+        </member>
+        <member name="T:Ubiety.Stringprep.Core.ValueRangeMappingTable">
+            <summary>
+                Value range mapping table.
+            </summary>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.ValueRangeMappingTable.#ctor(Ubiety.Stringprep.Core.IValueRangeTable,System.Int32[])">
+            <summary>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.ValueRangeMappingTable"/> class.
+            </summary>
+            <param name="valueRange">Value range table.</param>
+            <param name="replacement">Replacement table.</param>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.ValueRangeMappingTable.HasReplacement(System.Int32)">
+            <summary>
+                Does the value have a replacement.
+            </summary>
+            <param name="value">Value to look for.</param>
+            <returns>True if value is in table, otherwise false.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.ValueRangeMappingTable.GetReplacement(System.Int32)">
+            <summary>
+                Get the replacement value.
+            </summary>
+            <param name="value">Value to replace.</param>
+            <returns>Replacement values.</returns>
+        </member>
+        <member name="T:Ubiety.Stringprep.Core.ValueRangeTable">
+            <summary>
+                Value range table.
+            </summary>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.ValueRangeTable.#ctor(System.Int32[])">
+            <summary>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.ValueRangeTable"/> class.
+            </summary>
+            <param name="valueRanges">Value range table.</param>
+            <exception cref="T:System.ArgumentException">Thrown if not a valid table.</exception>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.ValueRangeTable.Create(System.Collections.Generic.List{System.Int32}[])">
+            <summary>
+                Create a range table.
+            </summary>
+            <param name="baseTables">Value tables.</param>
+            <returns>Value range table.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.ValueRangeTable.Build(System.Collections.Generic.List{System.Int32}[])">
+            <summary>
+                Build range table.
+            </summary>
+            <param name="baseTables">Value tables.</param>
+            <returns>Value range table builder instance.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.ValueRangeTable.Contains(System.Int32)">
+            <summary>
+                Does the table contain the value.
+            </summary>
+            <param name="value">Value to look up.</param>
+            <returns>True if the value is in the table, otherwise false.</returns>
+        </member>
+        <member name="T:Ubiety.Stringprep.Core.ValueRangeTableBuilder">
+            <summary>
+                Value range table builder.
+            </summary>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.ValueRangeTableBuilder.#ctor(System.Collections.Generic.List{System.Int32}[])">
+            <summary>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.ValueRangeTableBuilder"/> class.
+            </summary>
+            <param name="baseTables">Value tables.</param>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.ValueRangeTableBuilder.Include(System.Int32)">
+            <summary>
+                Values to include in the tables.
+            </summary>
+            <param name="includeValue">Value to include.</param>
+            <returns>Value range table builder instance.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.ValueRangeTableBuilder.IncludeRange(System.Int32,System.Int32)">
+            <summary>
+                Include range in the tables.
+            </summary>
+            <param name="start">Start value of the range.</param>
+            <param name="end">End value of the range.</param>
+            <returns>Value range table builder instance.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.ValueRangeTableBuilder.Remove(System.Int32)">
+            <summary>
+                Add removal value.
+            </summary>
+            <param name="removeValue">Value to remove.</param>
+            <returns>Value range builder instance.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.ValueRangeTableBuilder.RemoveRange(System.Int32,System.Int32)">
+            <summary>
+                Add removal range.
+            </summary>
+            <param name="start">Start of range.</param>
+            <param name="end">End of range.</param>
+            <returns>Value range builder instance.</returns>
+        </member>
+        <member name="M:Ubiety.Stringprep.Core.ValueRangeTableBuilder.Compile">
+            <summary>
+                Compile value range table.
+            </summary>
+            <returns>Value range table instance.</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown if no tables are provided.</exception>
         </member>
     </members>
 </doc>

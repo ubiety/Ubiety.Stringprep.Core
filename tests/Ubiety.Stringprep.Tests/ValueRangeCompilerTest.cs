@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Shouldly;
 using Ubiety.Stringprep.Core;
 using Xunit;
@@ -10,7 +11,7 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillCompileSingleTable()
         {
-            var a = new[] {1, 1};
+            var a = new List<int> {1, 1};
             var result = ValueRangeCompiler.Compile(new[] {a}, new int[0], new int[0]);
 
             result.ShouldBe(new[] {1, 1});
@@ -19,7 +20,7 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillSortSingleTable()
         {
-            var a = new[] {3, 7, 18, 22, 1, 1, 9, 13};
+            var a = new List<int> {3, 7, 18, 22, 1, 1, 9, 13};
             var result = ValueRangeCompiler.Compile(new[] {a}, new int[0], new int[0]);
 
             result.ShouldBe(new[] {1, 1, 3, 7, 9, 13, 18, 22});
@@ -28,8 +29,8 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillCompileTwoTables()
         {
-            var a = new[] {3, 7, 22, 25};
-            var b = new[] {9, 15, 18, 20};
+            var a = new List<int> {3, 7, 22, 25};
+            var b = new List<int> {9, 15, 18, 20};
 
             var result = ValueRangeCompiler.Compile(new[] {a, b}, new int[0], new int[0]);
             result.ShouldBe(new[] {3, 7, 9, 15, 18, 20, 22, 25});
@@ -38,10 +39,10 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillCombineTablesOfDifferentLengths()
         {
-            var a = new[] {1, 2};
-            var b = new[] {75, 75, 42, 46, 13, 15};
-            var c = new[] {33, 35, 77, 79};
-            var d = new[] {4, 10, 99, 99, 101, 105, 303, 307};
+            var a = new List<int> {1, 2};
+            var b = new List<int> {75, 75, 42, 46, 13, 15};
+            var c = new List<int> {33, 35, 77, 79};
+            var d = new List<int> {4, 10, 99, 99, 101, 105, 303, 307};
 
             var result = ValueRangeCompiler.Compile(new[] {a, b, c, d}, new int[0], new int[0]);
             result.ShouldBe(new[] {1, 2, 4, 10, 13, 15, 33, 35, 42, 46, 75, 75, 77, 79, 99, 99, 101, 105, 303, 307});
@@ -50,7 +51,7 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillReduceOverlappingValueRanges()
         {
-            var a = new[]
+            var a = new List<int>
             {
                 1, 10,
                 9, 12,
@@ -66,7 +67,7 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillReduceInclusiveValueRanges()
         {
-            var a = new[]
+            var a = new List<int>
             {
                 1, 100,
                 9, 15,
@@ -81,7 +82,7 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillReduceAdjacentValueRanges()
         {
-            var a = new[]
+            var a = new List<int>
             {
                 1, 20,
                 20, 35,
@@ -96,7 +97,7 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillIncludeValueRangesAfterBaseTable()
         {
-            var a = new[]
+            var a = new List<int>
             {
                 1, 5
             };
@@ -108,7 +109,7 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillIncludeMultipleValueRangesAfterBaseTable()
         {
-            var a = new[]
+            var a = new List<int>
             {
                 1, 5
             };
@@ -120,7 +121,7 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillIncludeValueRangesBeforeBaseTable()
         {
-            var a = new[]
+            var a = new List<int>
             {
                 15, 20
             };
@@ -132,7 +133,7 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillIncludeMultipleValueRangesBeforeBaseTable()
         {
-            var a = new[]
+            var a = new List<int>
             {
                 15, 20
             };
@@ -144,7 +145,7 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillRemoveValueRangeEqualToStartValue()
         {
-            var a = new[]
+            var a = new List<int>
             {
                 10, 20
             };
@@ -156,7 +157,7 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillRemoveValueRangeEqualToEndValue()
         {
-            var a = new[]
+            var a = new List<int>
             {
                 10, 20
             };
@@ -168,7 +169,7 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillRemoveValueRangeOverlappingStartValue()
         {
-            var a = new[]
+            var a = new List<int>
             {
                 10, 20
             };
@@ -180,7 +181,7 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillRemoveValueRangeOverlappingStartValueOnLaterRanges()
         {
-            var a = new[]
+            var a = new List<int>
             {
                 10, 20,
                 30, 40
@@ -193,7 +194,7 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillRemoveValueRangeOverlappingEndValue()
         {
-            var a = new[]
+            var a = new List<int>
             {
                 10, 20
             };
@@ -205,7 +206,7 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillRemoveValueRangeOverlappingEndValueOnEarlierRanges()
         {
-            var a = new[]
+            var a = new List<int>
             {
                 10, 20,
                 30, 40
@@ -218,7 +219,7 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void ThrowsForInvalidRange()
         {
-            var a = new[]
+            var a = new List<int>
             {
                 7, 5
             };
@@ -229,7 +230,7 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void ThrowsForOddLengthArray()
         {
-            var a = new[]
+            var a = new List<int>
             {
                 5, 7,
                 4

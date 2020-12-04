@@ -30,9 +30,19 @@ using System.Linq;
 
 namespace Ubiety.Stringprep.Core
 {
+    /// <summary>
+    ///     Value range compiler.
+    /// </summary>
     public static class ValueRangeCompiler
     {
-        public static int[] Compile(int[][] baseTables, int[] inclusions, int[] removals)
+        /// <summary>
+        ///     Compile tables.
+        /// </summary>
+        /// <param name="baseTables">Base character tables.</param>
+        /// <param name="inclusions">Inclusion tables.</param>
+        /// <param name="removals">Removal values.</param>
+        /// <returns>Compiled table.</returns>
+        public static int[] Compile(List<int>[] baseTables, IList<int> inclusions, IList<int> removals)
         {
             foreach (var table in baseTables)
             {
@@ -45,15 +55,15 @@ namespace Ubiety.Stringprep.Core
             return DoRemove(DoReduce(DoInclude(DoCombine(baseTables), inclusions)), removals).ToArray();
         }
 
-        private static void Sort(int[] table)
+        private static void Sort(IList<int> table)
         {
             CheckSanity(table);
 
-            var l = table.Length / 2;
+            var l = table.Count / 2;
             var starts = new int[l];
             var ends = new int[l];
 
-            for (var i = 0; i < table.Length; i++)
+            for (var i = 0; i < table.Count; i++)
             {
                 if (i % 2 == 0)
                 {
@@ -66,7 +76,7 @@ namespace Ubiety.Stringprep.Core
             }
 
             Array.Sort(starts, ends);
-            for (var i = 0; i < table.Length; i++)
+            for (var i = 0; i < table.Count; i++)
             {
                 if (i % 2 == 0)
                 {
@@ -79,14 +89,14 @@ namespace Ubiety.Stringprep.Core
             }
         }
 
-        private static void CheckSanity(int[] table)
+        private static void CheckSanity(IList<int> table)
         {
-            if (table.Length % 2 != 0)
+            if (table.Count % 2 != 0)
             {
                 throw new ArgumentException("Not a range table", nameof(table));
             }
 
-            for (var i = 0; i < table.Length - 1; i += 2)
+            for (var i = 0; i < table.Count - 1; i += 2)
             {
                 if (table[i + 1] < table[i])
                 {
@@ -95,7 +105,7 @@ namespace Ubiety.Stringprep.Core
             }
         }
 
-        private static List<int> DoCombine(IReadOnlyList<int[]> tables)
+        private static List<int> DoCombine(IReadOnlyList<IList<int>> tables)
         {
             if (tables.Count == 1)
             {
@@ -111,7 +121,7 @@ namespace Ubiety.Stringprep.Core
                 var min = -1;
                 for (var i = 0; i < tables.Count; i++)
                 {
-                    if (tables[i].Length <= idx[i])
+                    if (tables[i].Count <= idx[i])
                     {
                         continue;
                     }
@@ -139,7 +149,7 @@ namespace Ubiety.Stringprep.Core
             return combined;
         }
 
-        private static List<int> DoInclude(List<int> list, IReadOnlyList<int> inclusions)
+        private static List<int> DoInclude(List<int> list, IList<int> inclusions)
         {
             for (var i = 0; i < inclusions.Count; i += 2)
             {
@@ -169,9 +179,9 @@ namespace Ubiety.Stringprep.Core
             return list;
         }
 
-        private static List<int> DoRemove(List<int> list, int[] removals)
+        private static List<int> DoRemove(List<int> list, IList<int> removals)
         {
-            for (var i = 0; i < removals.Length; i += 2)
+            for (var i = 0; i < removals.Count; i += 2)
             {
                 for (var j = 0; j < list.Count; j += 2)
                 {
@@ -196,7 +206,7 @@ namespace Ubiety.Stringprep.Core
             return list;
         }
 
-        private static void CloseRemove(IList<int> list, IReadOnlyList<int> removals, ref int i, ref int j)
+        private static void CloseRemove(IList<int> list, IList<int> removals, ref int i, ref int j)
         {
             for (i++; i < removals.Count; i += 2)
             {

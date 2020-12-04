@@ -24,13 +24,24 @@
  * For more information, please refer to <http://unlicense.org/>
  */
 
+using System.Collections.Generic;
 using Ubiety.Stringprep.Core.Generated;
 
 namespace Ubiety.Stringprep.Core
 {
+    /// <summary>
+    ///     Unassigned character codes.
+    /// </summary>
     public static class Unassigned
     {
-        public static readonly int[] A1 = Tables.A1;
-        public static readonly int[] UnassignedCodePoints = Tables.A1;
+        /// <summary>
+        ///     Table A1 Unassigned code points.
+        /// </summary>
+        public static readonly List<int> A1 = Tables.A1;
+
+        /// <summary>
+        ///     Table A1 Unassigned code points.
+        /// </summary>
+        public static readonly List<int> UnassignedCodePoints = Tables.A1;
     }
 }

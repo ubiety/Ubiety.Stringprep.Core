@@ -28,11 +28,21 @@ using System.Collections.Generic;
 
 namespace Ubiety.Stringprep.Core
 {
+    /// <summary>
+    ///     Mapping table compiler.
+    /// </summary>
     internal static class MappingTableCompiler
     {
+        /// <summary>
+        ///     Compiles the mapping table.
+        /// </summary>
+        /// <param name="baseTables">Base value tables.</param>
+        /// <param name="inclusions">Table of values to include.</param>
+        /// <param name="removals">Values to remove.</param>
+        /// <returns>Table of values.</returns>
         public static IDictionary<int, int[]> Compile(
             IDictionary<int, int[]>[] baseTables,
-            IDictionary<int, int[]>[] inclusions,
+            IEnumerable<IDictionary<int, int[]>> inclusions,
             IEnumerable<int> removals)
         {
             return DoRemove(DoInclude(DoCombine(baseTables), inclusions), removals);
@@ -55,7 +65,7 @@ namespace Ubiety.Stringprep.Core
 
         private static IDictionary<int, int[]> DoInclude(
             IDictionary<int, int[]> dict,
-            IDictionary<int, int[]>[] inclusions)
+            IEnumerable<IDictionary<int, int[]>> inclusions)
         {
             foreach (var t in inclusions)
             {
@@ -73,15 +83,15 @@ namespace Ubiety.Stringprep.Core
             return dict;
         }
 
-        private static IDictionary<int, int[]> DoCombine(IDictionary<int, int[]>[] baseTables)
+        private static IDictionary<int, int[]> DoCombine(IReadOnlyList<IDictionary<int, int[]>> baseTables)
         {
-            if (baseTables.Length == 0)
+            if (baseTables.Count == 0)
             {
                 return new SortedDictionary<int, int[]>();
             }
 
             var combined = new SortedDictionary<int, int[]>(baseTables[0]);
-            for (var i = 1; i < baseTables.Length; i++)
+            for (var i = 1; i < baseTables.Count; i++)
             {
                 foreach (var (key, value) in baseTables[i])
                 {
