@@ -12,7 +12,7 @@
     <Description>Stringprep library implementing RFC3454</Description>
     <Authors>Dieter Lunn</Authors>
     <PackageLicenseExpression>Unlicense</PackageLicenseExpression>
-    <PackageProjectUrl>https://stringprep.ubiety.ca</PackageProjectUrl>
+    <PackageProjectUrl>https://stringprep.ubiety.dev</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ubiety/Ubiety.StringPrep.Core/</RepositoryUrl>
     <PackageTags>ubiety;stringprep;dotnet</PackageTags>
   </PropertyGroup>

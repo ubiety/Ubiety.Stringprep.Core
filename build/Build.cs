@@ -1,4 +1,7 @@
+using JetBrains.Annotations;
 using Nuke.Common;
+using Nuke.Common.CI;
+using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Execution;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
@@ -12,6 +15,23 @@ using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
 
+[GitHubActions(
+    "release",
+    GitHubActionsImage.WindowsLatest,
+    OnPushBranches = new[] { MasterBranch, ReleaseBranchPrefix + "/*"},
+    InvokedTargets = new[] { nameof(Test), nameof(Publish) },
+    ImportSecrets = new[] { nameof(NuGetKey) },
+    ImportGitHubTokenAs = nameof(GithubToken))]
+[GitHubActions(
+    "continuous",
+    GitHubActionsImage.WindowsLatest, 
+    GitHubActionsImage.UbuntuLatest,
+    GitHubActionsImage.MacOsLatest,
+    OnPushBranchesIgnore = new[] { MasterBranch, ReleaseBranchPrefix + "/*"},
+    OnPullRequestBranches = new[] { DevelopBranch },
+    ImportSecrets = new[] { nameof(SonarKey)},
+    PublishArtifacts = false,
+    InvokedTargets = new [] { nameof(Test), nameof(SonarEnd) })]
 [CheckBuildProjectConfigurations]
 [UnsetVisualStudioEnvironmentVariables]
 class Build : NukeBuild
@@ -35,6 +55,15 @@ class Build : NukeBuild
     AbsolutePath TestsDirectory => RootDirectory / "tests";
     AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
 
+    const string MasterBranch = "main";
+    const string DevelopBranch = "develop";
+    const string ReleaseBranchPrefix = "release";
+
+    [Parameter] readonly string GithubToken;
+
+    [CI] readonly GitHubActions GitHubActions;
+
+    [UsedImplicitly]
     Target Clean => _ => _
         .Before(Restore)
         .Executes(() =>
