@@ -21,7 +21,7 @@ using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
     OnPushBranches = new[] { MasterBranch, ReleaseBranchPrefix + "/*"},
     InvokedTargets = new[] { nameof(Test), nameof(Publish) },
     ImportSecrets = new[] { nameof(NuGetKey) },
-    ImportGitHubTokenAs = nameof(GithubToken))]
+    ImportGitHubTokenAs = nameof(GITHUB_TOKEN))]
 [GitHubActions(
     "continuous",
     GitHubActionsImage.WindowsLatest, 
@@ -31,7 +31,8 @@ using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
     OnPullRequestBranches = new[] { DevelopBranch },
     ImportSecrets = new[] { nameof(SonarKey)},
     PublishArtifacts = false,
-    InvokedTargets = new [] { nameof(Test), nameof(SonarEnd) })]
+    InvokedTargets = new [] { nameof(Test), nameof(SonarEnd) },
+    ImportGitHubTokenAs = nameof(GITHUB_TOKEN))]
 [CheckBuildProjectConfigurations]
 [UnsetVisualStudioEnvironmentVariables]
 class Build : NukeBuild
@@ -59,7 +60,7 @@ class Build : NukeBuild
     const string DevelopBranch = "develop";
     const string ReleaseBranchPrefix = "release";
 
-    [Parameter] readonly string GithubToken;
+    [Parameter] readonly string GITHUB_TOKEN;
 
     [CI] readonly GitHubActions GitHubActions;
 
