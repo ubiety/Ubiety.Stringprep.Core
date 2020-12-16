@@ -19,7 +19,7 @@ name: continuous
 on:
   push:
     branches-ignore:
-      - main
+      - master
       - release/*
   pull_request:
     branches:
@@ -31,28 +31,25 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Run './build.cmd Test SonarEnd'
-        run: ./build.cmd Test SonarEnd
+      - name: Run './build.cmd Test'
+        run: ./build.cmd Test
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            SonarKey: ${{ secrets.SonarKey }}
+            GithubToken: ${{ secrets.GITHUB_TOKEN }}
   ubuntu-latest:
     name: ubuntu-latest
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Run './build.cmd Test SonarEnd'
-        run: ./build.cmd Test SonarEnd
+      - name: Run './build.cmd Test'
+        run: ./build.cmd Test
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            SonarKey: ${{ secrets.SonarKey }}
+            GithubToken: ${{ secrets.GITHUB_TOKEN }}
   macOS-latest:
     name: macOS-latest
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Run './build.cmd Test SonarEnd'
-        run: ./build.cmd Test SonarEnd
+      - name: Run './build.cmd Test'
+        run: ./build.cmd Test
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            SonarKey: ${{ secrets.SonarKey }}
+            GithubToken: ${{ secrets.GITHUB_TOKEN }}

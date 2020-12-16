@@ -19,7 +19,7 @@ name: release
 on:
   push:
     branches:
-      - main
+      - master
       - release/*
 
 jobs:
@@ -31,5 +31,9 @@ jobs:
       - name: Run './build.cmd Test Publish'
         run: ./build.cmd Test Publish
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            GithubToken: ${{ secrets.GITHUB_TOKEN }}
             NuGetKey: ${{ secrets.NuGetKey }}
+      - uses: actions/upload-artifact@v1
+        with:
+          name: artifacts
+          path: artifacts

@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using Nuke.Common;
 using Nuke.Common.CI;
+using Nuke.Common.CI.AppVeyor;
 using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Execution;
 using Nuke.Common.Git;
@@ -11,6 +12,7 @@ using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.SonarScanner;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Utilities.Collections;
+using static Nuke.Common.ChangeLog.ChangelogTasks;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
@@ -21,7 +23,7 @@ using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
     OnPushBranches = new[] { MasterBranch, ReleaseBranchPrefix + "/*"},
     InvokedTargets = new[] { nameof(Test), nameof(Publish) },
     ImportSecrets = new[] { nameof(NuGetKey) },
-    ImportGitHubTokenAs = nameof(GITHUB_TOKEN))]
+    ImportGitHubTokenAs = nameof(GithubToken))]
 [GitHubActions(
     "continuous",
     GitHubActionsImage.WindowsLatest, 
@@ -29,10 +31,14 @@ using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
     GitHubActionsImage.MacOsLatest,
     OnPushBranchesIgnore = new[] { MasterBranch, ReleaseBranchPrefix + "/*"},
     OnPullRequestBranches = new[] { DevelopBranch },
-    ImportSecrets = new[] { nameof(SonarKey)},
     PublishArtifacts = false,
-    InvokedTargets = new [] { nameof(Test), nameof(SonarEnd) },
-    ImportGitHubTokenAs = nameof(GITHUB_TOKEN))]
+    InvokedTargets = new[] { nameof(Test) },
+    ImportGitHubTokenAs = nameof(GithubToken))]
+[AppVeyor(
+    AppVeyorImage.UbuntuLatest, 
+    AppVeyorImage.VisualStudioLatest,
+    InvokedTargets = new[] { nameof(Test), nameof(SonarEnd)},
+    SkipTags = true)]
 [CheckBuildProjectConfigurations]
 [UnsetVisualStudioEnvironmentVariables]
 class Build : NukeBuild
@@ -40,27 +46,19 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [Parameter] readonly bool? Cover = true;
-    [GitRepository] readonly GitRepository GitRepository;
-    [GitVersion(Framework = "netcoreapp3.1")] readonly GitVersion GitVersion;
-    [Parameter] readonly string NuGetKey;
-
-    const string NuGetSource = "https://api.nuget.org/v3/index.json";
-
-    [Solution] readonly Solution Solution;
-
-    [Parameter] readonly string SonarKey;
-    const string SonarProjectKey = "ubiety_Ubiety.Stringprep.Core";
+    [Required] [GitRepository] readonly GitRepository GitRepository;
+    [Required] [GitVersion(Framework = "netcoreapp3.1")] readonly GitVersion GitVersion;
+    [Required] [Solution] readonly Solution Solution;
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath TestsDirectory => RootDirectory / "tests";
     AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
 
-    const string MasterBranch = "main";
+    const string MasterBranch = "master";
     const string DevelopBranch = "develop";
     const string ReleaseBranchPrefix = "release";
 
-    [Parameter] readonly string GITHUB_TOKEN;
+    [Parameter] readonly string GithubToken;
 
     [CI] readonly GitHubActions GitHubActions;
 
@@ -94,14 +92,14 @@ class Build : NukeBuild
                 .EnableNoRestore());
         });
 
+    const string SonarProjectKey = "ubiety_Ubiety.Stringprep.Core";
+
     Target SonarBegin => _ => _
         .Before(Compile)
-        .Requires(() => SonarKey)
         .Unlisted()
         .Executes(() =>
         {
             SonarScannerBegin(s => s
-                .SetLogin(SonarKey)
                 .SetProjectKey(SonarProjectKey)
                 .SetServer("https://sonarcloud.io")
                 .SetVersion(GitVersion.NuGetVersionV2)
@@ -113,15 +111,15 @@ class Build : NukeBuild
     Target SonarEnd => _ => _
         .After(Test)
         .DependsOn(SonarBegin)
-        .Requires(() => SonarKey)
         .AssuredAfterFailure()
         .Unlisted()
         .Executes(() =>
         {
             SonarScannerEnd(s => s
-                .SetLogin(SonarKey)
                 .SetFramework("net5.0"));
         });
+
+    [Parameter] readonly bool? Cover = true;
 
     Target Test => _ => _
         .DependsOn(Compile)
@@ -137,8 +135,11 @@ class Build : NukeBuild
                     .Add("/p:Exclude={0}", "[xunit.*]*")));
         });
 
+    string ChangelogFile => RootDirectory / "CHANGELOG.md";
+    
     Target Pack => _ => _
         .After(Test)
+        .Produces(ArtifactsDirectory / "*.nupkg")
         .OnlyWhenStatic(() => GitRepository.IsOnMasterBranch())
         .Executes(() =>
         {
@@ -146,11 +147,16 @@ class Build : NukeBuild
                 .EnableNoBuild()
                 .SetConfiguration(Configuration)
                 .SetOutputDirectory(ArtifactsDirectory)
-                .SetVersion(GitVersion.NuGetVersionV2));
+                .SetVersion(GitVersion.NuGetVersionV2)
+                .SetPackageReleaseNotes(GetNuGetReleaseNotes(ChangelogFile, GitRepository)));
         });
+
+    [Parameter] readonly string NuGetKey;
+    const string NuGetSource = "https://api.nuget.org/v3/index.json";
 
     Target Publish => _ => _
         .DependsOn(Pack)
+        .Consumes(Pack)
         .Requires(() => NuGetKey)
         .Requires(() => Configuration.Equals(Configuration.Release))
         .OnlyWhenStatic(() => GitRepository.IsOnMasterBranch())
@@ -165,9 +171,6 @@ class Build : NukeBuild
                 5,
                 true);
         });
-
-    Target Appveyor => _ => _
-        .DependsOn(Test, SonarEnd, Publish);
 
     public static int Main() => Execute<Build>(x => x.Test);
 }
