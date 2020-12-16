@@ -8,6 +8,7 @@ using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
+using Nuke.Common.Tools.Coverlet;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.SonarScanner;
 using Nuke.Common.Tools.GitVersion;
@@ -38,7 +39,8 @@ using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
     AppVeyorImage.UbuntuLatest, 
     AppVeyorImage.VisualStudioLatest,
     InvokedTargets = new[] { nameof(Test), nameof(SonarEnd)},
-    SkipTags = true)]
+    SkipTags = true,
+    AutoGenerate = false)]
 [CheckBuildProjectConfigurations]
 [UnsetVisualStudioEnvironmentVariables]
 class Build : NukeBuild
@@ -75,7 +77,7 @@ class Build : NukeBuild
     Target Restore => _ => _
         .Executes(() =>
         {
-            DotNetRestore(s => s
+            DotNetRestore(_ => _
                 .SetProjectFile(Solution));
         });
 
@@ -83,13 +85,13 @@ class Build : NukeBuild
         .DependsOn(Restore)
         .Executes(() =>
         {
-            DotNetBuild(s => s
+            DotNetBuild(_ => _
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
                 .SetAssemblyVersion(GitVersion.AssemblySemVer)
                 .SetFileVersion(GitVersion.AssemblySemFileVer)
                 .SetInformationalVersion(GitVersion.InformationalVersion)
-                .EnableNoRestore());
+                .SetNoRestore(InvokedTargets.Contains(Restore)));
         });
 
     const string SonarProjectKey = "ubiety_Ubiety.Stringprep.Core";
@@ -99,7 +101,7 @@ class Build : NukeBuild
         .Unlisted()
         .Executes(() =>
         {
-            SonarScannerBegin(s => s
+            SonarScannerBegin(_ => _
                 .SetProjectKey(SonarProjectKey)
                 .SetServer("https://sonarcloud.io")
                 .SetVersion(GitVersion.NuGetVersionV2)
@@ -115,24 +117,26 @@ class Build : NukeBuild
         .Unlisted()
         .Executes(() =>
         {
-            SonarScannerEnd(s => s
+            SonarScannerEnd(_ => _
                 .SetFramework("net5.0"));
         });
 
-    [Parameter] readonly bool? Cover = true;
+    [Parameter] readonly bool Cover = true;
+    Project TestProject => Solution.GetProject("Ubiety.Stringprep.Tests"); 
 
     Target Test => _ => _
         .DependsOn(Compile)
         .Executes(() =>
         {
-            DotNetTest(s => s
-                .SetProjectFile(Solution.GetProject("Ubiety.Stringprep.Tests"))
-                .EnableNoBuild()
+            DotNetTest(_ => _
+                .SetProjectFile(TestProject)
+                .SetNoBuild(InvokedTargets.Contains(Compile))
                 .SetConfiguration(Configuration)
-                .SetProcessArgumentConfigurator(args => args.Add("/p:CollectCoverage={0}", Cover)
-                    .Add("/p:CoverletOutput={0}", ArtifactsDirectory / "coverage")
-                    .Add("/p:CoverletOutputFormat={0}", "opencover")
-                    .Add("/p:Exclude={0}", "[xunit.*]*")));
+                .When(Cover, _ => _
+                    .EnableCollectCoverage()
+                    .SetCoverletOutputFormat(CoverletOutputFormat.opencover)
+                    .SetCoverletOutput(ArtifactsDirectory / "coverage")
+                    .SetProcessArgumentConfigurator(args => args.Add("/p:Exclude={0}", "[xunit.*]*"))));
         });
 
     string ChangelogFile => RootDirectory / "CHANGELOG.md";
@@ -143,7 +147,7 @@ class Build : NukeBuild
         .OnlyWhenStatic(() => GitRepository.IsOnMasterBranch())
         .Executes(() =>
         {
-            DotNetPack(s => s
+            DotNetPack(_ => _
                 .EnableNoBuild()
                 .SetConfiguration(Configuration)
                 .SetOutputDirectory(ArtifactsDirectory)
@@ -162,7 +166,7 @@ class Build : NukeBuild
         .OnlyWhenStatic(() => GitRepository.IsOnMasterBranch())
         .Executes(() =>
         {
-            DotNetNuGetPush(s => s
+            DotNetNuGetPush(_ => _
                     .SetApiKey(NuGetKey)
                     .SetSource(NuGetSource)
                     .CombineWith(

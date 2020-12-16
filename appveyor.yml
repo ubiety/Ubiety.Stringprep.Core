@@ -23,4 +23,4 @@ skip_tags: true
 build_script:
   - cmd: .\build.cmd Test SonarEnd
   - sh: ./build.cmd Test SonarEnd
-
+  - sh: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r artifacts/coverage.opencover.xml
