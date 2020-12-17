@@ -31,25 +31,25 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Run './build.cmd Test'
-        run: ./build.cmd Test
+      - name: Run './build.cmd Test Publish'
+        run: ./build.cmd Test Publish
         env:
-            GithubToken: ${{ secrets.GITHUB_TOKEN }}
+            GitHubToken: ${{ secrets.GITHUB_TOKEN }}
   ubuntu-latest:
     name: ubuntu-latest
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Run './build.cmd Test'
-        run: ./build.cmd Test
+      - name: Run './build.cmd Test Publish'
+        run: ./build.cmd Test Publish
         env:
-            GithubToken: ${{ secrets.GITHUB_TOKEN }}
+            GitHubToken: ${{ secrets.GITHUB_TOKEN }}
   macOS-latest:
     name: macOS-latest
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Run './build.cmd Test'
-        run: ./build.cmd Test
+      - name: Run './build.cmd Test Publish'
+        run: ./build.cmd Test Publish
         env:
-            GithubToken: ${{ secrets.GITHUB_TOKEN }}
+            GitHubToken: ${{ secrets.GITHUB_TOKEN }}

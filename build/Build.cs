@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using Nuke.Common;
 using Nuke.Common.CI;
@@ -24,7 +25,7 @@ using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
     OnPushBranches = new[] { MasterBranch, ReleaseBranchPrefix + "/*"},
     InvokedTargets = new[] { nameof(Test), nameof(Publish) },
     ImportSecrets = new[] { nameof(NuGetKey) },
-    ImportGitHubTokenAs = nameof(GithubToken))]
+    ImportGitHubTokenAs = nameof(GitHubToken))]
 [GitHubActions(
     "continuous",
     GitHubActionsImage.WindowsLatest, 
@@ -33,8 +34,8 @@ using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
     OnPushBranchesIgnore = new[] { MasterBranch, ReleaseBranchPrefix + "/*"},
     OnPullRequestBranches = new[] { DevelopBranch },
     PublishArtifacts = false,
-    InvokedTargets = new[] { nameof(Test) },
-    ImportGitHubTokenAs = nameof(GithubToken))]
+    InvokedTargets = new[] { nameof(Test), nameof(Publish) },
+    ImportGitHubTokenAs = nameof(GitHubToken))]
 [AppVeyor(
     AppVeyorImage.UbuntuLatest, 
     AppVeyorImage.VisualStudioLatest,
@@ -60,7 +61,7 @@ class Build : NukeBuild
     const string DevelopBranch = "develop";
     const string ReleaseBranchPrefix = "release";
 
-    [Parameter] readonly string GithubToken;
+    [Parameter] readonly string GitHubToken;
 
     [CI] readonly GitHubActions GitHubActions;
 
@@ -142,13 +143,13 @@ class Build : NukeBuild
     string ChangelogFile => RootDirectory / "CHANGELOG.md";
     
     Target Pack => _ => _
+        .DependsOn(Compile)
         .After(Test)
         .Produces(ArtifactsDirectory / "*.nupkg")
-        .OnlyWhenStatic(() => GitRepository.IsOnMasterBranch())
         .Executes(() =>
         {
             DotNetPack(_ => _
-                .EnableNoBuild()
+                .SetNoBuild(InvokedTargets.Contains(Compile))
                 .SetConfiguration(Configuration)
                 .SetOutputDirectory(ArtifactsDirectory)
                 .SetVersion(GitVersion.NuGetVersionV2)
@@ -156,22 +157,33 @@ class Build : NukeBuild
         });
 
     [Parameter] readonly string NuGetKey;
-    const string NuGetSource = "https://api.nuget.org/v3/index.json";
+    string NuGetSource => "https://api.nuget.org/v3/index.json";
+    IEnumerable<AbsolutePath> PackageFiles => ArtifactsDirectory.GlobFiles("*.nupkg");
+    string GitHubSource => $"https://nuget.pkg.github.com/{GitHubActions.GitHubRepositoryOwner}/index.json";
+
+    string Source =>
+        GitRepository.IsOnDevelopBranch() || GitRepository.IsOnFeatureBranch() ? GitHubSource : NuGetSource;
 
     Target Publish => _ => _
         .DependsOn(Pack)
         .Consumes(Pack)
         .Requires(() => NuGetKey)
         .Requires(() => Configuration.Equals(Configuration.Release))
-        .OnlyWhenStatic(() => GitRepository.IsOnMasterBranch())
         .Executes(() =>
         {
+            if (GitRepository.IsOnDevelopBranch() || GitRepository.IsOnFeatureBranch())
+            {
+                DotNetNuGetAddSource(_ => _
+                    .SetSource(GitHubSource)
+                    .SetUsername(GitHubActions.GitHubActor)
+                    .SetPassword(GitHubToken));
+            }
+            
             DotNetNuGetPush(_ => _
                     .SetApiKey(NuGetKey)
-                    .SetSource(NuGetSource)
-                    .CombineWith(
-                        ArtifactsDirectory.GlobFiles("*.nupkg").NotEmpty(), (cs, v) =>
-                            cs.SetTargetPath(v)),
+                    .SetSource(Source)
+                    .CombineWith(PackageFiles, (_, v) => _
+                        .SetTargetPath(v)),
                 5,
                 true);
         });

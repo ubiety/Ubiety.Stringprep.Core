@@ -31,7 +31,7 @@ jobs:
       - name: Run './build.cmd Test Publish'
         run: ./build.cmd Test Publish
         env:
-            GithubToken: ${{ secrets.GITHUB_TOKEN }}
+            GitHubToken: ${{ secrets.GITHUB_TOKEN }}
             NuGetKey: ${{ secrets.NuGetKey }}
       - uses: actions/upload-artifact@v1
         with:
