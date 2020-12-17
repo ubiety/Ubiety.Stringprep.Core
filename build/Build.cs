@@ -14,6 +14,7 @@ using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.SonarScanner;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Utilities.Collections;
+using Nuke.Common.Utilities;
 using static Nuke.Common.ChangeLog.ChangelogTasks;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
@@ -160,18 +161,18 @@ class Build : NukeBuild
     string NuGetSource => "https://api.nuget.org/v3/index.json";
     IEnumerable<AbsolutePath> PackageFiles => ArtifactsDirectory.GlobFiles("*.nupkg");
     string GitHubSource => $"https://nuget.pkg.github.com/{GitHubActions.GitHubRepositoryOwner}/index.json";
+    bool Beta => GitRepository.IsOnDevelopBranch() || GitRepository.IsOnFeatureBranch();
 
-    string Source =>
-        GitRepository.IsOnDevelopBranch() || GitRepository.IsOnFeatureBranch() ? GitHubSource : NuGetSource;
+    string Source => Beta ? GitHubSource : NuGetSource;
 
     Target Publish => _ => _
         .DependsOn(Pack)
         .Consumes(Pack)
-        .Requires(() => NuGetKey)
+        .Requires(() => !NuGetKey.IsNullOrEmpty() || Beta)
         .Requires(() => Configuration.Equals(Configuration.Release))
         .Executes(() =>
         {
-            if (GitRepository.IsOnDevelopBranch() || GitRepository.IsOnFeatureBranch())
+            if (Beta)
             {
                 DotNetNuGetAddSource(_ => _
                     .SetSource(GitHubSource)
