@@ -50,7 +50,7 @@ class Build : NukeBuild
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
     [Required] [GitRepository] readonly GitRepository GitRepository;
-    [Required] [GitVersion(Framework = "netcoreapp3.1")] readonly GitVersion GitVersion;
+    [Required] [GitVersion(Framework = "net6.0")] readonly GitVersion GitVersion;
     [Required] [Solution] readonly Solution Solution;
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
