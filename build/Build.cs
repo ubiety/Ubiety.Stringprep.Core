@@ -26,7 +26,7 @@ using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
     OnPushBranches = new[] { MasterBranch, ReleaseBranchPrefix + "/*"},
     InvokedTargets = new[] { nameof(Test), nameof(Publish) },
     ImportSecrets = new[] { nameof(NuGetKey) },
-    ImportGitHubTokenAs = nameof(GitHubToken))]
+    EnableGitHubToken = true)]
 [GitHubActions(
     "continuous",
     GitHubActionsImage.WindowsLatest, 
@@ -36,14 +36,13 @@ using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
     OnPullRequestBranches = new[] { DevelopBranch },
     PublishArtifacts = false,
     InvokedTargets = new[] { nameof(Test), nameof(Publish) },
-    ImportGitHubTokenAs = nameof(GitHubToken))]
+    EnableGitHubToken = true)]
 [AppVeyor(
     AppVeyorImage.UbuntuLatest, 
     AppVeyorImage.VisualStudioLatest,
     InvokedTargets = new[] { nameof(Test), nameof(SonarEnd)},
     SkipTags = true,
     AutoGenerate = false)]
-[CheckBuildProjectConfigurations]
 [UnsetVisualStudioEnvironmentVariables]
 class Build : NukeBuild
 {
@@ -64,7 +63,7 @@ class Build : NukeBuild
 
     [Parameter] readonly string GitHubToken;
 
-    [CI] readonly GitHubActions GitHubActions;
+    [CI] GitHubActions GitHubActions => GitHubActions.Instance;
 
     [UsedImplicitly]
     Target Clean => _ => _
@@ -160,7 +159,7 @@ class Build : NukeBuild
     [Parameter] readonly string NuGetKey;
     string NuGetSource => "https://api.nuget.org/v3/index.json";
     IEnumerable<AbsolutePath> PackageFiles => ArtifactsDirectory.GlobFiles("*.nupkg");
-    string GitHubSource => $"https://nuget.pkg.github.com/{GitHubActions.GitHubRepositoryOwner}/index.json";
+    string GitHubSource => $"https://nuget.pkg.github.com/{GitHubActions.RepositoryOwner}/index.json";
     bool Beta => GitRepository.IsOnDevelopBranch() || GitRepository.IsOnFeatureBranch();
 
     string Source => Beta ? GitHubSource : NuGetSource;
@@ -176,7 +175,7 @@ class Build : NukeBuild
             {
                 DotNetNuGetAddSource(_ => _
                     .SetSource(GitHubSource)
-                    .SetUsername(GitHubActions.GitHubActor)
+                    .SetUsername(GitHubActions.Actor)
                     .SetPassword(GitHubToken));
             }
             
