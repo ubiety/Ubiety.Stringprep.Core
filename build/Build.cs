@@ -38,11 +38,11 @@ using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
     InvokedTargets = new[] { nameof(Test), nameof(Publish) },
     EnableGitHubToken = true)]
 [AppVeyor(
-    AppVeyorImage.UbuntuLatest, 
+    AppVeyorImage.UbuntuLatest,
     AppVeyorImage.VisualStudioLatest,
     InvokedTargets = new[] { nameof(Test), nameof(SonarEnd)},
     SkipTags = true,
-    AutoGenerate = false)]
+    AutoGenerate = true)]
 [UnsetVisualStudioEnvironmentVariables]
 class Build : NukeBuild
 {
