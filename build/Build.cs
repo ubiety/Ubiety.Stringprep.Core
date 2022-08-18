@@ -63,7 +63,7 @@ class Build : NukeBuild
 
     [Parameter] readonly string GitHubToken;
 
-    [CI] GitHubActions GitHubActions => GitHubActions.Instance;
+    [CI] GitHubActions GitHubActions;
 
     [UsedImplicitly]
     Target Clean => _ => _
