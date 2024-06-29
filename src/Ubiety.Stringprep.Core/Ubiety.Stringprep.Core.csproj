@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Version>0.2.2</Version>
-    <TargetFrameworks>netstandard2.1;net7</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <LangVersion>default</LangVersion>
     <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
