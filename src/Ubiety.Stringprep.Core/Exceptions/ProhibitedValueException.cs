@@ -25,7 +25,6 @@
  */
 
 using System;
-using System.Runtime.Serialization;
 
 namespace Ubiety.Stringprep.Core.Exceptions
 {
@@ -33,7 +32,6 @@ namespace Ubiety.Stringprep.Core.Exceptions
     ///     Prohibited value exception.
     /// </summary>
     /// <inheritdoc />
-    [Serializable]
     public class ProhibitedValueException : Exception
     {
         /// <summary>
@@ -68,16 +66,6 @@ namespace Ubiety.Stringprep.Core.Exceptions
         /// <param name="innerException">Inner exception.</param>
         public ProhibitedValueException(string message, Exception innerException)
             : base(message, innerException)
-        {
-        }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ProhibitedValueException"/> class.
-        /// </summary>
-        /// <param name="info">Serialization info.</param>
-        /// <param name="context">Streaming context.</param>
-        protected ProhibitedValueException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
         {
         }
     }

@@ -31,24 +31,17 @@ namespace Ubiety.Stringprep.Core.Bidirectional
     /// <summary>
     ///     Bidirectional stringprep step.
     /// </summary>
-    public class BidirectionalStep : IPreparationProcess
+    /// <remarks>
+    ///     Initializes a new instance of the <see cref="BidirectionalStep" /> class.
+    /// </remarks>
+    /// <param name="prohibitedTable">Prohibited character table.</param>
+    /// <param name="ralTable">RandAL character table.</param>
+    /// <param name="lTable">L character table.</param>
+    public class BidirectionalStep(IValueRangeTable prohibitedTable, IValueRangeTable ralTable, IValueRangeTable lTable) : IPreparationProcess
     {
-        private readonly IValueRangeTable _lTable;
-        private readonly IValueRangeTable _prohibitedTable;
-        private readonly IValueRangeTable _ralTable;
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="BidirectionalStep" /> class.
-        /// </summary>
-        /// <param name="prohibitedTable">Prohibited character table.</param>
-        /// <param name="ralTable">RandAL character table.</param>
-        /// <param name="lTable">L character table.</param>
-        public BidirectionalStep(IValueRangeTable prohibitedTable, IValueRangeTable ralTable, IValueRangeTable lTable)
-        {
-            _prohibitedTable = prohibitedTable;
-            _ralTable = ralTable;
-            _lTable = lTable;
-        }
+        private readonly IValueRangeTable _lTable = lTable;
+        private readonly IValueRangeTable _prohibitedTable = prohibitedTable;
+        private readonly IValueRangeTable _ralTable = ralTable;
 
         /// <summary>
         ///     Run the stringprep step.

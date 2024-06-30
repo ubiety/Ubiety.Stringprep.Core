@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using JetBrains.Annotations;
 using Nuke.Common;
 using Nuke.Common.CI;
@@ -11,36 +10,36 @@ using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.Coverlet;
 using Nuke.Common.Tools.DotNet;
-using Nuke.Common.Tools.SonarScanner;
 using Nuke.Common.Tools.GitVersion;
-using Nuke.Common.Utilities.Collections;
+using Nuke.Common.Tools.SonarScanner;
 using Nuke.Common.Utilities;
+using Nuke.Common.Utilities.Collections;
+using System.Collections.Generic;
 using static Nuke.Common.ChangeLog.ChangelogTasks;
-using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
 
 [GitHubActions(
     "release",
     GitHubActionsImage.WindowsLatest,
-    OnPushBranches = new[] { MasterBranch, ReleaseBranchPrefix + "/*"},
-    InvokedTargets = new[] { nameof(Test), nameof(Publish) },
-    ImportSecrets = new[] { nameof(NuGetKey) },
+    OnPushBranches = [MasterBranch, ReleaseBranchPrefix + "/*"],
+    InvokedTargets = [nameof(Test), nameof(Publish)],
+    ImportSecrets = [nameof(NuGetKey)],
     EnableGitHubToken = true)]
 [GitHubActions(
     "continuous",
     GitHubActionsImage.WindowsLatest, 
     GitHubActionsImage.UbuntuLatest,
     GitHubActionsImage.MacOsLatest,
-    OnPushBranchesIgnore = new[] { MasterBranch, ReleaseBranchPrefix + "/*"},
-    OnPullRequestBranches = new[] { DevelopBranch },
+    OnPushBranchesIgnore = [MasterBranch, ReleaseBranchPrefix + "/*"],
+    OnPullRequestBranches = [DevelopBranch],
     PublishArtifacts = false,
-    InvokedTargets = new[] { nameof(Test), nameof(Publish) },
+    InvokedTargets = [nameof(Test), nameof(Publish)],
     EnableGitHubToken = true)]
 [AppVeyor(
     AppVeyorImage.UbuntuLatest,
     AppVeyorImage.VisualStudioLatest,
-    InvokedTargets = new[] { nameof(Test), nameof(SonarEnd)},
+    InvokedTargets = [nameof(Test), nameof(SonarEnd)],
     SkipTags = true,
     AutoGenerate = true)]
 [UnsetVisualStudioEnvironmentVariables]
@@ -70,9 +69,9 @@ class Build : NukeBuild
         .Before(Restore)
         .Executes(() =>
         {
-            SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
-            TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
-            EnsureCleanDirectory(ArtifactsDirectory);
+            SourceDirectory.GlobDirectories("**/bin", "**/obj").DeleteDirectories();
+            TestsDirectory.GlobDirectories("**/bin", "**/obj").DeleteDirectories();
+            ArtifactsDirectory.CreateOrCleanDirectory();
         });
 
     Target Restore => _ => _
@@ -108,7 +107,7 @@ class Build : NukeBuild
                 .SetVersion(GitVersion.NuGetVersionV2)
                 .SetOpenCoverPaths(ArtifactsDirectory / "coverage.opencover.xml")
                 .SetProcessArgumentConfigurator(args => args.Add("/o:ubiety"))
-                .SetFramework("net5.0"));
+                .SetFramework("net8.0"));
         });
 
     Target SonarEnd => _ => _
@@ -119,7 +118,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             SonarScannerEnd(_ => _
-                .SetFramework("net5.0"));
+                .SetFramework("net8.0"));
         });
 
     [Parameter] readonly bool Cover = true;

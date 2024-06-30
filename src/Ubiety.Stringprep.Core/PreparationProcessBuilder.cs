@@ -35,7 +35,7 @@ namespace Ubiety.Stringprep.Core
     /// </summary>
     internal class PreparationProcessBuilder : IPreparationProcessBuilder
     {
-        private readonly IList<IPreparationProcess> _steps = new List<IPreparationProcess>();
+        private readonly IList<IPreparationProcess> _steps = [];
 
         /// <summary>
         ///     Add bidirectional step.
