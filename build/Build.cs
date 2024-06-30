@@ -25,7 +25,8 @@ using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
     OnPushBranches = [MasterBranch, ReleaseBranchPrefix + "/*"],
     InvokedTargets = [nameof(Test), nameof(Publish)],
     ImportSecrets = [nameof(NuGetKey)],
-    EnableGitHubToken = true)]
+    EnableGitHubToken = true,
+    FetchDepth = 0)]
 [GitHubActions(
     "continuous",
     GitHubActionsImage.WindowsLatest, 
@@ -35,7 +36,8 @@ using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
     OnPullRequestBranches = [DevelopBranch],
     PublishArtifacts = false,
     InvokedTargets = [nameof(Test), nameof(Publish)],
-    EnableGitHubToken = true)]
+    EnableGitHubToken = true,
+    FetchDepth = 0)]
 [AppVeyor(
     AppVeyorImage.UbuntuLatest,
     AppVeyorImage.VisualStudioLatest,
