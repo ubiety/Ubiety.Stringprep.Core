@@ -32,19 +32,12 @@ namespace Ubiety.Stringprep.Core
     /// <summary>
     ///     Composite mapping table.
     /// </summary>
-    internal class CompositeMappingTable : MappingTable
+    /// <remarks>
+    ///     Initializes a new instance of the <see cref="CompositeMappingTable" /> class.
+    /// </remarks>
+    /// <param name="mappingTables">Mapping tables.</param>
+    internal class CompositeMappingTable(ICollection<IMappingTable> mappingTables) : MappingTable
     {
-        private readonly ICollection<IMappingTable> _mappingTables;
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="CompositeMappingTable" /> class.
-        /// </summary>
-        /// <param name="mappingTables">Mapping tables.</param>
-        public CompositeMappingTable(ICollection<IMappingTable> mappingTables)
-        {
-            _mappingTables = mappingTables;
-        }
-
         /// <summary>
         ///     Does the value have a replacement.
         /// </summary>
@@ -52,7 +45,7 @@ namespace Ubiety.Stringprep.Core
         /// <returns>A value indicating whether there is a replacement or not.</returns>
         public override bool HasReplacement(int value)
         {
-            return _mappingTables.Any(table => table.HasReplacement(value));
+            return mappingTables.Any(table => table.HasReplacement(value));
         }
 
         /// <summary>
@@ -62,7 +55,7 @@ namespace Ubiety.Stringprep.Core
         /// <returns>Replacement for the value.</returns>
         public override int[] GetReplacement(int value)
         {
-            return _mappingTables.FirstOrDefault(table => table.HasReplacement(value))?.GetReplacement(value);
+            return mappingTables.FirstOrDefault(table => table.HasReplacement(value))?.GetReplacement(value);
         }
     }
 }
