@@ -186,13 +186,13 @@ namespace Ubiety.Stringprep.Core
                 {
                     if (removals[i] == list[j] || (removals[i] < list[j] && (i == 0 || removals[i] > list[j - 1])))
                     {
-                        list.RemoveAt(j--);
-                        CloseRemove(list, removals, ref i, ref j);
+                        list.RemoveAt(j - 1);
+                        CloseRemove(list, removals, ref i, ref j - 1);
                     }
                     else if (removals[i] > list[j] && removals[i] < list[j + 1])
                     {
-                        list.Insert(++j, removals[i] - 1);
-                        CloseRemove(list, removals, ref i, ref j);
+                        list.Insert(j + 1, removals[i] - 1);
+                        CloseRemove(list, removals, ref i, ref j + 1);
                     }
                 }
             }

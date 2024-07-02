@@ -5,8 +5,9 @@
     <TargetFrameworks>net8.0</TargetFrameworks>
     <LangVersion>default</LangVersion>
     <AnalysisLevel>latest</AnalysisLevel>
+    <DocumentationFile>Ubiety.Stringprep.Core.xml</DocumentationFile>
   </PropertyGroup>
-  
+
   <PropertyGroup>
     <PackageIcon>icon128.png</PackageIcon>
     <Description>Stringprep library implementing RFC3454</Description>
@@ -16,14 +17,10 @@
     <RepositoryUrl>https://github.com/ubiety/Ubiety.StringPrep.Core/</RepositoryUrl>
     <PackageTags>ubiety;stringprep;dotnet</PackageTags>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <None Include="..\..\icon128.png" Pack="true" PackagePath="\" />
   </ItemGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Ubiety.Stringprep.Core.xml</DocumentationFile>
-  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
