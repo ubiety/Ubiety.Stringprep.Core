@@ -163,6 +163,7 @@ class Build : NukeBuild
     bool Beta => GitRepository.IsOnDevelopBranch() || GitRepository.IsOnFeatureBranch();
 
     string Source => Beta ? GitHubSource : NuGetSource;
+    string ApiKey => Beta ? GitHubToken : NuGetKey;
 
     Target Publish => _ => _
         .DependsOn(Pack)
@@ -180,7 +181,7 @@ class Build : NukeBuild
             }
 
             DotNetNuGetPush(_ => _
-                    .SetApiKey(NuGetKey)
+                    .SetApiKey(ApiKey)
                     .SetSource(Source)
                     .CombineWith(PackageFiles, (_, v) => _
                         .SetTargetPath(v)),
