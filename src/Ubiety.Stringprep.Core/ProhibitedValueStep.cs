@@ -46,7 +46,8 @@ namespace Ubiety.Stringprep.Core
         /// <exception cref="ProhibitedValueException">Thrown when input is prohibited.</exception>
         public string Run(string input)
         {
-            foreach (var value in input.Where(value => table.Contains(value)))
+            var item = input.Where(value => table.Contains(value)).FirstOrDefault();
+            if (item != null)
             {
                 throw new ProhibitedValueException(value);
             }
