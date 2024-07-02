@@ -49,7 +49,7 @@ namespace Ubiety.Stringprep.Core
             var item = input.Where(value => table.Contains(value)).FirstOrDefault();
             if (item != null)
             {
-                throw new ProhibitedValueException(value);
+                throw new ProhibitedValueException(item);
             }
 
             return input;
