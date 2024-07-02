@@ -177,7 +177,8 @@ class Build : NukeBuild
                 DotNetNuGetAddSource(_ => _
                     .SetSource(GitHubSource)
                     .SetUsername(GitHubActions.Actor)
-                    .SetPassword(GitHubToken));
+                    .SetPassword(GitHubToken)
+                    .SetStorePasswordInClearText(true));
             }
 
             DotNetNuGetPush(_ => _
