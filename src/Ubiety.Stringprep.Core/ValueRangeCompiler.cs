@@ -197,7 +197,7 @@ namespace Ubiety.Stringprep.Core
                     }
                     else
                     {
-                        j += 2
+                        j += 2;
                     }
                 }
             }
