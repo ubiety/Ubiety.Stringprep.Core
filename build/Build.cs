@@ -39,7 +39,6 @@ using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
     EnableGitHubToken = true,
     FetchDepth = 0)]
 [AppVeyor(
-    AppVeyorImage.UbuntuLatest,
     AppVeyorImage.VisualStudioLatest,
     InvokedTargets = [nameof(Test), nameof(SonarEnd)],
     SkipTags = true,

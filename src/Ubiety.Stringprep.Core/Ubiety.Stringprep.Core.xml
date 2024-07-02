@@ -62,11 +62,18 @@
             <summary>
                 Composite mapping table.
             </summary>
+            <remarks>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.CompositeMappingTable" /> class.
+            </remarks>
+            <param name="mappingTables">Mapping tables.</param>
         </member>
         <member name="M:Ubiety.Stringprep.Core.CompositeMappingTable.#ctor(System.Collections.Generic.ICollection{Ubiety.Stringprep.Core.IMappingTable})">
             <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.CompositeMappingTable" /> class.
+                Composite mapping table.
             </summary>
+            <remarks>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.CompositeMappingTable" /> class.
+            </remarks>
             <param name="mappingTables">Mapping tables.</param>
         </member>
         <member name="M:Ubiety.Stringprep.Core.CompositeMappingTable.HasReplacement(System.Int32)">
