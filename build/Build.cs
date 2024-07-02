@@ -29,7 +29,7 @@ using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
     FetchDepth = 0)]
 [GitHubActions(
     "continuous",
-    GitHubActionsImage.WindowsLatest, 
+    GitHubActionsImage.WindowsLatest,
     GitHubActionsImage.UbuntuLatest,
     GitHubActionsImage.MacOsLatest,
     OnPushBranchesIgnore = [MasterBranch, ReleaseBranchPrefix + "/*"],
@@ -50,9 +50,9 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [Required] [GitRepository] readonly GitRepository GitRepository;
-    [Required] [GitVersion] readonly GitVersion GitVersion;
-    [Required] [Solution] readonly Solution Solution;
+    [Required][GitRepository] readonly GitRepository GitRepository;
+    [Required][GitVersion] readonly GitVersion GitVersion;
+    [Required][Solution] readonly Solution Solution;
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath TestsDirectory => RootDirectory / "tests";
@@ -106,7 +106,7 @@ class Build : NukeBuild
             SonarScannerBegin(_ => _
                 .SetProjectKey(SonarProjectKey)
                 .SetServer("https://sonarcloud.io")
-                .SetVersion(GitVersion.NuGetVersionV2)
+                .SetVersion(GitVersion.NuGetVersion)
                 .SetOpenCoverPaths(ArtifactsDirectory / "coverage.opencover.xml")
                 .SetProcessArgumentConfigurator(args => args.Add("/o:ubiety"))
                 .SetFramework("net8.0"));
@@ -124,7 +124,7 @@ class Build : NukeBuild
         });
 
     [Parameter] readonly bool Cover = true;
-    Project TestProject => Solution.GetProject("Ubiety.Stringprep.Tests"); 
+    Project TestProject => Solution.GetProject("Ubiety.Stringprep.Tests");
 
     Target Test => _ => _
         .DependsOn(Compile)
@@ -142,7 +142,7 @@ class Build : NukeBuild
         });
 
     string ChangelogFile => RootDirectory / "CHANGELOG.md";
-    
+
     Target Pack => _ => _
         .DependsOn(Compile)
         .After(Test)
@@ -153,7 +153,7 @@ class Build : NukeBuild
                 .SetNoBuild(InvokedTargets.Contains(Compile))
                 .SetConfiguration(Configuration)
                 .SetOutputDirectory(ArtifactsDirectory)
-                .SetVersion(GitVersion.NuGetVersionV2)
+                .SetVersion(GitVersion.NuGetVersion)
                 .SetPackageReleaseNotes(GetNuGetReleaseNotes(ChangelogFile, GitRepository)));
         });
 
@@ -179,7 +179,7 @@ class Build : NukeBuild
                     .SetUsername(GitHubActions.Actor)
                     .SetPassword(GitHubToken));
             }
-            
+
             DotNetNuGetPush(_ => _
                     .SetApiKey(NuGetKey)
                     .SetSource(Source)
