@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Version>0.2.2</Version>
-    <TargetFrameworks>net8.0</TargetFrameworks>
+    <TargetFrameworks>net9.0</TargetFrameworks>
     <LangVersion>default</LangVersion>
     <AnalysisLevel>latest</AnalysisLevel>
     <DocumentationFile>Ubiety.Stringprep.Core.xml</DocumentationFile>
