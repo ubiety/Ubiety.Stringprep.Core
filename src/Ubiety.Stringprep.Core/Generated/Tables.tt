@@ -68,7 +68,17 @@ namespace Ubiety.Stringprep.Core.Generated
         }
         else if (Regex.IsMatch(line, "^----- End Table .*? -----$"))
         {
-            OutputEndTable();
+            switch(context)
+            {
+                case 'A':
+                case 'C':
+                case 'D':
+                    EndIntTable();
+                    break;
+                case 'B':
+                    EndDictionaryTable();
+                    break;
+            }
         }
         else if (Regex.IsMatch(line, "^----- Start Table .*? -----$"))
         {
@@ -130,7 +140,6 @@ namespace Ubiety.Stringprep.Core.Generated
 #>
     }
 }
-
 <#+
     private void OutputDocComment(string comment)
     {
@@ -146,7 +155,7 @@ namespace Ubiety.Stringprep.Core.Generated
     private void DictionaryTable(string name)
     {
  #>
-        public static readonly Dictionary<int, int[]> <#= name #> = new ()
+        public static readonly Dictionary<int, int[]> <#= name #> = new()
         {
 <#+
     }
@@ -156,8 +165,8 @@ namespace Ubiety.Stringprep.Core.Generated
     private void IntTable(string name)
     {
  #>
-        public static readonly List<int> <#= name #> = new ()
-        {
+        public static readonly List<int> <#= name #> =
+        [
 <#+
     }
 #>
@@ -200,12 +209,20 @@ namespace Ubiety.Stringprep.Core.Generated
         }
     }
 #>
-
 <#+
-    private void OutputEndTable()
+    private void EndDictionaryTable()
     {
 #>
         };
+
+<#+        
+    }
+#>
+<#+
+    private void EndIntTable()
+    {
+#>
+        ];
 
 <#+        
     }

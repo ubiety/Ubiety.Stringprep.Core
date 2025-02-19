@@ -42,7 +42,7 @@ namespace Ubiety.Stringprep.Core
         private readonly List<IDictionary<int, int[]>> _baseTables = [.. baseTables];
         private readonly List<IDictionary<int, int[]>> _inclusions = [];
         private readonly List<int> _removals = [];
-        private readonly List<(List<int> values, int[] replacements)> _valueRangeBaseTables = [];
+        private readonly List<(List<int> Values, int[] Replacements)> _valueRangeBaseTables = [];
 
         /// <summary>
         ///     Add value range table to mapping.
@@ -122,8 +122,8 @@ namespace Ubiety.Stringprep.Core
 
             mappingTables.AddRange(
                 from t in _valueRangeBaseTables
-                let valueRangeTable = ValueRangeCompiler.Compile([t.values], [], _removals)
-                select new ValueRangeMappingTable(new ValueRangeTable(valueRangeTable), t.replacements));
+                let valueRangeTable = ValueRangeCompiler.Compile([t.Values], [], _removals)
+                select new ValueRangeMappingTable(new ValueRangeTable(valueRangeTable), t.Replacements));
 
             return new CompositeMappingTable(mappingTables);
         }
