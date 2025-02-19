@@ -107,8 +107,9 @@ class Build : NukeBuild
                 .SetServer("https://sonarcloud.io")
                 .SetVersion(GitVersion.NuGetVersion)
                 .SetOpenCoverPaths(ArtifactsDirectory / "coverage.opencover.xml")
-                .SetProcessArgumentConfigurator(args => args.Add("/o:ubiety"))
-                .SetFramework("net8.0"));
+                .SetProcessAdditionalArguments("/o:ubiety")
+                // .SetProcessArgumentConfigurator(args => args.Add("/o:ubiety"))
+                .SetFramework("net9.0"));
         });
 
     Target SonarEnd => _ => _
@@ -119,7 +120,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             SonarScannerEnd(_ => _
-                .SetFramework("net8.0"));
+                .SetFramework("net9.0"));
         });
 
     [Parameter] readonly bool Cover = true;
@@ -137,7 +138,8 @@ class Build : NukeBuild
                     .EnableCollectCoverage()
                     .SetCoverletOutputFormat(CoverletOutputFormat.opencover)
                     .SetCoverletOutput(ArtifactsDirectory / "coverage")
-                    .SetProcessArgumentConfigurator(args => args.Add("/p:Exclude={0}", "[xunit.*]*"))));
+                    .SetProcessAdditionalArguments("/p:Exclude=\"[xunit.*]*\"")));
+            // .SetProcessArgumentConfigurator(args => args.Add("/p:Exclude={0}", "[xunit.*]*"))));
         });
 
     string ChangelogFile => RootDirectory / "CHANGELOG.md";
