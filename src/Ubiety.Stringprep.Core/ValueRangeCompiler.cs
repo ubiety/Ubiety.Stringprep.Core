@@ -180,12 +180,34 @@ namespace Ubiety.Stringprep.Core
 
         private static List<int> DoRemove(List<int> list, IList<int> removals)
         {
+            /*             for (var i = 0; i < removals.Count; i += 2)
+                        {
+                            var j = 0;
+                            while (j < list.Count)
+                            {
+                                if (removals[i] == list[j] || (removals[i] < list[j] && (i == 0 || removals[i] > list[j - 1])))
+                                {
+                                    list.RemoveAt(j--);
+                                    CloseRemove(list, removals, ref i, ref j);
+                                }
+                                else if (removals[i] > list[j] && removals[i] < list[j + 1])
+                                {
+                                    list.Insert(++j, removals[i] - 1);
+                                    CloseRemove(list, removals, ref i, ref j);
+                                }
+                                else
+                                {
+                                    j += 2;
+                                }
+                            }
+                        }
+
+                        return list; */
             for (var i = 0; i < removals.Count; i += 2)
             {
-                var j = 0;
-                while (j < list.Count)
+                for (var j = 0; j < list.Count; j += 2)
                 {
-                    if (removals[i] == list[j] || (removals[i] < list[j] && (i == 0 || removals[i] > list[j - 1])))
+                    if (removals[i] == list[j])
                     {
                         list.RemoveAt(j--);
                         CloseRemove(list, removals, ref i, ref j);
@@ -195,9 +217,10 @@ namespace Ubiety.Stringprep.Core
                         list.Insert(++j, removals[i] - 1);
                         CloseRemove(list, removals, ref i, ref j);
                     }
-                    else
+                    else if (removals[i] < list[j] && (i == 0 || removals[i] > list[j - 1]))
                     {
-                        j += 2;
+                        list.RemoveAt(j--);
+                        CloseRemove(list, removals, ref i, ref j);
                     }
                 }
             }
