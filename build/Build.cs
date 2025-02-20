@@ -107,8 +107,7 @@ class Build : NukeBuild
                 .SetServer("https://sonarcloud.io")
                 .SetVersion(GitVersion.NuGetVersion)
                 .SetOpenCoverPaths(ArtifactsDirectory / "coverage.opencover.xml")
-                .SetProcessAdditionalArguments("/o:ubiety")
-                // .SetProcessArgumentConfigurator(args => args.Add("/o:ubiety"))
+                .SetOrganization("ubiety")
                 .SetFramework("net9.0"));
         });
 
