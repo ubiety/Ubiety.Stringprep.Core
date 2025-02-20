@@ -39,8 +39,8 @@ namespace Ubiety.Stringprep.Core.Generated
         /// <summary>
         ///     A.1 Unassigned code points in Unicode 3.2.
         /// </summary>
-        public static readonly List<int> A1 = new ()
-        {
+        public static readonly List<int> A1 =
+        [
             0x0221, 0x0221,
             0x0234, 0x024F,
             0x02AE, 0x02AF,
@@ -437,12 +437,12 @@ namespace Ubiety.Stringprep.Core.Generated
             0xE0000, 0xE0000,
             0xE0002, 0xE001F,
             0xE0080, 0xEFFFD,
-        };
+        ];
 
         /// <summary>
         ///     B.1 Commonly mapped to nothing.
         /// </summary>
-        public static readonly Dictionary<int, int[]> B1 = new ()
+        public static readonly Dictionary<int, int[]> B1 = new()
         {
             { 0x00AD, Array.Empty<int>() }, // Map to nothing
             { 0x034F, Array.Empty<int>() }, // Map to nothing
@@ -476,7 +476,7 @@ namespace Ubiety.Stringprep.Core.Generated
         /// <summary>
         ///     B.2 Mapping for case-folding used with NFKC.
         /// </summary>
-        public static readonly Dictionary<int, int[]> B2 = new ()
+        public static readonly Dictionary<int, int[]> B2 = new()
         {
             { 0x0041, new[] { 0x0061, } }, // Case map
             { 0x0042, new[] { 0x0062, } }, // Case map
@@ -1854,7 +1854,7 @@ namespace Ubiety.Stringprep.Core.Generated
         /// <summary>
         ///     B.3 Mapping for case-folding used with no normalization.
         /// </summary>
-        public static readonly Dictionary<int, int[]> B3 = new ()
+        public static readonly Dictionary<int, int[]> B3 = new()
         {
             { 0x0041, new[] { 0x0061, } }, // Case map
             { 0x0042, new[] { 0x0062, } }, // Case map
@@ -2702,16 +2702,16 @@ namespace Ubiety.Stringprep.Core.Generated
         /// <summary>
         ///     C.1.1 ASCII space characters.
         /// </summary>
-        public static readonly List<int> C11 = new ()
-        {
+        public static readonly List<int> C11 =
+        [
             0x0020, 0x0020, // SPACE
-        };
+        ];
 
         /// <summary>
         ///     C.1.2 Non-ASCII space characters.
         /// </summary>
-        public static readonly List<int> C12 = new ()
-        {
+        public static readonly List<int> C12 =
+        [
             0x00A0, 0x00A0, // NO-BREAK SPACE
             0x1680, 0x1680, // OGHAM SPACE MARK
             0x2000, 0x2000, // EN QUAD
@@ -2729,7 +2729,7 @@ namespace Ubiety.Stringprep.Core.Generated
             0x202F, 0x202F, // NARROW NO-BREAK SPACE
             0x205F, 0x205F, // MEDIUM MATHEMATICAL SPACE
             0x3000, 0x3000, // IDEOGRAPHIC SPACE
-        };
+        ];
 
         /// <summary>
         ///     C.2 Control characters.
@@ -2737,17 +2737,17 @@ namespace Ubiety.Stringprep.Core.Generated
         /// <summary>
         ///     C.2.1 ASCII control characters.
         /// </summary>
-        public static readonly List<int> C21 = new ()
-        {
+        public static readonly List<int> C21 =
+        [
             0x0000, 0x001F, // [CONTROL CHARACTERS]
             0x007F, 0x007F, // DELETE
-        };
+        ];
 
         /// <summary>
         ///     C.2.2 Non-ASCII control characters.
         /// </summary>
-        public static readonly List<int> C22 = new ()
-        {
+        public static readonly List<int> C22 =
+        [
             0x0080, 0x009F, // [CONTROL CHARACTERS]
             0x06DD, 0x06DD, // ARABIC END OF AYAH
             0x070F, 0x070F, // SYRIAC ABBREVIATION MARK
@@ -2764,23 +2764,23 @@ namespace Ubiety.Stringprep.Core.Generated
             0xFEFF, 0xFEFF, // ZERO WIDTH NO-BREAK SPACE
             0xFFF9, 0xFFFC, // [CONTROL CHARACTERS]
             0x1D173, 0x1D17A, // [MUSICAL CONTROL CHARACTERS]
-        };
+        ];
 
         /// <summary>
         ///     C.3 Private use.
         /// </summary>
-        public static readonly List<int> C3 = new ()
-        {
+        public static readonly List<int> C3 =
+        [
             0xE000, 0xF8FF, // [PRIVATE USE, PLANE 0]
             0xF0000, 0xFFFFD, // [PRIVATE USE, PLANE 15]
             0x100000, 0x10FFFD, // [PRIVATE USE, PLANE 16]
-        };
+        ];
 
         /// <summary>
         ///     C.4 Non-character code points.
         /// </summary>
-        public static readonly List<int> C4 = new ()
-        {
+        public static readonly List<int> C4 =
+        [
             0xFDD0, 0xFDEF, // [NONCHARACTER CODE POINTS]
             0xFFFE, 0xFFFF, // [NONCHARACTER CODE POINTS]
             0x1FFFE, 0x1FFFF, // [NONCHARACTER CODE POINTS]
@@ -2799,41 +2799,41 @@ namespace Ubiety.Stringprep.Core.Generated
             0xEFFFE, 0xEFFFF, // [NONCHARACTER CODE POINTS]
             0xFFFFE, 0xFFFFF, // [NONCHARACTER CODE POINTS]
             0x10FFFE, 0x10FFFF, // [NONCHARACTER CODE POINTS]
-        };
+        ];
 
         /// <summary>
         ///     C.5 Surrogate codes.
         /// </summary>
-        public static readonly List<int> C5 = new ()
-        {
+        public static readonly List<int> C5 =
+        [
             0xD800, 0xDFFF, // [SURROGATE CODES]
-        };
+        ];
 
         /// <summary>
         ///     C.6 Inappropriate for plain text.
         /// </summary>
-        public static readonly List<int> C6 = new ()
-        {
+        public static readonly List<int> C6 =
+        [
             0xFFF9, 0xFFF9, // INTERLINEAR ANNOTATION ANCHOR
             0xFFFA, 0xFFFA, // INTERLINEAR ANNOTATION SEPARATOR
             0xFFFB, 0xFFFB, // INTERLINEAR ANNOTATION TERMINATOR
             0xFFFC, 0xFFFC, // OBJECT REPLACEMENT CHARACTER
             0xFFFD, 0xFFFD, // REPLACEMENT CHARACTER
-        };
+        ];
 
         /// <summary>
         ///     C.7 Inappropriate for canonical representation.
         /// </summary>
-        public static readonly List<int> C7 = new ()
-        {
+        public static readonly List<int> C7 =
+        [
             0x2FF0, 0x2FFB, // [IDEOGRAPHIC DESCRIPTION CHARACTERS]
-        };
+        ];
 
         /// <summary>
         ///     C.8 Change display properties or are deprecated.
         /// </summary>
-        public static readonly List<int> C8 = new ()
-        {
+        public static readonly List<int> C8 =
+        [
             0x0340, 0x0340, // COMBINING GRAVE TONE MARK
             0x0341, 0x0341, // COMBINING ACUTE TONE MARK
             0x200E, 0x200E, // LEFT-TO-RIGHT MARK
@@ -2849,22 +2849,22 @@ namespace Ubiety.Stringprep.Core.Generated
             0x206D, 0x206D, // ACTIVATE ARABIC FORM SHAPING
             0x206E, 0x206E, // NATIONAL DIGIT SHAPES
             0x206F, 0x206F, // NOMINAL DIGIT SHAPES
-        };
+        ];
 
         /// <summary>
         ///     C.9 Tagging characters.
         /// </summary>
-        public static readonly List<int> C9 = new ()
-        {
+        public static readonly List<int> C9 =
+        [
             0xE0001, 0xE0001, // LANGUAGE TAG
             0xE0020, 0xE007F, // [TAGGING CHARACTERS]
-        };
+        ];
 
         /// <summary>
         ///     D.1 Characters with bidirectional property "R" or "AL".
         /// </summary>
-        public static readonly List<int> D1 = new ()
-        {
+        public static readonly List<int> D1 =
+        [
             0x05BE, 0x05BE,
             0x05C0, 0x05C0,
             0x05C3, 0x05C3,
@@ -2899,13 +2899,13 @@ namespace Ubiety.Stringprep.Core.Generated
             0xFDF0, 0xFDFC,
             0xFE70, 0xFE74,
             0xFE76, 0xFEFC,
-        };
+        ];
 
         /// <summary>
         ///     D.2 Characters with bidirectional property "L".
         /// </summary>
-        public static readonly List<int> D2 = new ()
-        {
+        public static readonly List<int> D2 =
+        [
             0x0041, 0x005A,
             0x0061, 0x007A,
             0x00AA, 0x00AA,
@@ -3266,8 +3266,7 @@ namespace Ubiety.Stringprep.Core.Generated
             0x2F800, 0x2FA1D,
             0xF0000, 0xFFFFD,
             0x100000, 0x10FFFD,
-        };
+        ];
 
     }
 }
-

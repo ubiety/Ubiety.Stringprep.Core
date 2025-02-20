@@ -26,7 +26,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Ubiety.Stringprep.Core
 {
@@ -52,7 +51,7 @@ namespace Ubiety.Stringprep.Core
             Sort(inclusions);
             Sort(removals);
 
-            return DoRemove(DoReduce(DoInclude(DoCombine(baseTables), inclusions)), removals).ToArray();
+            return [.. DoRemove(DoReduce(DoInclude(DoCombine(baseTables), inclusions)), removals)];
         }
 
         private static void Sort(IList<int> table)
@@ -109,7 +108,7 @@ namespace Ubiety.Stringprep.Core
         {
             if (tables.Count == 1)
             {
-                return tables[0].ToList();
+                return [.. tables[0]];
             }
 
             var combined = new List<int>();
@@ -155,7 +154,7 @@ namespace Ubiety.Stringprep.Core
             {
                 if (inclusions[i] < list[0])
                 {
-                    list.InsertRange(0, new[] { inclusions[i], inclusions[i + 1] });
+                    list.InsertRange(0, [inclusions[i], inclusions[i + 1]]);
                 }
                 else
                 {
@@ -167,7 +166,7 @@ namespace Ubiety.Stringprep.Core
                             continue;
                         }
 
-                        list.InsertRange(j, new[] { inclusions[i], inclusions[i + 1] });
+                        list.InsertRange(j, [inclusions[i], inclusions[i + 1]]);
                         break;
                     }
 
@@ -206,7 +205,7 @@ namespace Ubiety.Stringprep.Core
             return list;
         }
 
-        private static void CloseRemove(IList<int> list, IList<int> removals, ref int i, ref int j)
+        private static void CloseRemove(List<int> list, IList<int> removals, ref int i, ref int j)
         {
             for (i++; i < removals.Count; i += 2)
             {

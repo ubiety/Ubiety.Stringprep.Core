@@ -32,19 +32,12 @@ namespace Ubiety.Stringprep.Core
     /// <summary>
     ///     Step that defines a prohibited value.
     /// </summary>
-    public class ProhibitedValueStep : IPreparationProcess
+    /// <remarks>
+    ///     Initializes a new instance of the <see cref="ProhibitedValueStep"/> class.
+    /// </remarks>
+    /// <param name="table">Table of prohibited values.</param>
+    public class ProhibitedValueStep(IValueRangeTable table) : IPreparationProcess
     {
-        private readonly IValueRangeTable _table;
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ProhibitedValueStep"/> class.
-        /// </summary>
-        /// <param name="table">Table of prohibited values.</param>
-        public ProhibitedValueStep(IValueRangeTable table)
-        {
-            _table = table;
-        }
-
         /// <summary>
         ///     Executes the step.
         /// </summary>
@@ -53,9 +46,10 @@ namespace Ubiety.Stringprep.Core
         /// <exception cref="ProhibitedValueException">Thrown when input is prohibited.</exception>
         public string Run(string input)
         {
-            foreach (var value in input.Where(value => _table.Contains(value)))
+            var item = input.FirstOrDefault(value => table.Contains(value));
+            if (item != default(char))
             {
-                throw new ProhibitedValueException(value);
+                throw new ProhibitedValueException(item);
             }
 
             return input;

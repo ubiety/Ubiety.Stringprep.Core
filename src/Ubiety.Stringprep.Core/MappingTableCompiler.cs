@@ -48,7 +48,7 @@ namespace Ubiety.Stringprep.Core
             return DoRemove(DoInclude(DoCombine(baseTables), inclusions), removals);
         }
 
-        private static IDictionary<int, int[]> DoRemove(IDictionary<int, int[]> dict, IEnumerable<int> removals)
+        private static SortedDictionary<int, int[]> DoRemove(SortedDictionary<int, int[]> dict, IEnumerable<int> removals)
         {
             foreach (var key in removals)
             {
@@ -63,8 +63,8 @@ namespace Ubiety.Stringprep.Core
             return dict;
         }
 
-        private static IDictionary<int, int[]> DoInclude(
-            IDictionary<int, int[]> dict,
+        private static SortedDictionary<int, int[]> DoInclude(
+            SortedDictionary<int, int[]> dict,
             IEnumerable<IDictionary<int, int[]>> inclusions)
         {
             foreach (var t in inclusions)
@@ -83,11 +83,11 @@ namespace Ubiety.Stringprep.Core
             return dict;
         }
 
-        private static IDictionary<int, int[]> DoCombine(IReadOnlyList<IDictionary<int, int[]>> baseTables)
+        private static SortedDictionary<int, int[]> DoCombine(IReadOnlyList<IDictionary<int, int[]>> baseTables)
         {
             if (baseTables.Count == 0)
             {
-                return new SortedDictionary<int, int[]>();
+                return [];
             }
 
             var combined = new SortedDictionary<int, int[]>(baseTables[0]);

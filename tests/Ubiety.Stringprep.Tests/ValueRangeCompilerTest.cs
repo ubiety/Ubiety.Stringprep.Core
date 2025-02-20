@@ -11,41 +11,41 @@ namespace Ubiety.Stringprep.Tests
         [Fact]
         public void WillCompileSingleTable()
         {
-            var a = new List<int> {1, 1};
-            var result = ValueRangeCompiler.Compile(new[] {a}, new int[0], new int[0]);
+            var a = new List<int> { 1, 1 };
+            var result = ValueRangeCompiler.Compile(new[] { a }, new int[0], new int[0]);
 
-            result.ShouldBe(new[] {1, 1});
+            result.ShouldBe(new[] { 1, 1 });
         }
 
         [Fact]
         public void WillSortSingleTable()
         {
-            var a = new List<int> {3, 7, 18, 22, 1, 1, 9, 13};
-            var result = ValueRangeCompiler.Compile(new[] {a}, new int[0], new int[0]);
+            var a = new List<int> { 3, 7, 18, 22, 1, 1, 9, 13 };
+            var result = ValueRangeCompiler.Compile(new[] { a }, new int[0], new int[0]);
 
-            result.ShouldBe(new[] {1, 1, 3, 7, 9, 13, 18, 22});
+            result.ShouldBe(new[] { 1, 1, 3, 7, 9, 13, 18, 22 });
         }
 
         [Fact]
         public void WillCompileTwoTables()
         {
-            var a = new List<int> {3, 7, 22, 25};
-            var b = new List<int> {9, 15, 18, 20};
+            var a = new List<int> { 3, 7, 22, 25 };
+            var b = new List<int> { 9, 15, 18, 20 };
 
-            var result = ValueRangeCompiler.Compile(new[] {a, b}, new int[0], new int[0]);
-            result.ShouldBe(new[] {3, 7, 9, 15, 18, 20, 22, 25});
+            var result = ValueRangeCompiler.Compile(new[] { a, b }, new int[0], new int[0]);
+            result.ShouldBe(new[] { 3, 7, 9, 15, 18, 20, 22, 25 });
         }
 
         [Fact]
         public void WillCombineTablesOfDifferentLengths()
         {
-            var a = new List<int> {1, 2};
-            var b = new List<int> {75, 75, 42, 46, 13, 15};
-            var c = new List<int> {33, 35, 77, 79};
-            var d = new List<int> {4, 10, 99, 99, 101, 105, 303, 307};
+            var a = new List<int> { 1, 2 };
+            var b = new List<int> { 75, 75, 42, 46, 13, 15 };
+            var c = new List<int> { 33, 35, 77, 79 };
+            var d = new List<int> { 4, 10, 99, 99, 101, 105, 303, 307 };
 
-            var result = ValueRangeCompiler.Compile(new[] {a, b, c, d}, new int[0], new int[0]);
-            result.ShouldBe(new[] {1, 2, 4, 10, 13, 15, 33, 35, 42, 46, 75, 75, 77, 79, 99, 99, 101, 105, 303, 307});
+            var result = ValueRangeCompiler.Compile(new[] { a, b, c, d }, new int[0], new int[0]);
+            result.ShouldBe(new[] { 1, 2, 4, 10, 13, 15, 33, 35, 42, 46, 75, 75, 77, 79, 99, 99, 101, 105, 303, 307 });
         }
 
         [Fact]
@@ -59,9 +59,9 @@ namespace Ubiety.Stringprep.Tests
                 15, 18
             };
 
-            var result = ValueRangeCompiler.Compile(new[] {a}, new int[0], new int[0]);
+            var result = ValueRangeCompiler.Compile(new[] { a }, new int[0], new int[0]);
             result.ShouldBe(
-                new[] {1, 12, 14, 18});
+                new[] { 1, 12, 14, 18 });
         }
 
         [Fact]
@@ -75,8 +75,8 @@ namespace Ubiety.Stringprep.Tests
                 33, 75
             };
 
-            var result = ValueRangeCompiler.Compile(new[] {a}, new int[0], new int[0]);
-            result.ShouldBe(new[] {1, 100});
+            var result = ValueRangeCompiler.Compile(new[] { a }, new int[0], new int[0]);
+            result.ShouldBe(new[] { 1, 100 });
         }
 
         [Fact]
@@ -90,8 +90,8 @@ namespace Ubiety.Stringprep.Tests
                 48, 50
             };
 
-            var result = ValueRangeCompiler.Compile(new[] {a}, new int[0], new int[0]);
-            result.ShouldBe(new[] {1, 50});
+            var result = ValueRangeCompiler.Compile(new[] { a }, new int[0], new int[0]);
+            result.ShouldBe(new[] { 1, 50 });
         }
 
         [Fact]
@@ -102,8 +102,8 @@ namespace Ubiety.Stringprep.Tests
                 1, 5
             };
 
-            var result = ValueRangeCompiler.Compile(new[] {a}, new[] {10, 10}, new int[0]);
-            result.ShouldBe(new[] {1, 5, 10, 10});
+            var result = ValueRangeCompiler.Compile(new[] { a }, new[] { 10, 10 }, new int[0]);
+            result.ShouldBe(new[] { 1, 5, 10, 10 });
         }
 
         [Fact]
@@ -114,8 +114,8 @@ namespace Ubiety.Stringprep.Tests
                 1, 5
             };
 
-            var result = ValueRangeCompiler.Compile(new[] {a}, new[] {10, 10, 15, 20}, new int[0]);
-            result.ShouldBe(new[] {1, 5, 10, 10, 15, 20});
+            var result = ValueRangeCompiler.Compile(new[] { a }, new[] { 10, 10, 15, 20 }, new int[0]);
+            result.ShouldBe(new[] { 1, 5, 10, 10, 15, 20 });
         }
 
         [Fact]
@@ -126,8 +126,8 @@ namespace Ubiety.Stringprep.Tests
                 15, 20
             };
 
-            var result = ValueRangeCompiler.Compile(new[] {a}, new[] {4, 7}, new int[0]);
-            result.ShouldBe(new[] {4, 7, 15, 20});
+            var result = ValueRangeCompiler.Compile(new[] { a }, new[] { 4, 7 }, new int[0]);
+            result.ShouldBe(new[] { 4, 7, 15, 20 });
         }
 
         [Fact]
@@ -138,8 +138,8 @@ namespace Ubiety.Stringprep.Tests
                 15, 20
             };
 
-            var result = ValueRangeCompiler.Compile(new[] {a}, new[] {1, 1, 4, 7}, new int[0]);
-            result.ShouldBe(new[] {1, 1, 4, 7, 15, 20});
+            var result = ValueRangeCompiler.Compile(new[] { a }, new[] { 1, 1, 4, 7 }, new int[0]);
+            result.ShouldBe(new[] { 1, 1, 4, 7, 15, 20 });
         }
 
         [Fact]
@@ -150,8 +150,8 @@ namespace Ubiety.Stringprep.Tests
                 10, 20
             };
 
-            var result = ValueRangeCompiler.Compile(new[] {a}, new int[0], new[] {10, 15});
-            result.ShouldBe(new[] {16, 20});
+            var result = ValueRangeCompiler.Compile(new[] { a }, new int[0], new[] { 10, 15 });
+            result.ShouldBe(new[] { 16, 20 });
         }
 
         [Fact]
@@ -162,8 +162,8 @@ namespace Ubiety.Stringprep.Tests
                 10, 20
             };
 
-            var result = ValueRangeCompiler.Compile(new[] {a}, new int[0], new[] {15, 20});
-            result.ShouldBe(new[] {10, 14});
+            var result = ValueRangeCompiler.Compile(new[] { a }, new int[0], new[] { 15, 20 });
+            result.ShouldBe(new[] { 10, 14 });
         }
 
         [Fact]
@@ -174,8 +174,8 @@ namespace Ubiety.Stringprep.Tests
                 10, 20
             };
 
-            var result = ValueRangeCompiler.Compile(new[] {a}, new int[0], new[] {5, 15});
-            result.ShouldBe(new[] {16, 20});
+            var result = ValueRangeCompiler.Compile(new[] { a }, new int[0], new[] { 5, 15 });
+            result.ShouldBe(new[] { 16, 20 });
         }
 
         [Fact]
@@ -187,8 +187,8 @@ namespace Ubiety.Stringprep.Tests
                 30, 40
             };
 
-            var result = ValueRangeCompiler.Compile(new[] {a}, new int[0], new[] {25, 35});
-            result.ShouldBe(new[] {10, 20, 36, 40});
+            var result = ValueRangeCompiler.Compile(new[] { a }, new int[0], new[] { 25, 35 });
+            result.ShouldBe(new[] { 10, 20, 36, 40 });
         }
 
         [Fact]
@@ -199,8 +199,8 @@ namespace Ubiety.Stringprep.Tests
                 10, 20
             };
 
-            var result = ValueRangeCompiler.Compile(new[] {a}, new int[0], new[] {15, 25});
-            result.ShouldBe(new[] {10, 14});
+            var result = ValueRangeCompiler.Compile(new[] { a }, new int[0], new[] { 15, 25 });
+            result.ShouldBe(new[] { 10, 14 });
         }
 
         [Fact]
@@ -212,8 +212,8 @@ namespace Ubiety.Stringprep.Tests
                 30, 40
             };
 
-            var result = ValueRangeCompiler.Compile(new[] {a}, new int[0], new[] {15, 25});
-            result.ShouldBe(new[] {10, 14, 30, 40});
+            var result = ValueRangeCompiler.Compile(new[] { a }, new int[0], new[] { 15, 25 });
+            result.ShouldBe(new[] { 10, 14, 30, 40 });
         }
 
         [Fact]
@@ -224,7 +224,7 @@ namespace Ubiety.Stringprep.Tests
                 7, 5
             };
 
-            Should.Throw<ArgumentException>(() => { ValueRangeCompiler.Compile(new[] {a}, new int[0], new int[0]); });
+            Should.Throw<ArgumentException>(() => { ValueRangeCompiler.Compile(new[] { a }, new int[0], new int[0]); });
         }
 
         [Fact]
@@ -236,7 +236,7 @@ namespace Ubiety.Stringprep.Tests
                 4
             };
 
-            Should.Throw<ArgumentException>(() => { ValueRangeCompiler.Compile(new[] {a}, new int[0], new int[0]); });
+            Should.Throw<ArgumentException>(() => { ValueRangeCompiler.Compile(new[] { a }, new int[0], new int[0]); });
         }
     }
 }

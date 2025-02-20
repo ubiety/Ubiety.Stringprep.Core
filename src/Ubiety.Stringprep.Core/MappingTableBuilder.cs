@@ -33,24 +33,16 @@ namespace Ubiety.Stringprep.Core
     /// <summary>
     ///     Mapping table builder.
     /// </summary>
-    internal class MappingTableBuilder : IMappingTableBuilder
+    /// <remarks>
+    ///     Initializes a new instance of the <see cref="MappingTableBuilder"/> class.
+    /// </remarks>
+    /// <param name="baseTables">Base value tables.</param>
+    internal class MappingTableBuilder(params IDictionary<int, int[]>[] baseTables) : IMappingTableBuilder
     {
-        private readonly List<IDictionary<int, int[]>> _baseTables;
-        private readonly List<IDictionary<int, int[]>> _inclusions;
-        private readonly List<int> _removals;
-        private readonly List<(List<int> values, int[] replacements)> _valueRangeBaseTables;
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="MappingTableBuilder"/> class.
-        /// </summary>
-        /// <param name="baseTables">Base value tables.</param>
-        public MappingTableBuilder(params IDictionary<int, int[]>[] baseTables)
-        {
-            _baseTables = baseTables.ToList();
-            _valueRangeBaseTables = new List<(List<int>, int[])>();
-            _inclusions = new List<IDictionary<int, int[]>>();
-            _removals = new List<int>();
-        }
+        private readonly List<IDictionary<int, int[]>> _baseTables = [.. baseTables];
+        private readonly List<IDictionary<int, int[]>> _inclusions = [];
+        private readonly List<int> _removals = [];
+        private readonly List<(List<int> Values, int[] Replacements)> _valueRangeBaseTables = [];
 
         /// <summary>
         ///     Add value range table to mapping.
@@ -60,7 +52,7 @@ namespace Ubiety.Stringprep.Core
         /// <returns>Mapping table builder instance.</returns>
         public IMappingTableBuilder WithValueRangeTable(int[] values, int replacement)
         {
-            return WithValueRangeTable(values, new[] { replacement });
+            return WithValueRangeTable(values, [replacement]);
         }
 
         /// <summary>
@@ -115,7 +107,7 @@ namespace Ubiety.Stringprep.Core
         /// <exception cref="InvalidOperationException">Thrown when no tables are provided.</exception>
         public IMappingTable Compile()
         {
-            if (!_baseTables.Any() && !_inclusions.Any() && !_valueRangeBaseTables.Any())
+            if (_baseTables.Count == 0 && _inclusions.Count == 0 && _valueRangeBaseTables.Count == 0)
             {
                 throw new InvalidOperationException("At least one table must be provided");
             }
@@ -123,15 +115,15 @@ namespace Ubiety.Stringprep.Core
             var mappingTables = new List<IMappingTable>
             {
                 new DictionaryMappingTable(MappingTableCompiler.Compile(
-                    _baseTables.ToArray(),
-                    _inclusions.ToArray(),
-                    _removals.ToArray())),
+                    [.. _baseTables],
+                    [.. _inclusions],
+                    [.. _removals])),
             };
 
             mappingTables.AddRange(
                 from t in _valueRangeBaseTables
-                let valueRangeTable = ValueRangeCompiler.Compile(new[] { t.values }, Array.Empty<int>().ToList(), _removals)
-                select new ValueRangeMappingTable(new ValueRangeTable(valueRangeTable), t.replacements));
+                let valueRangeTable = ValueRangeCompiler.Compile([t.Values], [], _removals)
+                select new ValueRangeMappingTable(new ValueRangeTable(valueRangeTable), t.Replacements));
 
             return new CompositeMappingTable(mappingTables);
         }

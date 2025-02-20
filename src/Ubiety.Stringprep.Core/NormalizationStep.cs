@@ -31,19 +31,12 @@ namespace Ubiety.Stringprep.Core
     /// <summary>
     ///     Normalization step.
     /// </summary>
-    internal class NormalizationStep : IPreparationProcess
+    /// <remarks>
+    ///     Initializes a new instance of the <see cref="NormalizationStep"/> class.
+    /// </remarks>
+    /// <param name="normalizationForm">Normalization form to use.</param>
+    internal class NormalizationStep(NormalizationForm normalizationForm) : IPreparationProcess
     {
-        private readonly NormalizationForm _normalizationForm;
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="NormalizationStep"/> class.
-        /// </summary>
-        /// <param name="normalizationForm">Normalization form to use.</param>
-        public NormalizationStep(NormalizationForm normalizationForm)
-        {
-            _normalizationForm = normalizationForm;
-        }
-
         /// <summary>
         ///     Run the step.
         /// </summary>
@@ -51,7 +44,7 @@ namespace Ubiety.Stringprep.Core
         /// <returns>Normalized string.</returns>
         public string Run(string input)
         {
-            return input.Normalize(_normalizationForm);
+            return input.Normalize(normalizationForm);
         }
     }
 }

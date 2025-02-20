@@ -32,19 +32,8 @@ namespace Ubiety.Stringprep.Core
     /// <summary>
     ///     Mapping processing step.
     /// </summary>
-    public class MappingStep : IPreparationProcess
+    public class MappingStep(IMappingTable table) : IPreparationProcess
     {
-        private readonly IMappingTable _table;
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="MappingStep"/> class.
-        /// </summary>
-        /// <param name="table">Mapping table to use for processing.</param>
-        public MappingStep(IMappingTable table)
-        {
-            _table = table;
-        }
-
         /// <summary>
         ///     Run the step.
         /// </summary>
@@ -55,9 +44,9 @@ namespace Ubiety.Stringprep.Core
             var sb = new StringBuilder();
             foreach (var c in input)
             {
-                if (_table.HasReplacement(c))
+                if (table.HasReplacement(c))
                 {
-                    foreach (var r in _table.GetReplacement(c))
+                    foreach (var r in table.GetReplacement(c))
                     {
                         sb.Append(Convert.ToChar(r));
                     }

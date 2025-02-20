@@ -8,11 +8,20 @@
             <summary>
                 Bidirectional stringprep step.
             </summary>
+            <remarks>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.Bidirectional.BidirectionalStep" /> class.
+            </remarks>
+            <param name="prohibitedTable">Prohibited character table.</param>
+            <param name="ralTable">RandAL character table.</param>
+            <param name="lTable">L character table.</param>
         </member>
         <member name="M:Ubiety.Stringprep.Core.Bidirectional.BidirectionalStep.#ctor(Ubiety.Stringprep.Core.IValueRangeTable,Ubiety.Stringprep.Core.IValueRangeTable,Ubiety.Stringprep.Core.IValueRangeTable)">
             <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.Bidirectional.BidirectionalStep" /> class.
+                Bidirectional stringprep step.
             </summary>
+            <remarks>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.Bidirectional.BidirectionalStep" /> class.
+            </remarks>
             <param name="prohibitedTable">Prohibited character table.</param>
             <param name="ralTable">RandAL character table.</param>
             <param name="lTable">L character table.</param>
@@ -53,11 +62,18 @@
             <summary>
                 Composite mapping table.
             </summary>
+            <remarks>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.CompositeMappingTable" /> class.
+            </remarks>
+            <param name="mappingTables">Mapping tables.</param>
         </member>
         <member name="M:Ubiety.Stringprep.Core.CompositeMappingTable.#ctor(System.Collections.Generic.ICollection{Ubiety.Stringprep.Core.IMappingTable})">
             <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.CompositeMappingTable" /> class.
+                Composite mapping table.
             </summary>
+            <remarks>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.CompositeMappingTable" /> class.
+            </remarks>
             <param name="mappingTables">Mapping tables.</param>
         </member>
         <member name="M:Ubiety.Stringprep.Core.CompositeMappingTable.HasReplacement(System.Int32)">
@@ -122,13 +138,6 @@
             <param name="message">Exception message.</param>
             <param name="innerException">Inner exception.</param>
         </member>
-        <member name="M:Ubiety.Stringprep.Core.Exceptions.BidirectionalFormatException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.Exceptions.BidirectionalFormatException" /> class.
-            </summary>
-            <param name="info">Serialization info.</param>
-            <param name="context">Streaming context.</param>
-        </member>
         <member name="T:Ubiety.Stringprep.Core.Exceptions.ProhibitedValueException">
             <summary>
                 Prohibited value exception.
@@ -158,13 +167,6 @@
             </summary>
             <param name="message">Exception message.</param>
             <param name="innerException">Inner exception.</param>
-        </member>
-        <member name="M:Ubiety.Stringprep.Core.Exceptions.ProhibitedValueException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.Exceptions.ProhibitedValueException"/> class.
-            </summary>
-            <param name="info">Serialization info.</param>
-            <param name="context">Streaming context.</param>
         </member>
         <member name="T:Ubiety.Stringprep.Core.Generated.Tables">
             <summary>
@@ -489,9 +491,8 @@
         </member>
         <member name="M:Ubiety.Stringprep.Core.MappingStep.#ctor(Ubiety.Stringprep.Core.IMappingTable)">
             <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.MappingStep"/> class.
+                Mapping processing step.
             </summary>
-            <param name="table">Mapping table to use for processing.</param>
         </member>
         <member name="M:Ubiety.Stringprep.Core.MappingStep.Run(System.String)">
             <summary>
@@ -569,11 +570,18 @@
             <summary>
                 Mapping table builder.
             </summary>
+            <remarks>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.MappingTableBuilder"/> class.
+            </remarks>
+            <param name="baseTables">Base value tables.</param>
         </member>
         <member name="M:Ubiety.Stringprep.Core.MappingTableBuilder.#ctor(System.Collections.Generic.IDictionary{System.Int32,System.Int32[]}[])">
             <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.MappingTableBuilder"/> class.
+                Mapping table builder.
             </summary>
+            <remarks>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.MappingTableBuilder"/> class.
+            </remarks>
             <param name="baseTables">Base value tables.</param>
         </member>
         <member name="M:Ubiety.Stringprep.Core.MappingTableBuilder.WithValueRangeTable(System.Int32[],System.Int32)">
@@ -638,11 +646,18 @@
             <summary>
                 Normalization step.
             </summary>
+            <remarks>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.NormalizationStep"/> class.
+            </remarks>
+            <param name="normalizationForm">Normalization form to use.</param>
         </member>
         <member name="M:Ubiety.Stringprep.Core.NormalizationStep.#ctor(System.Text.NormalizationForm)">
             <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.NormalizationStep"/> class.
+                Normalization step.
             </summary>
+            <remarks>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.NormalizationStep"/> class.
+            </remarks>
             <param name="normalizationForm">Normalization form to use.</param>
         </member>
         <member name="M:Ubiety.Stringprep.Core.NormalizationStep.Run(System.String)">
@@ -848,11 +863,18 @@
             <summary>
                 Step that defines a prohibited value.
             </summary>
+            <remarks>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.ProhibitedValueStep"/> class.
+            </remarks>
+            <param name="table">Table of prohibited values.</param>
         </member>
         <member name="M:Ubiety.Stringprep.Core.ProhibitedValueStep.#ctor(Ubiety.Stringprep.Core.IValueRangeTable)">
             <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.ProhibitedValueStep"/> class.
+                Step that defines a prohibited value.
             </summary>
+            <remarks>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.ProhibitedValueStep"/> class.
+            </remarks>
             <param name="table">Table of prohibited values.</param>
         </member>
         <member name="M:Ubiety.Stringprep.Core.ProhibitedValueStep.Run(System.String)">
@@ -955,11 +977,18 @@
             <summary>
                 Value range table builder.
             </summary>
+            <remarks>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.ValueRangeTableBuilder"/> class.
+            </remarks>
+            <param name="baseTables">Value tables.</param>
         </member>
         <member name="M:Ubiety.Stringprep.Core.ValueRangeTableBuilder.#ctor(System.Collections.Generic.List{System.Int32}[])">
             <summary>
-                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.ValueRangeTableBuilder"/> class.
+                Value range table builder.
             </summary>
+            <remarks>
+                Initializes a new instance of the <see cref="T:Ubiety.Stringprep.Core.ValueRangeTableBuilder"/> class.
+            </remarks>
             <param name="baseTables">Value tables.</param>
         </member>
         <member name="M:Ubiety.Stringprep.Core.ValueRangeTableBuilder.Include(System.Int32)">

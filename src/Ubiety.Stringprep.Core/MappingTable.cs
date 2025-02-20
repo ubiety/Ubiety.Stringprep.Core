@@ -41,7 +41,7 @@ namespace Ubiety.Stringprep.Core
         /// <returns>Mapping table instance.</returns>
         public static IMappingTable Create(int[] valueTable, int replacement)
         {
-            return Create(valueTable, new[] { replacement });
+            return Create(valueTable, [replacement]);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Ubiety.Stringprep.Core
         /// <returns>Mapping table builder instance.</returns>
         public static IMappingTableBuilder Build(int[] valueTable, int replacement)
         {
-            return Build(valueTable, new[] { replacement });
+            return Build(valueTable, [replacement]);
         }
 
         /// <summary>
