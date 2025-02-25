@@ -138,7 +138,6 @@ class Build : NukeBuild
                     .SetCoverletOutputFormat(CoverletOutputFormat.opencover)
                     .SetCoverletOutput(ArtifactsDirectory / "coverage")
                     .SetProcessAdditionalArguments("/p:Exclude=\"[xunit.*]*\"")));
-            // .SetProcessArgumentConfigurator(args => args.Add("/p:Exclude={0}", "[xunit.*]*"))));
         });
 
     string ChangelogFile => RootDirectory / "CHANGELOG.md";
