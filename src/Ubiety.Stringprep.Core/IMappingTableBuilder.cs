@@ -50,6 +50,14 @@ namespace Ubiety.Stringprep.Core
         IMappingTableBuilder WithValueRangeTable(int[] values, int[] replacement);
 
         /// <summary>
+        ///     Builds a mapping with a value range.
+        /// </summary>
+        /// <param name="values">Values array.</param>
+        /// <param name="replacement">Replacement item.</param>
+        /// <returns>Mapping builder.</returns>
+        IMappingTableBuilder WithValueRangeTable(List<int> values, int replacement);
+
+        /// <summary>
         ///     Builds a mapping with a mapping table.
         /// </summary>
         /// <param name="table">Mapping table.</param>

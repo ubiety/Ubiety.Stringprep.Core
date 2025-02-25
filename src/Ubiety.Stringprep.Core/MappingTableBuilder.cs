@@ -67,6 +67,12 @@ namespace Ubiety.Stringprep.Core
             return this;
         }
 
+        /// <inheritdoc/>
+        public IMappingTableBuilder WithValueRangeTable(List<int> values, int replacement)
+        {
+            return WithValueRangeTable(values.ToArray(), [replacement]);
+        }
+
         /// <summary>
         ///     Add mapping table.
         /// </summary>
