@@ -164,6 +164,16 @@ class Build : NukeBuild
                     .SetProcessAdditionalArguments("/p:Exclude=\"[xunit.*]*\"")));
         });
 
+    Target Docs => _ => _
+        .Description("Builds the documentation site into docs/_site")
+        .Executes(() =>
+        {
+            // docfx is a local tool so contributors and CI get the pinned version without a
+            // global install; see .config/dotnet-tools.json.
+            DotNet("tool restore");
+            DotNet($"docfx {RootDirectory / "docs" / "docfx.json"}");
+        });
+
     string ChangelogFile => RootDirectory / "CHANGELOG.md";
 
     Target Pack => _ => _

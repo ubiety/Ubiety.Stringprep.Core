@@ -1,0 +1,6 @@
+- name: Getting started
+  href: getting-started.md
+- name: Building a profile
+  href: profiles.md
+- name: Table reference
+  href: tables.md
