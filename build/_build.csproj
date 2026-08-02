@@ -13,9 +13,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nuke.Common" Version="10.1.0" />
-    <!-- Pinned to clear NU1903 from the vulnerable 9.0.0 pulled in transitively by Nuke.Common. -->
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.10" />
+    <PackageReference Include="Nuke.Common" />
+    <PackageReference Include="System.Security.Cryptography.Xml" />
+    <!-- PackageDownload is not covered by CPM; these keep their exact version ranges inline. -->
     <PackageDownload Include="GitVersion.Tool" Version="[6.1.0]" />
     <PackageDownload Include="dotnet-sonarscanner" Version="[9.2.0]" />
   </ItemGroup>

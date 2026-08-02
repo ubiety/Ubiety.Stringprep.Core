@@ -23,11 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
+    <PackageReference Include="StyleCop.Analyzers">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Ubiety.StyleCop" Version="0.0.5" PrivateAssets="All" />
+    <PackageReference Include="Ubiety.StyleCop" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
