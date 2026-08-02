@@ -25,12 +25,16 @@ on:
     branches:
       - develop
 
+permissions:
+  packages: write
+  contents: read
+
 jobs:
   windows-latest:
     name: windows-latest
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: 'Cache: .nuke/temp, ~/.nuget/packages'
@@ -48,7 +52,7 @@ jobs:
     name: ubuntu-latest
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: 'Cache: .nuke/temp, ~/.nuget/packages'
@@ -66,7 +70,7 @@ jobs:
     name: macos-latest
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: 'Cache: .nuke/temp, ~/.nuget/packages'

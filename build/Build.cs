@@ -19,14 +19,23 @@ using static Nuke.Common.ChangeLog.ChangelogTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
 
-[GitHubActions(
+// Releases go to nuget.org via trusted publishing, which needs id-token to exchange the OIDC
+// token for a short-lived key. A single image keeps the push from racing itself.
+//
+// The tag is the trigger, not the merge into master: GitVersion only resolves the release version
+// once the tag exists, so a branch push would publish whatever build-metadata version it computed
+// for the untagged merge commit.
+[CustomGitHubActions(
     "release",
-    GitHubActionsImage.WindowsLatest,
-    OnPushBranches = [MasterBranch, ReleaseBranchPrefix + "/*"],
+    GitHubActionsImage.UbuntuLatest,
+    OnPushTags = ["v*"],
+    PublishArtifacts = false,
     InvokedTargets = [nameof(Test), nameof(Publish)],
-    ImportSecrets = [nameof(NuGetKey)],
-    EnableGitHubToken = true,
+    ReadPermissions = [GitHubActionsPermissions.Contents],
+    WritePermissions = [GitHubActionsPermissions.IdToken],
     FetchDepth = 0)]
+// Pre-releases go to GitHub Packages, so this workflow needs the GitHub token and nothing from
+// nuget.org. Declaring any permission drops the rest to none, hence contents for the checkout.
 [GitHubActions(
     "continuous",
     GitHubActionsImage.WindowsLatest,
@@ -37,6 +46,8 @@ using static Nuke.Common.Tools.SonarScanner.SonarScannerTasks;
     PublishArtifacts = false,
     InvokedTargets = [nameof(Test), nameof(Publish)],
     EnableGitHubToken = true,
+    ReadPermissions = [GitHubActionsPermissions.Contents],
+    WritePermissions = [GitHubActionsPermissions.Packages],
     FetchDepth = 0)]
 [AppVeyor(
     AppVeyorImage.VisualStudioLatest,
@@ -181,9 +192,13 @@ class Build : NukeBuild
                     .SetStorePasswordInClearText(true));
             }
 
+            // The continuous workflow runs this target on every image in the matrix, and they all
+            // compute the same version, so whichever job gets there first wins and the rest see
+            // 409 Conflict. Skipping duplicates makes the push idempotent instead of a race.
             DotNetNuGetPush(_ => _
                     .SetApiKey(ApiKey)
                     .SetSource(Source)
+                    .EnableSkipDuplicate()
                     .CombineWith(PackageFiles, (_, v) => _
                         .SetTargetPath(v)),
                 5,
