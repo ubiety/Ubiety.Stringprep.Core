@@ -5,3 +5,10 @@ dotnet_diagnostic.SA1010.severity = none
 
 # SA1009: Closing parenthesis should be spaced correctly
 dotnet_diagnostic.SA1009.severity = none
+
+# Tables.cs is emitted by Tables.tt; its layout is the template's concern, not StyleCop's.
+[**/Generated/*.cs]
+generated_code = true
+
+# SA1508: A closing brace should not be preceded by a blank line
+dotnet_diagnostic.SA1508.severity = none
