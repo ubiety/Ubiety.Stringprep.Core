@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>0.4.2</Version>
-    <TargetFramework>net9.0</TargetFramework>
+    <Version>0.5.0</Version>
+    <TargetFramework>net10.0</TargetFramework>
     <LangVersion>default</LangVersion>
     <AnalysisLevel>latest</AnalysisLevel>
-    <DocumentationFile>Ubiety.Stringprep.Core.xml</DocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -23,11 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
+    <PackageReference Include="StyleCop.Analyzers">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Ubiety.StyleCop" Version="0.0.5" PrivateAssets="All" />
+    <PackageReference Include="Ubiety.StyleCop" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>

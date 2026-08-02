@@ -24,7 +24,6 @@
  * For more information, please refer to <http://unlicense.org/>
  */
 
-using System.Linq;
 using Ubiety.Stringprep.Core.Exceptions;
 
 namespace Ubiety.Stringprep.Core
@@ -46,10 +45,12 @@ namespace Ubiety.Stringprep.Core
         /// <exception cref="ProhibitedValueException">Thrown when input is prohibited.</exception>
         public string Run(string input)
         {
-            var item = input.FirstOrDefault(value => table.Contains(value));
-            if (item != default(char))
+            foreach (var codePoint in CodePoints.Enumerate(input))
             {
-                throw new ProhibitedValueException(item);
+                if (table.Contains(codePoint))
+                {
+                    throw new ProhibitedValueException(codePoint);
+                }
             }
 
             return input;

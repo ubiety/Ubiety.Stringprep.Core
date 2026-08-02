@@ -178,60 +178,60 @@ namespace Ubiety.Stringprep.Core
             return list;
         }
 
+        /// <summary>
+        ///     Subtracts the removal ranges from the base ranges.
+        /// </summary>
+        /// <remarks>
+        ///     Both lists are sorted range tables, so this is a straight interval subtraction: walk
+        ///     each base range, clip away every removal that overlaps it, and keep whatever survives
+        ///     on either side. The previous implementation mutated the list and both loop counters
+        ///     through a ref-passed helper, which handled a single removal and then either threw or
+        ///     silently ignored the rest.
+        /// </remarks>
+        /// <param name="list">Base ranges to remove from.</param>
+        /// <param name="removals">Ranges to remove.</param>
+        /// <returns>The remaining ranges.</returns>
         private static List<int> DoRemove(List<int> list, IList<int> removals)
         {
-            for (var i = 0; i < removals.Count; i += 2)
+            if (removals.Count == 0)
             {
-                for (var j = 0; j < list.Count; j += 2)
-                {
-                    if (removals[i] == list[j])
-                    {
-                        list.RemoveAt(j--);
-                        CloseRemove(list, removals, ref i, ref j);
-                    }
-                    else if (removals[i] > list[j] && removals[i] < list[j + 1])
-                    {
-                        list.Insert(++j, removals[i] - 1);
-                        CloseRemove(list, removals, ref i, ref j);
-                    }
-                    else if (removals[i] < list[j] && (i == 0 || removals[i] > list[j - 1]))
-                    {
-                        list.RemoveAt(j--);
-                        CloseRemove(list, removals, ref i, ref j);
-                    }
-                }
+                return list;
             }
 
-            return list;
-        }
+            var result = new List<int>(list.Count);
 
-        private static void CloseRemove(List<int> list, IList<int> removals, ref int i, ref int j)
-        {
-            for (i++; i < removals.Count; i += 2)
+            for (var i = 0; i < list.Count; i += 2)
             {
-                for (j++; j < list.Count; j += 2)
+                var start = list[i];
+                var end = list[i + 1];
+
+                for (var j = 0; j < removals.Count && start <= end; j += 2)
                 {
-                    if (removals[i] == list[j])
-                    {
-                        list.RemoveAt(j);
-                        return;
-                    }
+                    var removeStart = removals[j];
+                    var removeEnd = removals[j + 1];
 
-                    if (removals[i] < list[j])
-                    {
-                        list.Insert(j, removals[i] + 1);
-                        return;
-                    }
-
-                    if (removals[i] <= list[j] || (j + 1 < list.Count && removals[i] >= list[j + 1]))
+                    if (removeEnd < start || removeStart > end)
                     {
                         continue;
                     }
 
-                    list.RemoveAt(j);
-                    return;
+                    if (removeStart > start)
+                    {
+                        result.Add(start);
+                        result.Add(removeStart - 1);
+                    }
+
+                    start = removeEnd + 1;
+                }
+
+                if (start <= end)
+                {
+                    result.Add(start);
+                    result.Add(end);
                 }
             }
+
+            return result;
         }
 
         private static List<int> DoReduce(List<int> list)

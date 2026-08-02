@@ -467,3 +467,7 @@ ASALocalRun/
 healthchecksdb
 
 # End of https://www.gitignore.io/api/git,cake,wyam,rider,sonarqube,dotsettings,visualstudio,visualstudiocode
+# DocFX
+docs/api/*.yml
+docs/api/.manifest
+docs/_site/

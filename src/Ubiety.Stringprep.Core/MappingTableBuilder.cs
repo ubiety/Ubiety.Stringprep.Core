@@ -128,10 +128,35 @@ namespace Ubiety.Stringprep.Core
 
             mappingTables.AddRange(
                 from t in _valueRangeBaseTables
-                let valueRangeTable = ValueRangeCompiler.Compile([t.Values], [], _removals)
+                let valueRangeTable = ValueRangeCompiler.Compile([t.Values], [], BuildRemovalRanges())
                 select new ValueRangeMappingTable(new ValueRangeTable(valueRangeTable), t.Replacements));
 
             return new CompositeMappingTable(mappingTables);
+        }
+
+        /// <summary>
+        ///     Expands the removed code points into the range table <see cref="ValueRangeCompiler" />
+        ///     expects.
+        /// </summary>
+        /// <remarks>
+        ///     Removals are single code points, but the value range compiler works in start/end
+        ///     pairs, so each one becomes a degenerate [value, value] range. Passing the flat list
+        ///     through made every second removal the end of a range built from the one before it,
+        ///     and threw outright on an odd count. The compiler also sorts the list it is given in
+        ///     place, so each table gets a fresh one.
+        /// </remarks>
+        /// <returns>Removals as a range table.</returns>
+        private List<int> BuildRemovalRanges()
+        {
+            var ranges = new List<int>(_removals.Count * 2);
+
+            foreach (var value in _removals)
+            {
+                ranges.Add(value);
+                ranges.Add(value);
+            }
+
+            return ranges;
         }
     }
 }

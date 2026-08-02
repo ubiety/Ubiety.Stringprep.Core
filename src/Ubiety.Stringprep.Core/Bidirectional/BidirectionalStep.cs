@@ -56,7 +56,7 @@ namespace Ubiety.Stringprep.Core.Bidirectional
             var l = false;
             var first = true;
 
-            foreach (var c in input)
+            foreach (var c in CodePoints.Enumerate(input))
             {
                 if (_prohibitedTable.Contains(c))
                 {

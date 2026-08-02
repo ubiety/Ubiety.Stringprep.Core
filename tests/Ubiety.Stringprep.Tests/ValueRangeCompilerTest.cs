@@ -216,6 +216,58 @@ namespace Ubiety.Stringprep.Tests
             result.ShouldBe(new[] { 10, 14, 30, 40 });
         }
 
+
+        [Fact]
+        public void WillRemoveMultipleValueRanges()
+        {
+            var a = new List<int>
+            {
+                10, 50
+            };
+
+            var result = ValueRangeCompiler.Compile(new[] { a }, new int[0], new[] { 15, 20, 30, 35 });
+            result.ShouldBe(new[] { 10, 14, 21, 29, 36, 50 });
+        }
+
+        [Fact]
+        public void WillRemoveEntireValueRange()
+        {
+            var a = new List<int>
+            {
+                10, 20,
+                30, 40
+            };
+
+            var result = ValueRangeCompiler.Compile(new[] { a }, new int[0], new[] { 10, 20 });
+            result.ShouldBe(new[] { 30, 40 });
+        }
+
+        [Fact]
+        public void WillRemoveSingleValuesAsDegenerateRanges()
+        {
+            var a = new List<int>
+            {
+                10, 20
+            };
+
+            var result = ValueRangeCompiler.Compile(new[] { a }, new int[0], new[] { 12, 12, 15, 15 });
+            result.ShouldBe(new[] { 10, 11, 13, 14, 16, 20 });
+        }
+
+        [Fact]
+        public void WillRemoveRangesSpanningMultipleBaseRanges()
+        {
+            var a = new List<int>
+            {
+                10, 20,
+                30, 40,
+                50, 60
+            };
+
+            var result = ValueRangeCompiler.Compile(new[] { a }, new int[0], new[] { 15, 55 });
+            result.ShouldBe(new[] { 10, 14, 56, 60 });
+        }
+
         [Fact]
         public void ThrowsForInvalidRange()
         {
