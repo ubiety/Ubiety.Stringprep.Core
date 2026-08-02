@@ -108,7 +108,7 @@ class Build : NukeBuild
                 .SetVersion(GitVersion.NuGetVersion)
                 .SetOpenCoverPaths(ArtifactsDirectory / "coverage.opencover.xml")
                 .SetOrganization("ubiety")
-                .SetFramework("net9.0"));
+                .SetFramework("net10.0"));
         });
 
     Target SonarEnd => _ => _
@@ -119,7 +119,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             SonarScannerEnd(_ => _
-                .SetFramework("net9.0"));
+                .SetFramework("net10.0"));
         });
 
     [Parameter] readonly bool Cover = true;
