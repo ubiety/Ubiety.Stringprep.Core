@@ -46,8 +46,18 @@ namespace Ubiety.Stringprep.Core.Exceptions
         /// </summary>
         /// <param name="prohibited">Character that is prohibited.</param>
         public ProhibitedValueException(char prohibited)
-            : base($"The string contains the prohibited value: '{prohibited}'")
+            : this((int)prohibited)
         {
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ProhibitedValueException"/> class.
+        /// </summary>
+        /// <param name="prohibited">Unicode code point that is prohibited.</param>
+        public ProhibitedValueException(int prohibited)
+            : base($"The string contains the prohibited value: U+{prohibited:X4}")
+        {
+            CodePoint = prohibited;
         }
 
         /// <summary>
@@ -68,5 +78,11 @@ namespace Ubiety.Stringprep.Core.Exceptions
             : base(message, innerException)
         {
         }
+
+        /// <summary>
+        ///     Gets the prohibited Unicode code point, or <c>-1</c> when the exception was not
+        ///     raised for a specific code point.
+        /// </summary>
+        public int CodePoint { get; } = -1;
     }
 }

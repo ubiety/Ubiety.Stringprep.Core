@@ -24,50 +24,44 @@
  * For more information, please refer to <http://unlicense.org/>
  */
 
-using System.Text;
+using System.Collections.Generic;
 
 namespace Ubiety.Stringprep.Core
 {
     /// <summary>
-    ///     Mapping processing step.
+    ///     Helpers for walking a string as a sequence of Unicode code points.
     /// </summary>
-    public class MappingStep(IMappingTable table) : IPreparationProcess
+    /// <remarks>
+    ///     RFC3454 tables are defined over code points, not UTF-16 code units. Several tables
+    ///     (B.2, B.3, C.3, C.4, C.9, D.2) contain values above U+FFFF, so a <see cref="char" />
+    ///     based walk can never match them.
+    /// </remarks>
+    internal static class CodePoints
     {
         /// <summary>
-        ///     Run the step.
+        ///     Enumerates the code points of a string.
         /// </summary>
-        /// <param name="input">String value to process.</param>
-        /// <returns>string after processing.</returns>
-        public string Run(string input)
+        /// <param name="input">String to enumerate.</param>
+        /// <returns>
+        ///     The code points of <paramref name="input" />. A well formed surrogate pair yields the
+        ///     single supplementary code point it encodes; an unpaired surrogate yields its own value
+        ///     so that it can still be matched against table C.5.
+        /// </returns>
+        public static IEnumerable<int> Enumerate(string input)
         {
-            var sb = new StringBuilder(input.Length);
-            foreach (var codePoint in CodePoints.Enumerate(input))
+            for (var i = 0; i < input.Length; i++)
             {
-                if (table.HasReplacement(codePoint))
+                var c = input[i];
+
+                if (char.IsHighSurrogate(c) && i + 1 < input.Length && char.IsLowSurrogate(input[i + 1]))
                 {
-                    foreach (var r in table.GetReplacement(codePoint))
-                    {
-                        Append(sb, r);
-                    }
+                    yield return char.ConvertToUtf32(c, input[i + 1]);
+                    i++;
                 }
                 else
                 {
-                    Append(sb, codePoint);
+                    yield return c;
                 }
-            }
-
-            return sb.ToString();
-        }
-
-        private static void Append(StringBuilder sb, int codePoint)
-        {
-            if (codePoint > char.MaxValue)
-            {
-                sb.Append(char.ConvertFromUtf32(codePoint));
-            }
-            else
-            {
-                sb.Append((char)codePoint);
             }
         }
     }
